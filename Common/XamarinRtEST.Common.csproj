@@ -39,11 +39,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Requests\Request.cs" />
-    <Compile Include="Requests\RequestDrinkList.cs" />
-    <Compile Include="Requests\RequestWelcome.cs" />
+    <Compile Include="RequestNS\IRequest.cs" />
+    <Compile Include="RequestNS\Request.cs" />
+    <Compile Include="RequestNS\RequestDrinkList.cs" />
+    <Compile Include="RequestNS\RequestEventArgs.cs" />
+    <Compile Include="RequestNS\RequestFactory.cs" />
+    <Compile Include="RequestNS\RequestWelcome.cs" />
     <Compile Include="Service.cs" />
-    <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

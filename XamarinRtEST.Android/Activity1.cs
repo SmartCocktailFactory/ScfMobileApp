@@ -21,6 +21,15 @@ namespace XamarinRtEST.Android {
       // and attach an event to it
       Button button = FindViewById<Button>(Resource.Id.btnGetDrinks);
       button.Click += delegate { this._OnRequestDrinks(); };
+
+      ViewModel.RemoteService.instance().OnWelcomeRequestCompleted += Activity1_OnServiceResponse;
+    }
+
+    void Activity1_OnServiceResponse(object sender, ViewModel.RemoteServiceResponseEventArgs e) {
+      EditText response = FindViewById<EditText>(Resource.Id.tbxResponse);
+      RunOnUiThread(() => {
+        response.Text = e.Response;
+      });
     }
 
     private void _OnRequestDrinks() {
@@ -30,10 +39,8 @@ namespace XamarinRtEST.Android {
         tbxServiceUrl.Text = "Please enter SCM URL";
         return;
       }
-
       ViewModel.RemoteService.instance().RemoteUrl = tbxServiceUrl.Text;
-      EditText response = FindViewById<EditText>(Resource.Id.tbxResponse);
-      response.Text = ViewModel.RemoteService.instance().GetWelcomeRequest();      
+      ViewModel.RemoteService.instance().GetWelcomeRequest();
     }
   }
 }

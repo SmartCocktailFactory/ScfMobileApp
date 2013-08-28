@@ -26,6 +26,10 @@ namespace XamarinRtEST.Android.ViewModel {
     }
     #endregion
 
+    #region Events
+    public event EventHandler<RemoteServiceResponseEventArgs> OnWelcomeRequestCompleted;
+    #endregion
+
     #region Public methods
     public static RemoteService instance() {
       if (_Singleton == null) {
@@ -34,11 +38,16 @@ namespace XamarinRtEST.Android.ViewModel {
       return _Singleton;
     }
 
-    public string GetWelcomeRequest() {
-      Common.Request request = new Common.RequestWelcome();
-      this._Service.RunRequest(request);
+    public void GetWelcomeRequest() {
+      Common.RequestNS.IRequest request = this._Service.Factory.CreateWelcomeRequest();
+      request.OnRequestCompleted += WelcomeRequest_OnRequestCompleted;
+      request.Execute();
+    }
 
-      return request.Response;
+    void WelcomeRequest_OnRequestCompleted(object sender, Common.RequestNS.RequestCompletedEventArgs e) {
+      if (this.OnWelcomeRequestCompleted != null) {
+        this.OnWelcomeRequestCompleted(this, new RemoteServiceResponseEventArgs(e.Request.Response, true));
+      }
     }
 
     #endregion

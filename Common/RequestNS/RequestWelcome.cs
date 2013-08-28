@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common {
-  public class RequestWelcome : Request {
+namespace Common.RequestNS {
+  public class RequestWelcome : ARequest {
 
     #region Constructor
-    public RequestWelcome() {
+    public RequestWelcome(Service executor)
+      : base(executor) {
       this.RelativeUrl = "";
       this.ContentType = "application/json";
       this.RequestMethod = "GET";         
