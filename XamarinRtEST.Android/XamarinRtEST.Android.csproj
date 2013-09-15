@@ -72,11 +72,20 @@
     <Compile Include="..\Common\Service.cs">
       <Link>Service.cs</Link>
     </Compile>
-    <Compile Include="..\Common\ViewModel\RemoteService.cs">
-      <Link>ViewModel\RemoteService.cs</Link>
+    <Compile Include="..\Common\ViewModel\Drink.cs">
+      <Link>ViewModel\Drink.cs</Link>
     </Compile>
-    <Compile Include="..\Common\ViewModel\RemoteServiceResponseEventArgs.cs">
-      <Link>ViewModel\RemoteServiceResponseEventArgs.cs</Link>
+    <Compile Include="..\Common\ViewModel\IScfService.cs">
+      <Link>ViewModel\IScfService.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\ViewModel\SCFService.cs">
+      <Link>ViewModel\SCFService.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\ViewModel\SCFServiceResponseEventArgs.cs">
+      <Link>ViewModel\SCFServiceResponseEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\ViewModel\ViewModel.cs">
+      <Link>ViewModel\ViewModel.cs</Link>
     </Compile>
     <Compile Include="Activity1.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />

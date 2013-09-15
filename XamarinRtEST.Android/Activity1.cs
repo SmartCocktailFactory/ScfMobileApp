@@ -24,13 +24,13 @@ namespace XamarinRtEST.Android {
       Button button = FindViewById<Button>(Resource.Id.btnGetDrinks);
       button.Click += delegate { this._OnRequestDrinks(); };
 
-      RemoteService.instance().OnWelcomeRequestCompleted += Activity1_OnServiceResponse;
+      ViewModel.Instance()._ScfService.OnWelcomeMessageChanged += _ScfService_OnWelcomeMessageChanged;
     }
 
-    void Activity1_OnServiceResponse(object sender, RemoteServiceResponseEventArgs e) {
+    void _ScfService_OnWelcomeMessageChanged(object sender, EventArgs e) {
       EditText response = FindViewById<EditText>(Resource.Id.tbxResponse);
       RunOnUiThread(() => {
-        response.Text = e.Response;
+        response.Text = ViewModel.Instance()._ScfService.WelcomeMessage;
       });
     }
 
@@ -41,8 +41,8 @@ namespace XamarinRtEST.Android {
         tbxServiceUrl.Text = "Please enter SCM URL";
         return;
       }
-      RemoteService.instance().RemoteUrl = tbxServiceUrl.Text;
-      RemoteService.instance().GetWelcomeRequest();
+      ViewModel.Instance().ScfUrl = tbxServiceUrl.Text;
+      ViewModel.Instance()._ScfService.RequestWelcomeMessage();
     }
   }
 }

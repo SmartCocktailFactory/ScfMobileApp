@@ -47,8 +47,11 @@
     <Compile Include="RequestNS\RequestWelcome.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\RemoteService.cs" />
-    <Compile Include="ViewModel\RemoteServiceResponseEventArgs.cs" />
+    <Compile Include="ViewModel\Drink.cs" />
+    <Compile Include="ViewModel\IScfService.cs" />
+    <Compile Include="ViewModel\SCFService.cs" />
+    <Compile Include="ViewModel\SCFServiceResponseEventArgs.cs" />
+    <Compile Include="ViewModel\ViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
