@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace XamarinRtEST.Android.ViewModel {
+namespace Common.ViewModel {
   class RemoteService {
 
     #region Members

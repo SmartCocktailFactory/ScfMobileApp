@@ -47,6 +47,8 @@
     <Compile Include="RequestNS\RequestWelcome.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\RemoteService.cs" />
+    <Compile Include="ViewModel\RemoteServiceResponseEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

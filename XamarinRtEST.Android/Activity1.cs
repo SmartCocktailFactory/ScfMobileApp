@@ -7,6 +7,8 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 
+using Common.ViewModel;
+
 namespace XamarinRtEST.Android {
   [Activity(Label = "XamarinRtEST.Android", MainLauncher = true, Icon = "@drawable/icon")]
   public class Activity1 : Activity {
@@ -22,10 +24,10 @@ namespace XamarinRtEST.Android {
       Button button = FindViewById<Button>(Resource.Id.btnGetDrinks);
       button.Click += delegate { this._OnRequestDrinks(); };
 
-      ViewModel.RemoteService.instance().OnWelcomeRequestCompleted += Activity1_OnServiceResponse;
+      RemoteService.instance().OnWelcomeRequestCompleted += Activity1_OnServiceResponse;
     }
 
-    void Activity1_OnServiceResponse(object sender, ViewModel.RemoteServiceResponseEventArgs e) {
+    void Activity1_OnServiceResponse(object sender, RemoteServiceResponseEventArgs e) {
       EditText response = FindViewById<EditText>(Resource.Id.tbxResponse);
       RunOnUiThread(() => {
         response.Text = e.Response;
@@ -39,8 +41,8 @@ namespace XamarinRtEST.Android {
         tbxServiceUrl.Text = "Please enter SCM URL";
         return;
       }
-      ViewModel.RemoteService.instance().RemoteUrl = tbxServiceUrl.Text;
-      ViewModel.RemoteService.instance().GetWelcomeRequest();
+      RemoteService.instance().RemoteUrl = tbxServiceUrl.Text;
+      RemoteService.instance().GetWelcomeRequest();
     }
   }
 }
