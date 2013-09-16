@@ -11,7 +11,7 @@ namespace Common.Model {
     private RequestExecutor _Executor = null;
     private RequestNS.RequestFactory _Factory = null;
     private string _WelcomeMessage = string.Empty;
-    List<ViewModel.Drink> _Drinks;
+    List<ViewModel.Drink> _Drinks = new List<ViewModel.Drink>();
     #endregion
 
     #region Properties
@@ -41,7 +41,7 @@ namespace Common.Model {
     }
 
     public IList<string> DrinkNames {
-      get { throw new NotImplementedException(); }
+      get { return this.Drinks.Select(x => x.Name).ToList(); }
     }
 
     public ViewModel.Order CurrentOrder {
@@ -61,21 +61,21 @@ namespace Common.Model {
     }
     #endregion
 
-    #region Public methods
-    
-    #endregion
-
     #region Private methods
     private void _RequestWelcomeMessage() {
       Task.Factory.StartNew(() => {
-        RequestNS.IRequest request = this._Factory.CreateWelcomeRequest();
+        RequestNS.ARequest request = this._Factory.CreateWelcomeRequest();
         request.OnRequestCompleted += welcomeRequest_OnRequestCompleted;
         request.Execute();
       });
     }
 
     private void _RequestDrinks() {
-
+      Task.Factory.StartNew(() => {
+        RequestNS.ARequest request = this._Factory.CreateGetDrinkRequest();
+        request.OnRequestCompleted += getDrinkRequest_OnRequestCompleted;
+        request.Execute();
+      });
     }
 
     private void _SetRemoteUrl(string remoteUrl) {
@@ -93,6 +93,14 @@ namespace Common.Model {
       }
     }
 
+    private void _NotifyDrinkListChanged() {
+      if (this.OnDrinkNamesChanged != null) {
+        Task.Factory.StartNew(() => {
+          this.OnDrinkNamesChanged(this, new ViewModel.DrinkNamesChangedEventArgs(this.DrinkNames));
+        });
+      }
+    }
+
     #endregion
 
     #region Event handlers
@@ -101,6 +109,13 @@ namespace Common.Model {
 
       this._WelcomeMessage = welcomeMessage.Response;
       this._NotifyWelcomeMessageChanged();
+    }
+
+    void getDrinkRequest_OnRequestCompleted(object sender, RequestNS.RequestCompletedEventArgs e) {
+      RequestNS.RequestDrinkList drinkList = e.Request as RequestNS.RequestDrinkList;
+      this._Drinks = drinkList.GetDrinks();
+
+      this._NotifyDrinkListChanged();
     }
     #endregion
   }

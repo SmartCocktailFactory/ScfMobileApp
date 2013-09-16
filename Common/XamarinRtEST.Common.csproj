@@ -40,7 +40,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\ScfService.cs" />
-    <Compile Include="RequestNS\IRequest.cs" />
     <Compile Include="RequestNS\IRequestExecutor.cs" />
     <Compile Include="RequestNS\Request.cs" />
     <Compile Include="RequestNS\RequestDrinkList.cs" />

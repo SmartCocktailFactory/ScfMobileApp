@@ -14,8 +14,12 @@ namespace Common.RequestNS {
       this.Executor = service;
     }
 
-    public IRequest CreateWelcomeRequest() {
+    public ARequest CreateWelcomeRequest() {
       return new RequestWelcome(this.Executor);
+    }
+
+    public ARequest CreateGetDrinkRequest() {
+      return new RequestDrinkList(this.Executor);
     }
   }
 }

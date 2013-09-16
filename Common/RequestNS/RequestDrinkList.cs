@@ -16,5 +16,22 @@ namespace Common.RequestNS {
     }
     #endregion
 
+    #region Public methods
+    public List<ViewModel.Drink> GetDrinks() {
+      string[] drinks = this.Response.Split(',');
+
+      List<ViewModel.Drink> drinkList = new List<ViewModel.Drink>();
+
+      foreach (string s in drinks) {
+        ViewModel.Drink d = new ViewModel.Drink();
+        d.Name = s;
+        drinkList.Add(d);
+
+      }
+
+      return drinkList;
+    }
+    #endregion
+
   }
 }

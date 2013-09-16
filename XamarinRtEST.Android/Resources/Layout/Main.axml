@@ -9,10 +9,16 @@
         android:text="@string/ServiceUrl"
         android:id="@+id/tbxServiceUrl" />
     <Button
+        android:id="@+id/btnConnect"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Connect" />
+    <Button
         android:id="@+id/btnGetDrinks"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/GetDrinks" />
+        android:text="@string/GetDrinks"
+        android:visibility="invisible" />
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="match_parent"

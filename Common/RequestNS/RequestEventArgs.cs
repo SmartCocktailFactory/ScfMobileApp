@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Common.RequestNS {
   public class RequestCompletedEventArgs : EventArgs {
-    public IRequest Request { get; private set; }
-    public RequestCompletedEventArgs(IRequest request) {
+    public ARequest Request { get; private set; }
+    public RequestCompletedEventArgs(ARequest request) {
       this.Request = request;
     }
   }

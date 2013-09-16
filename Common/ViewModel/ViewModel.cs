@@ -12,7 +12,7 @@ namespace Common.ViewModel {
     #endregion
 
     #region Properties
-    public ICocktailFactory _ScfService {
+    public ICocktailFactory ScfService {
       get {
         return this._Service;
       }

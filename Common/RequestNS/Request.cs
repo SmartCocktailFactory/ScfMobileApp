@@ -5,18 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Common.RequestNS {
-  public abstract class ARequest : IRequest {
-    #region IRequest
+  public abstract class ARequest {
+    #region Properties
     public string RelativeUrl { get; protected set; }
     public string RequestMethod { get; protected set; }
     public string ContentType { get; protected set; }
     public string Response { get; protected set; }
+    #endregion
 
+    #region Events
     public event EventHandler<RequestCompletedEventArgs> OnRequestCompleted;
-
-    public void Execute() {
-      this._myExecutor.Execute(this);
-    }
     #endregion
 
     #region Members
@@ -31,6 +29,9 @@ namespace Common.RequestNS {
     #endregion
 
     #region Public methods
+    public void Execute() {
+      this._myExecutor.Execute(this);
+    }
     public void AddResponse(string response) {
       this.Response += response;
       this._NotifyExecuted();

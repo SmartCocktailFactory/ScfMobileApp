@@ -57,9 +57,6 @@
     <Compile Include="..\Common\Model\ScfService.cs">
       <Link>Model\ScfService.cs</Link>
     </Compile>
-    <Compile Include="..\Common\RequestNS\IRequest.cs">
-      <Link>RequestNS\IRequest.cs</Link>
-    </Compile>
     <Compile Include="..\Common\RequestNS\IRequestExecutor.cs">
       <Link>RequestNS\IRequestExecutor.cs</Link>
     </Compile>
