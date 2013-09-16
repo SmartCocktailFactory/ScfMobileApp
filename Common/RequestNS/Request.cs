@@ -15,16 +15,16 @@ namespace Common.RequestNS {
     public event EventHandler<RequestCompletedEventArgs> OnRequestCompleted;
 
     public void Execute() {
-      this._myExecutor.RunRequest(this);
+      this._myExecutor.Execute(this);
     }
     #endregion
 
     #region Members
-    private Service _myExecutor = null;
+    private IRequestExecutor _myExecutor = null;
     #endregion
 
     #region Constructor
-    protected ARequest(Service executor) {
+    protected ARequest(IRequestExecutor executor) {
       this._myExecutor = executor;
 
     }

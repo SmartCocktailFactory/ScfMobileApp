@@ -8,7 +8,7 @@ namespace Common.RequestNS {
   public class RequestDrinkList : ARequest {
 
     #region Constructor
-    public RequestDrinkList(Service executor)
+    public RequestDrinkList(IRequestExecutor executor)
       : base(executor) {
       this.RelativeUrl = "/cocktails";
       this.ContentType = "application/json";

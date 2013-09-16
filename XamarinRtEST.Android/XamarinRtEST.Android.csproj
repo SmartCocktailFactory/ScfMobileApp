@@ -51,8 +51,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Common\Model\RequestExecutor.cs">
+      <Link>Model\RequestExecutor.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\ScfService.cs">
+      <Link>Model\ScfService.cs</Link>
+    </Compile>
     <Compile Include="..\Common\RequestNS\IRequest.cs">
       <Link>RequestNS\IRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\RequestNS\IRequestExecutor.cs">
+      <Link>RequestNS\IRequestExecutor.cs</Link>
     </Compile>
     <Compile Include="..\Common\RequestNS\Request.cs">
       <Link>RequestNS\Request.cs</Link>
@@ -69,23 +78,29 @@
     <Compile Include="..\Common\RequestNS\RequestWelcome.cs">
       <Link>RequestNS\RequestWelcome.cs</Link>
     </Compile>
-    <Compile Include="..\Common\Service.cs">
-      <Link>Service.cs</Link>
-    </Compile>
     <Compile Include="..\Common\ViewModel\Drink.cs">
       <Link>ViewModel\Drink.cs</Link>
     </Compile>
-    <Compile Include="..\Common\ViewModel\IScfService.cs">
-      <Link>ViewModel\IScfService.cs</Link>
+    <Compile Include="..\Common\ViewModel\DrinkNamesChangedEventArgs.cs">
+      <Link>ViewModel\DrinkNamesChangedEventArgs.cs</Link>
     </Compile>
-    <Compile Include="..\Common\ViewModel\SCFService.cs">
-      <Link>ViewModel\SCFService.cs</Link>
+    <Compile Include="..\Common\ViewModel\DrinksChangedEventArgs.cs">
+      <Link>ViewModel\DrinksChangedEventArgs.cs</Link>
     </Compile>
-    <Compile Include="..\Common\ViewModel\SCFServiceResponseEventArgs.cs">
-      <Link>ViewModel\SCFServiceResponseEventArgs.cs</Link>
+    <Compile Include="..\Common\ViewModel\ICocktailFactory.cs">
+      <Link>ViewModel\ICocktailFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\ViewModel\Order.cs">
+      <Link>ViewModel\Order.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\ViewModel\OrderChangedEventArgs.cs">
+      <Link>ViewModel\OrderChangedEventArgs.cs</Link>
     </Compile>
     <Compile Include="..\Common\ViewModel\ViewModel.cs">
       <Link>ViewModel\ViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\ViewModel\WelcomeMessageReceivedEventArgs.cs">
+      <Link>ViewModel\WelcomeMessageReceivedEventArgs.cs</Link>
     </Compile>
     <Compile Include="Activity1.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />

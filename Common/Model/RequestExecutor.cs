@@ -7,8 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Common.RequestNS;
 
-namespace Common {
-  public class Service {
+namespace Common.Model {
+  public class RequestExecutor : RequestNS.IRequestExecutor {
     #region Members
     HttpWebResponse _CurrentResponse = null;
     ARequest _CurrentRequest = null;
@@ -16,22 +16,20 @@ namespace Common {
 
     #region Properties
     public string BaseUrl { get; private set; }
-    public RequestFactory Factory { get; private set; }
     #endregion
 
     #region Constructor
-    public Service(string baseUrl) {
+    public RequestExecutor(string baseUrl) {
       if (!baseUrl.StartsWith("http://")) {
         this.BaseUrl = "http://" + baseUrl;
       } else {
         this.BaseUrl = baseUrl;
       }
-      this.Factory = new RequestFactory(this);
     }
     #endregion
 
     #region Public methods
-    public void RunRequest(ARequest request) {
+    public void Execute(ARequest request) {
       this._CurrentRequest = request;
       WebRequest webRequest = HttpWebRequest.Create(this.BaseUrl + request.RelativeUrl);
       webRequest.ContentType = request.ContentType;
@@ -51,6 +49,5 @@ namespace Common {
       }
     }
     #endregion
-
   }
 }

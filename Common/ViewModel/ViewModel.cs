@@ -8,22 +8,11 @@ namespace Common.ViewModel {
   class ViewModel {
     #region Members
     private static ViewModel _Singleton = null;
-    private SCFService _Service = null;
+    private Model.ScfService _Service = null;
     #endregion
 
     #region Properties
-    public string ScfUrl {
-      get {
-        if (this._Service == null) {
-          return "";
-        }
-        return this._Service.RemoteUrl;
-      }
-      set {
-        this.SetRemoteUrl(value);
-      }
-    }
-    public IScfService _ScfService {
+    public ICocktailFactory _ScfService {
       get {
         return this._Service;
       }
@@ -32,7 +21,7 @@ namespace Common.ViewModel {
 
     #region Constructor
     public ViewModel() {
-      this._Service = new SCFService();
+      this._Service = new Model.ScfService();
     }
     #endregion
 
@@ -44,19 +33,9 @@ namespace Common.ViewModel {
       return ViewModel._Singleton;
     }
 
-    public IScfService GetService() {
+    public ICocktailFactory GetService() {
       return this._Service;
     }
     #endregion
-
-    #region Private methods
-    private void SetRemoteUrl(string url) {
-      if (this._Service == null) {
-        this._Service = new SCFService();
-      }
-      this._Service.RemoteUrl = url;
-    }
-    #endregion
-
   }
 }

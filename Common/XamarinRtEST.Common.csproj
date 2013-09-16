@@ -39,19 +39,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\ScfService.cs" />
     <Compile Include="RequestNS\IRequest.cs" />
+    <Compile Include="RequestNS\IRequestExecutor.cs" />
     <Compile Include="RequestNS\Request.cs" />
     <Compile Include="RequestNS\RequestDrinkList.cs" />
     <Compile Include="RequestNS\RequestEventArgs.cs" />
     <Compile Include="RequestNS\RequestFactory.cs" />
     <Compile Include="RequestNS\RequestWelcome.cs" />
-    <Compile Include="Service.cs" />
+    <Compile Include="Model\RequestExecutor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\Drink.cs" />
-    <Compile Include="ViewModel\IScfService.cs" />
-    <Compile Include="ViewModel\SCFService.cs" />
-    <Compile Include="ViewModel\SCFServiceResponseEventArgs.cs" />
+    <Compile Include="ViewModel\DrinkNamesChangedEventArgs.cs" />
+    <Compile Include="ViewModel\DrinksChangedEventArgs.cs" />
+    <Compile Include="ViewModel\ICocktailFactory.cs" />
+    <Compile Include="ViewModel\Order.cs" />
+    <Compile Include="ViewModel\OrderChangedEventArgs.cs" />
     <Compile Include="ViewModel\ViewModel.cs" />
+    <Compile Include="ViewModel\WelcomeMessageReceivedEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

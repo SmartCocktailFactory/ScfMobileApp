@@ -27,10 +27,9 @@ namespace XamarinRtEST.Android {
       ViewModel.Instance()._ScfService.OnWelcomeMessageChanged += _ScfService_OnWelcomeMessageChanged;
     }
 
-    void _ScfService_OnWelcomeMessageChanged(object sender, EventArgs e) {
-      EditText response = FindViewById<EditText>(Resource.Id.tbxResponse);
+    void _ScfService_OnWelcomeMessageChanged(object sender, WelcomeMessageReceivedEventArgs e) {
       RunOnUiThread(() => {
-        response.Text = ViewModel.Instance()._ScfService.WelcomeMessage;
+        this._SetWelcomeMessage(e.WelcomeMessage);
       });
     }
 
@@ -41,8 +40,14 @@ namespace XamarinRtEST.Android {
         tbxServiceUrl.Text = "Please enter SCM URL";
         return;
       }
-      ViewModel.Instance().ScfUrl = tbxServiceUrl.Text;
-      ViewModel.Instance()._ScfService.RequestWelcomeMessage();
+      ViewModel.Instance()._ScfService.ScfRemoteUrl = tbxServiceUrl.Text;
+      this._SetWelcomeMessage(ViewModel.Instance()._ScfService.WelcomeMessage);
+
+    }
+
+    private void _SetWelcomeMessage(string message) {
+      EditText response = FindViewById<EditText>(Resource.Id.tbxResponse);
+      response.Text = message;
     }
   }
 }

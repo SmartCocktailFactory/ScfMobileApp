@@ -8,7 +8,7 @@ namespace Common.RequestNS {
   public class RequestWelcome : ARequest {
 
     #region Constructor
-    public RequestWelcome(Service executor)
+    public RequestWelcome(IRequestExecutor executor)
       : base(executor) {
       this.RelativeUrl = "";
       this.ContentType = "application/json";

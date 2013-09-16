@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace Common.RequestNS {
   public class RequestFactory {
     #region Properties
-    public Service Executor { get; private set; }
+    public IRequestExecutor Executor { get; private set; }
     #endregion
 
-    public RequestFactory(Service service) {
+    public RequestFactory(IRequestExecutor service) {
       this.Executor = service;
     }
 
