@@ -16,5 +16,11 @@ namespace Common.RequestNS {
     }
     #endregion
 
+    #region Public method
+    public string GetMessage() {
+      return this.Response;
+    }
+    #endregion
+
   }
 }

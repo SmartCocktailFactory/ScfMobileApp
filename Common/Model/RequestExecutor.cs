@@ -45,7 +45,7 @@ namespace Common.Model {
       if (string.IsNullOrWhiteSpace(content)) {
         this._CurrentRequest.AddResponse("Response contained empty body...");
       } else {
-        this._CurrentRequest.AddResponse("Response Body:\r\n" + content);
+        this._CurrentRequest.AddResponse(content);
       }
     }
     #endregion

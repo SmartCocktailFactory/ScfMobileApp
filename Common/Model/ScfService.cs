@@ -25,45 +25,6 @@ namespace Common.Model {
     }
     #endregion
 
-    #region Public methods
-    
-    #endregion
-
-    #region Private methods
-    private void _RequestWelcomeMessage() {
-      Task.Factory.StartNew(() => {
-        RequestNS.IRequest request = this._Factory.CreateWelcomeRequest();
-        request.OnRequestCompleted += welcomeRequest_OnRequestCompleted;
-        request.Execute();
-      });
-    }
-
-    void welcomeRequest_OnRequestCompleted(object sender, RequestNS.RequestCompletedEventArgs e) {
-      this._WelcomeMessage = e.Request.Response;
-      this._NotifyWelcomeMessageChanged();
-    }
-
-    private void _RequestDrinks() {
-
-    }
-
-    private void _NotifyWelcomeMessageChanged() {
-      if (this.OnWelcomeMessageChanged != null) {
-        Task.Factory.StartNew(() => {
-          this.OnWelcomeMessageChanged(this, new ViewModel.WelcomeMessageReceivedEventArgs(this._WelcomeMessage));
-        });
-      }
-    }
-
-    private void _SetRemoteUrl(string remoteUrl) {
-      if (!string.Equals(this.ScfRemoteUrl, remoteUrl)) {
-        this._Executor = new RequestExecutor(remoteUrl);
-        this._Factory = new RequestNS.RequestFactory(this._Executor);
-      }
-    }
-
-    #endregion
-
     #region ViewModel.ICocktailFactory
     public event EventHandler<ViewModel.WelcomeMessageReceivedEventArgs> OnWelcomeMessageChanged;
     public event EventHandler<ViewModel.DrinkNamesChangedEventArgs> OnDrinkNamesChanged;
@@ -97,6 +58,49 @@ namespace Common.Model {
       set {
         this._SetRemoteUrl(value);
       }
+    }
+    #endregion
+
+    #region Public methods
+    
+    #endregion
+
+    #region Private methods
+    private void _RequestWelcomeMessage() {
+      Task.Factory.StartNew(() => {
+        RequestNS.IRequest request = this._Factory.CreateWelcomeRequest();
+        request.OnRequestCompleted += welcomeRequest_OnRequestCompleted;
+        request.Execute();
+      });
+    }
+
+    private void _RequestDrinks() {
+
+    }
+
+    private void _SetRemoteUrl(string remoteUrl) {
+      if (!string.Equals(this.ScfRemoteUrl, remoteUrl)) {
+        this._Executor = new RequestExecutor(remoteUrl);
+        this._Factory = new RequestNS.RequestFactory(this._Executor);
+      }
+    }
+
+    private void _NotifyWelcomeMessageChanged() {
+      if (this.OnWelcomeMessageChanged != null) {
+        Task.Factory.StartNew(() => {
+          this.OnWelcomeMessageChanged(this, new ViewModel.WelcomeMessageReceivedEventArgs(this._WelcomeMessage));
+        });
+      }
+    }
+
+    #endregion
+
+    #region Event handlers
+    void welcomeRequest_OnRequestCompleted(object sender, RequestNS.RequestCompletedEventArgs e) {
+      RequestNS.RequestWelcome welcomeMessage = e.Request as RequestNS.RequestWelcome;
+
+      this._WelcomeMessage = welcomeMessage.Response;
+      this._NotifyWelcomeMessageChanged();
     }
     #endregion
   }
