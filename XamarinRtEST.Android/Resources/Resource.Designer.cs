@@ -50,6 +50,15 @@ namespace XamarinRtEST.Android
 			// aapt resource value: 0x7f020001
 			public const int monoandroidsplash = 2130837505;
 			
+			// aapt resource value: 0x7f020002
+			public const int SCF_Background_dark = 2130837506;
+			
+			// aapt resource value: 0x7f020003
+			public const int SCF_Background_light = 2130837507;
+			
+			// aapt resource value: 0x7f020004
+			public const int SCF_Logo_Android_drawable = 2130837508;
+			
 			static Drawable()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -63,17 +72,23 @@ namespace XamarinRtEST.Android
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f060001
-			public const int btnConnect = 2131099649;
-			
-			// aapt resource value: 0x7f060002
-			public const int btnGetDrinks = 2131099650;
-			
 			// aapt resource value: 0x7f060003
-			public const int tbxResponse = 2131099651;
+			public const int btnConnect = 2131099651;
+			
+			// aapt resource value: 0x7f060004
+			public const int btnGetDrinks = 2131099652;
 			
 			// aapt resource value: 0x7f060000
-			public const int tbxServiceUrl = 2131099648;
+			public const int drinkListView = 2131099648;
+			
+			// aapt resource value: 0x7f060001
+			public const int drinkTextView = 2131099649;
+			
+			// aapt resource value: 0x7f060005
+			public const int tbxResponse = 2131099653;
+			
+			// aapt resource value: 0x7f060002
+			public const int tbxServiceUrl = 2131099650;
 			
 			static Id()
 			{
@@ -89,7 +104,10 @@ namespace XamarinRtEST.Android
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int Main = 2130903040;
+			public const int DrinkList = 2130903040;
+			
+			// aapt resource value: 0x7f030001
+			public const int Main = 2130903041;
 			
 			static Layout()
 			{

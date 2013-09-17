@@ -11,7 +11,7 @@ using Common.ViewModel;
 using System.Collections.Generic;
 
 namespace XamarinRtEST.Android {
-  [Activity(Label = "XamarinRtEST.Android", MainLauncher = true, Icon = "@drawable/icon")]
+  [Activity(Label = "Smart Cocktail Facotry", MainLauncher = true, Icon = "@drawable/SCF_Logo_Android_drawable")]
   public class Activity1 : Activity {
 
     protected override void OnCreate(Bundle bundle) {
@@ -25,11 +25,10 @@ namespace XamarinRtEST.Android {
       Button button = FindViewById<Button>(Resource.Id.btnConnect);
       button.Click += delegate { this._OnConnect(); };
 
-      FindViewById<Button>(Resource.Id.btnGetDrinks).Click += delegate { this._OnGetDrinks(); };
+      FindViewById<Button>(Resource.Id.btnGetDrinks).Click += delegate { StartActivity(typeof(DrinkListActivity)); };
 
 
       ViewModel.Instance().ScfService.OnWelcomeMessageChanged += _ScfService_OnWelcomeMessageChanged;
-      ViewModel.Instance().ScfService.OnDrinkNamesChanged += ScfService_OnDrinkNamesChanged;
     }
 
     void _ScfService_OnWelcomeMessageChanged(object sender, WelcomeMessageReceivedEventArgs e) {
@@ -37,13 +36,6 @@ namespace XamarinRtEST.Android {
         this._SetWelcomeMessage(e.WelcomeMessage);
       });
     }
-
-    void ScfService_OnDrinkNamesChanged(object sender, DrinkNamesChangedEventArgs e) {
-      RunOnUiThread(() => {
-        this._SetDrinkList(e.DrinkNames);
-      });
-    }
-
     private void _OnConnect() {
       EditText tbxServiceUrl = FindViewById<EditText>(Resource.Id.tbxServiceUrl);
 
@@ -55,10 +47,6 @@ namespace XamarinRtEST.Android {
       this._SetWelcomeMessage(ViewModel.Instance().ScfService.WelcomeMessage);
     }
 
-    private void _OnGetDrinks() {
-      this._SetDrinkList(ViewModel.Instance().ScfService.DrinkNames);
-    }
-
     private void _SetWelcomeMessage(string message) {
       EditText response = FindViewById<EditText>(Resource.Id.tbxResponse);
       response.Text = message;
@@ -66,16 +54,6 @@ namespace XamarinRtEST.Android {
       if (!string.IsNullOrEmpty(message)) {
         FindViewById<Button>(Resource.Id.btnGetDrinks).Visibility = ViewStates.Visible;
       }
-    }
-
-    private void _SetDrinkList(IList<string> drinkNames) {
-      EditText response = FindViewById<EditText>(Resource.Id.tbxResponse);
-      response.Text = string.Empty;
-
-      foreach (string name in drinkNames) {
-        response.Text += name + "\r\n";
-      }
-
     }
   }
 }
