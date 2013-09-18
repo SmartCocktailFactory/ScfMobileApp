@@ -18,13 +18,12 @@ namespace Common.RequestNS {
 
     #region Public methods
     public List<ViewModel.Drink> GetDrinks() {
-      string[] drinks = this.Response.Split(',');
-
       List<ViewModel.Drink> drinkList = new List<ViewModel.Drink>();
+      string[] rawDrinks = this.Response.Replace("[", "").Replace("]", "").Replace("\"", "").Split(',');
 
-      foreach (string s in drinks) {
+      foreach (string s in rawDrinks) {
         ViewModel.Drink d = new ViewModel.Drink();
-        d.Name = s;
+        d.Name = s.Trim(' ');
         drinkList.Add(d);
 
       }

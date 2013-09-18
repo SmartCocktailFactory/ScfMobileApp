@@ -10,9 +10,4 @@
         android:minHeight="25px"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/drinkTextView"
-        android:text="Drink list"
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent" />
 </LinearLayout>

@@ -125,6 +125,7 @@
     <AndroidResource Include="Resources\Drawable\SCF_Logo_Android_drawable.png" />
     <AndroidResource Include="Resources\Drawable\SCF_Background_dark.png" />
     <AndroidResource Include="Resources\Drawable\SCF_Background_light.png" />
+    <AndroidResource Include="Resources\Layout\ListViewDataItems.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>

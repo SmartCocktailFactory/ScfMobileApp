@@ -20,8 +20,16 @@ namespace XamarinRtEST.Android {
       SetContentView(Resource.Layout.DrinkList);
 
       ViewModel.Instance().ScfService.OnDrinkNamesChanged += ScfService_OnDrinkNamesChanged;
+      ListView view = FindViewById<ListView>(Resource.Id.drinkListView);
+      view.ItemClick += view_ItemClick;
 
       this._SetDrinkList(ViewModel.Instance().ScfService.DrinkNames);
+    }
+
+    void view_ItemClick(object sender, AdapterView.ItemClickEventArgs e) {
+      ListView view = FindViewById<ListView>(Resource.Id.drinkListView);
+      string sItem = view.Adapter.GetItem(e.Position).ToString();
+      this.Title = sItem;
     }
 
     void ScfService_OnDrinkNamesChanged(object sender, DrinkNamesChangedEventArgs e) {
@@ -31,14 +39,8 @@ namespace XamarinRtEST.Android {
     }
 
     private void _SetDrinkList(IList<string> drinkNames) {
-      TextView text = FindViewById<TextView>(Resource.Id.drinkTextView);
-      
-      
-      text .Text = string.Empty;
-
-      foreach (string name in drinkNames) {
-        text .Text += name + "\r\n";
-      }
+      ListView view = FindViewById<ListView>(Resource.Id.drinkListView);
+      view.Adapter = new ArrayAdapter(this, Android.Resource.Layout.ListViewDataItems, drinkNames.ToArray());
     }
   }
 }

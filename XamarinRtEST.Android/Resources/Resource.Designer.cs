@@ -81,14 +81,14 @@ namespace XamarinRtEST.Android
 			// aapt resource value: 0x7f060000
 			public const int drinkListView = 2131099648;
 			
-			// aapt resource value: 0x7f060001
-			public const int drinkTextView = 2131099649;
-			
 			// aapt resource value: 0x7f060005
 			public const int tbxResponse = 2131099653;
 			
 			// aapt resource value: 0x7f060002
 			public const int tbxServiceUrl = 2131099650;
+			
+			// aapt resource value: 0x7f060001
+			public const int textItem = 2131099649;
 			
 			static Id()
 			{
@@ -107,7 +107,10 @@ namespace XamarinRtEST.Android
 			public const int DrinkList = 2130903040;
 			
 			// aapt resource value: 0x7f030001
-			public const int Main = 2130903041;
+			public const int ListViewDataItems = 2130903041;
+			
+			// aapt resource value: 0x7f030002
+			public const int Main = 2130903042;
 			
 			static Layout()
 			{
