@@ -21,5 +21,12 @@ namespace Common.RequestNS {
     public ARequest CreateGetDrinkRequest() {
       return new RequestDrinkList(this.Executor);
     }
+
+    public ARequest CreateOrderDrinkRequest(string drinkId) {
+      RequestOrderDrink order = new RequestOrderDrink(this.Executor);
+      order.DrinkId = drinkId;
+      return order;
+    }
+
   }
 }

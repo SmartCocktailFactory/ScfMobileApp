@@ -25,7 +25,6 @@ namespace Common.RequestNS {
         ViewModel.Drink d = new ViewModel.Drink();
         d.Name = s.Trim(' ');
         drinkList.Add(d);
-
       }
 
       return drinkList;

@@ -20,5 +20,10 @@ namespace Common.ViewModel {
     event EventHandler<DrinksChangedEventArgs> OnDrinksChanged;
     event EventHandler<OrderChangedEventArgs> OnOrderChanged;
     #endregion
+
+    #region Methods
+    void OrderDrink(string drinkId);
+    #endregion
+
   }
 }

@@ -37,7 +37,7 @@ namespace XamarinRtEST.Android {
       });
     }
     private void _OnConnect() {
-      EditText tbxServiceUrl = FindViewById<EditText>(Resource.Id.tbxServiceUrl);
+      TextView tbxServiceUrl = FindViewById<TextView>(Resource.Id.tbxServiceUrl);
 
       if(string.IsNullOrEmpty(tbxServiceUrl.Text)) {
         tbxServiceUrl.Text = "Please enter SCM URL";
@@ -48,7 +48,7 @@ namespace XamarinRtEST.Android {
     }
 
     private void _SetWelcomeMessage(string message) {
-      EditText response = FindViewById<EditText>(Resource.Id.tbxResponse);
+      TextView response = FindViewById<TextView>(Resource.Id.tbxResponse);
       response.Text = message;
 
       if (!string.IsNullOrEmpty(message)) {

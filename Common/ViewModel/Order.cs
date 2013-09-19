@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Common.ViewModel {
   class Order {
     public string OrderId { get; set; }
-    public Drink Drink { get; set; }
+    public string DrinkName { get; set; }
     public TimeSpan ExpectedTimeToDeliver { get; set; }
   }
 }

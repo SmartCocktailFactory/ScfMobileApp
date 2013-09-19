@@ -29,7 +29,7 @@ namespace Common.RequestNS {
     #endregion
 
     #region Public methods
-    public void Execute() {
+    public virtual void Execute() {
       this._myExecutor.Execute(this);
     }
     public void AddResponse(string response) {

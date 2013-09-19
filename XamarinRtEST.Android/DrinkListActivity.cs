@@ -14,12 +14,15 @@ using Common.ViewModel;
 namespace XamarinRtEST.Android {
   [Activity(Label = "Drink list")]
   public class DrinkListActivity : Activity {
+    #region GUI event handlers
     protected override void OnCreate(Bundle bundle) {
       base.OnCreate(bundle);
 
       SetContentView(Resource.Layout.DrinkList);
 
       ViewModel.Instance().ScfService.OnDrinkNamesChanged += ScfService_OnDrinkNamesChanged;
+      ViewModel.Instance().ScfService.OnOrderChanged += ScfService_OnOrderChanged;
+
       ListView view = FindViewById<ListView>(Resource.Id.drinkListView);
       view.ItemClick += view_ItemClick;
 
@@ -28,8 +31,16 @@ namespace XamarinRtEST.Android {
 
     void view_ItemClick(object sender, AdapterView.ItemClickEventArgs e) {
       ListView view = FindViewById<ListView>(Resource.Id.drinkListView);
-      string sItem = view.Adapter.GetItem(e.Position).ToString();
-      this.Title = sItem;
+      ViewModel.Instance().ScfService.OrderDrink(view.Adapter.GetItem(e.Position).ToString());
+    }
+    #endregion
+
+    #region Model event handlers
+    void ScfService_OnOrderChanged(object sender, OrderChangedEventArgs e) {
+      RunOnUiThread(() => {
+        TextView text = FindViewById<TextView>(Resource.Id.txtLastOrder);
+        text.Text = "Last order, ID: " + e.Order.OrderId + " Drink: " + e.Order.DrinkName;
+      });
     }
 
     void ScfService_OnDrinkNamesChanged(object sender, DrinkNamesChangedEventArgs e) {
@@ -42,5 +53,6 @@ namespace XamarinRtEST.Android {
       ListView view = FindViewById<ListView>(Resource.Id.drinkListView);
       view.Adapter = new ArrayAdapter(this, Android.Resource.Layout.ListViewDataItems, drinkNames.ToArray());
     }
+    #endregion
   }
 }
