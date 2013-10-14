@@ -10,7 +10,7 @@ namespace Common.RequestNS {
     #region Constructor
     public RequestDrinkList(IRequestExecutor executor)
       : base(executor) {
-      this.RelativeUrl = "/cocktails";
+      this.RelativeUrl = "/drinks";
       this.ContentType = "application/json";
       this.RequestMethod = "GET";
     }

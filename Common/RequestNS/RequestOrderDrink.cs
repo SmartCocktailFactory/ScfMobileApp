@@ -24,9 +24,9 @@ namespace Common.RequestNS {
     #region Constructor
     public RequestOrderDrink(IRequestExecutor executor)
       : base(executor) {
-      this.RelativeUrl = "/cocktails/{0}/order";
+      this.RelativeUrl = "/orders/{0}";
       this.ContentType = "application/json";
-      this.RequestMethod = "POST";
+      this.RequestMethod = "PUT";
     }
     #endregion
 
