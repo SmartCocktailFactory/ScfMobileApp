@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("XamarinRtEST.Android.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("ScfMobileApp.Android.Resource", IsApplication=true)]
 
-namespace XamarinRtEST.Android
+namespace ScfMobileApp.Android
 {
 	
 	

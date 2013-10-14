@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinRtEST.Common", "Common\XamarinRtEST.Common.csproj", "{08D87EF2-4F72-4C6C-84B6-D47267B027CB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScfMobileApp.Common", "Common\ScfMobileApp.Common.csproj", "{08D87EF2-4F72-4C6C-84B6-D47267B027CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinRtEST.Android", "XamarinRtEST.Android\XamarinRtEST.Android.csproj", "{EF6764AB-DE6B-4DB8-A0C2-64C6EA4BCC9E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScfMobileApp.Android", "Android\ScfMobileApp.Android.csproj", "{EF6764AB-DE6B-4DB8-A0C2-64C6EA4BCC9E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

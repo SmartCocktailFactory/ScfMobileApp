@@ -11,7 +11,7 @@ using Android.Views;
 using Android.Widget;
 using Common.ViewModel;
 
-namespace XamarinRtEST.Android {
+namespace ScfMobileApp.Android {
   [Activity(Label = "Drink list")]
   public class DrinkListActivity : Activity {
     #region GUI event handlers

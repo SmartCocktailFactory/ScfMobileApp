@@ -10,7 +10,7 @@ using Android.OS;
 using Common.ViewModel;
 using System.Collections.Generic;
 
-namespace XamarinRtEST.Android {
+namespace ScfMobileApp.Android {
   [Activity(Label = "Smart Cocktail Facotry", MainLauncher = true, Icon = "@drawable/SCF_Logo_Android_drawable")]
   public class Activity1 : Activity {
 
