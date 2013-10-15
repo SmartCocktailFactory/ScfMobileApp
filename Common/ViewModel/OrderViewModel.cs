@@ -8,7 +8,7 @@ namespace Common.ViewModel {
   class OrderViewModel {
 
     #region Members
-    private Model.ICocktailFactory _MyService = null;
+    private Model.IOrderService _OrderService = null;
     private Order _CurrentOrder = new Order();
     private object _OrderLock = new object();
     #endregion
@@ -29,14 +29,14 @@ namespace Common.ViewModel {
 
     #region Constructor
     public OrderViewModel() {
-      this._MyService = Model.ScfServiceFactory.Instance().ScfService;
-      this._MyService.OnOrderChanged += _MyService_OnOrderChanged;
+      this._OrderService = Model.ModelFactory.Instance().OrderService;
+      this._OrderService.OnOrderChanged += _MyService_OnOrderChanged;
     }
     #endregion
 
     #region Public methods
     public void OrderDrink(string drinkId) {
-      this._MyService.OrderDrink(drinkId);
+      this._OrderService.OrderDrink(drinkId);
     }
     #endregion
 

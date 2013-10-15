@@ -62,8 +62,17 @@
     <Compile Include="..\Common\Model\DrinksChangedEventArgs.cs">
       <Link>Model\DrinksChangedEventArgs.cs</Link>
     </Compile>
-    <Compile Include="..\Common\Model\ICocktailFactory.cs">
-      <Link>Model\ICocktailFactory.cs</Link>
+    <Compile Include="..\Common\Model\IDrinkService.cs">
+      <Link>Model\IDrinkService.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\IOrderService.cs">
+      <Link>Model\IOrderService.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\ISignInService.cs">
+      <Link>Model\ISignInService.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\ModelFactory.cs">
+      <Link>Model\ModelFactory.cs</Link>
     </Compile>
     <Compile Include="..\Common\Model\OrderChangedEventArgs.cs">
       <Link>Model\OrderChangedEventArgs.cs</Link>
@@ -71,11 +80,14 @@
     <Compile Include="..\Common\Model\RequestExecutor.cs">
       <Link>Model\RequestExecutor.cs</Link>
     </Compile>
-    <Compile Include="..\Common\Model\ScfService.cs">
-      <Link>Model\ScfService.cs</Link>
+    <Compile Include="..\Common\Model\ScfDrinkService.cs">
+      <Link>Model\ScfDrinkService.cs</Link>
     </Compile>
-    <Compile Include="..\Common\Model\ScfServiceFactory.cs">
-      <Link>Model\ScfServiceFactory.cs</Link>
+    <Compile Include="..\Common\Model\ScfOrderService.cs">
+      <Link>Model\ScfOrderService.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\ScfSignInService.cs">
+      <Link>Model\ScfSignInService.cs</Link>
     </Compile>
     <Compile Include="..\Common\Model\WelcomeMessageReceivedEventArgs.cs">
       <Link>Model\WelcomeMessageReceivedEventArgs.cs</Link>
@@ -152,7 +164,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ProjectLinkReference="08d87ef2-4f72-4c6c-84b6-d47267b027cb" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
+      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="08d87ef2-4f72-4c6c-84b6-d47267b027cb" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

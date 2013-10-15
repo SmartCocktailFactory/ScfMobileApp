@@ -58,10 +58,13 @@
     <Compile Include="ViewModel\Drink.cs" />
     <Compile Include="Model\DrinkNamesChangedEventArgs.cs" />
     <Compile Include="Model\DrinksChangedEventArgs.cs" />
+    <Compile Include="ViewModel\DrinkViewModel.cs" />
     <Compile Include="ViewModel\Order.cs" />
     <Compile Include="Model\OrderChangedEventArgs.cs" />
-    <Compile Include="ViewModel\ViewModel.cs" />
+    <Compile Include="ViewModel\OrderViewModel.cs" />
+    <Compile Include="ViewModel\SignInViewModel.cs" />
     <Compile Include="Model\WelcomeMessageReceivedEventArgs.cs" />
+    <Compile Include="ViewModel\ViewModelChangedEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

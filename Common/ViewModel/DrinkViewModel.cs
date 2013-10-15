@@ -8,18 +8,18 @@ namespace Common.ViewModel {
   class DrinkViewModel {
 
     #region Members
-    private Model.ICocktailFactory _MyService;
+    private Model.IDrinkService _DrinkService = null;
     #endregion
 
     #region Properties
     public IList<string> DrinkNames {
       get {
-        return this._MyService.DrinkNames;
+        return this._DrinkService.DrinkNames;
       }
     }
     public IList<Drink> Drinks {
       get {
-        return this._MyService.Drinks;
+        return this._DrinkService.Drinks;
       }
     }
     #endregion
@@ -30,9 +30,9 @@ namespace Common.ViewModel {
 
     #region Constructor
     public DrinkViewModel() {
-      this._MyService = Model.ScfServiceFactory.Instance().ScfService;
-      this._MyService.OnDrinkNamesChanged += _MyService_OnDrinkNamesChanged;
-      this._MyService.OnDrinksChanged += _MyService_OnDrinksChanged;
+      this._DrinkService = Model.ModelFactory.Instance().DrinkService;
+      this._DrinkService.OnDrinkNamesChanged += _MyService_OnDrinkNamesChanged;
+      this._DrinkService.OnDrinksChanged += _MyService_OnDrinksChanged;
     }
     #endregion
 

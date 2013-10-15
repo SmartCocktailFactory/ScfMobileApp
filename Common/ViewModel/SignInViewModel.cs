@@ -7,21 +7,21 @@ using System.Threading.Tasks;
 namespace Common.ViewModel {
   class SignInViewModel {
     #region Members
-    private Model.ICocktailFactory _MyService;
+    private Model.ISignInService _SignInService;
     #endregion
 
     #region Properties
     public string WelcomeMessage {
       get {
-        return this._MyService.WelcomeMessage;
+        return this._SignInService.WelcomeMessage;
       }
     }
     public string RemoteUrl {
       get {
-        return this._MyService.ScfRemoteUrl;
+        return this._SignInService.ScfRemoteUrl;
       }
       set {
-        this._MyService.ScfRemoteUrl = value;
+        this._SignInService.ScfRemoteUrl = value;
       }
     }
     #endregion
@@ -32,9 +32,8 @@ namespace Common.ViewModel {
 
     #region Constructor
     public SignInViewModel() {
-      this._MyService = Model.ScfServiceFactory.Instance().ScfService;
-
-      this._MyService.OnWelcomeMessageChanged += _MyService_OnWelcomeMessageChanged;
+      this._SignInService = Model.ModelFactory.Instance().SignInService;
+      this._SignInService.OnWelcomeMessageChanged += _MyService_OnWelcomeMessageChanged;
     }
     #endregion
 
