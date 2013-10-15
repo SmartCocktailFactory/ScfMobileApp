@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//todo this is derived from the OLD ScfService. to be reworked
+
 namespace Common.Model {
-  class ScfService : ViewModel.ICocktailFactory {
+  class ScfDrinkService {
 
     #region Members
     private RequestExecutor _Executor = null;
@@ -26,10 +28,10 @@ namespace Common.Model {
     #endregion
 
     #region ViewModel.ICocktailFactory
-    public event EventHandler<ViewModel.WelcomeMessageReceivedEventArgs> OnWelcomeMessageChanged;
-    public event EventHandler<ViewModel.DrinkNamesChangedEventArgs> OnDrinkNamesChanged;
-    public event EventHandler<ViewModel.DrinksChangedEventArgs> OnDrinksChanged;
-    public event EventHandler<ViewModel.OrderChangedEventArgs> OnOrderChanged;
+    //public event EventHandler<ViewModel.WelcomeMessageReceivedEventArgs> OnWelcomeMessageChanged;
+    //public event EventHandler<ViewModel.DrinkNamesChangedEventArgs> OnDrinkNamesChanged;
+    //public event EventHandler<ViewModel.DrinksChangedEventArgs> OnDrinksChanged;
+    //public event EventHandler<ViewModel.OrderChangedEventArgs> OnOrderChanged;
 
     public string WelcomeMessage {
       get {
