@@ -17,14 +17,17 @@ namespace Common.Model{
     public ScfDrinkService DrinkService { get; private set;}
     public ScfOrderService OrderService { get; private set; }
     public ScfSignInService SignInService { get; private set; }
-    public RequestExecutor Executor { get; private set;}
+    public RequestExecutor Executor { get; private set; }
+    public RequestNS.RequestFactory RequestFactory { get; private set; }
     #endregion
 
     #region Constructor
     public ModelFactory() {
-        DrinkService = new ScfDrinkService();
-        OrderService = new ScfOrderService();
-        SignInService = new ScfSignInService();
+      this.Executor = new RequestExecutor();
+      this.RequestFactory = new RequestNS.RequestFactory(this.Executor);
+      this.DrinkService = new ScfDrinkService(this.RequestFactory);
+      this.OrderService = new ScfOrderService(this.RequestFactory);
+      this.SignInService = new ScfSignInService(this.RequestFactory);
     }
     #endregion
 

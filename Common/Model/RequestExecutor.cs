@@ -10,20 +10,18 @@ using Common.RequestNS;
 namespace Common.Model {
   public class RequestExecutor : RequestNS.IRequestExecutor {
     #region Members
-    HttpWebResponse _CurrentResponse = null;
-    ARequest _CurrentRequest = null;
+    private HttpWebResponse _CurrentResponse = null;
+    private ARequest _CurrentRequest = null;
+    private string _BaseUrl = string.Empty;
     #endregion
 
     #region Properties
-    public string BaseUrl { get; private set; }
-    #endregion
-
-    #region Constructor
-    public RequestExecutor(string baseUrl) {
-      if (!baseUrl.StartsWith("http://")) {
-        this.BaseUrl = "http://" + baseUrl;
-      } else {
-        this.BaseUrl = baseUrl;
+    public string BaseUrl {
+      get {
+        return this._BaseUrl;
+      }
+      set {
+        this._SetBaseUrl(value);
       }
     }
     #endregion
@@ -46,6 +44,16 @@ namespace Common.Model {
         this._CurrentRequest.AddResponse("Response contained empty body...");
       } else {
         this._CurrentRequest.AddResponse(content);
+      }
+    }
+    #endregion
+
+    #region Private methods
+    private void _SetBaseUrl(string sUrl) {
+      if (!sUrl.StartsWith("http://")) {
+        this._BaseUrl = "http://" + sUrl;
+      } else {
+        this._BaseUrl = sUrl;
       }
     }
     #endregion

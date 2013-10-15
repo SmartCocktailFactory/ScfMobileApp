@@ -12,6 +12,12 @@ namespace Common.Model {
     private RequestNS.RequestFactory _Factory = null;
     #endregion
 
+    #region Constructor
+    public ScfOrderService(RequestNS.RequestFactory requestFactory) {
+      this._Factory = requestFactory;
+    }
+    #endregion
+
     #region Model.IOrderService
 
     public event EventHandler<OrderChangedEventArgs> OnOrderChanged;

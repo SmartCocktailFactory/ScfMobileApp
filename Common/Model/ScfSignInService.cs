@@ -9,7 +9,6 @@ namespace Common.Model {
   class ScfSignInService : ISignInService {
 
     #region Members
-    private RequestExecutor _Executor = null;
     private RequestNS.RequestFactory _Factory = null;
     private string _WelcomeMessage = string.Empty;
     #endregion
@@ -30,24 +29,23 @@ namespace Common.Model {
         }
     }
 
-    public string ScfRemoteUrl
-    {
-        get
-        {
-            if (this._Executor == null)
-            {
-                return string.Empty;
-            }
-            return this._Executor.BaseUrl;
-        }
-        set
-        {
-            this._SetRemoteUrl(value);
-        }
+    public string ScfRemoteUrl {
+      get {
+        return ModelFactory.Instance().Executor.BaseUrl;
+      }
+      set {
+        this._SetRemoteUrl(value);
+      }
     }
 
 
 
+    #endregion
+
+    #region Constructor
+    public ScfSignInService(RequestNS.RequestFactory requestFactory) {
+      this._Factory = requestFactory;
+    }
     #endregion
 
     #region Private methods
@@ -73,14 +71,11 @@ namespace Common.Model {
         });
     }
 
-    private void _SetRemoteUrl(string remoteUrl)
-    {
-        if (!string.Equals(this.ScfRemoteUrl, remoteUrl))
-        {
-            this._Executor = new RequestExecutor(remoteUrl);
-            this._Factory = new RequestNS.RequestFactory(this._Executor);
+      private void _SetRemoteUrl(string remoteUrl) {
+        if (!string.Equals(this.ScfRemoteUrl, remoteUrl)) {
+          ModelFactory.Instance().Executor.BaseUrl = remoteUrl;
         }
-    }
+      }
 
     #endregion
 
