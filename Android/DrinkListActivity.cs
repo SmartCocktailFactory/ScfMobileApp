@@ -9,43 +9,60 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+
 using Common.ViewModel;
 
 namespace ScfMobileApp.Android {
   [Activity(Label = "Drink list")]
   public class DrinkListActivity : Activity {
+    #region Members
+    private DrinkViewModel _DrinkViewModel;
+    private OrderViewModel _OrderViewModel;
+    #endregion
+
     #region GUI event handlers
     protected override void OnCreate(Bundle bundle) {
       base.OnCreate(bundle);
 
       SetContentView(Resource.Layout.DrinkList);
 
-      ViewModel.Instance().ScfService.OnDrinkNamesChanged += ScfService_OnDrinkNamesChanged;
-      ViewModel.Instance().ScfService.OnOrderChanged += ScfService_OnOrderChanged;
+      // set up view models
+      this._DrinkViewModel = new DrinkViewModel();
+      this._DrinkViewModel.OnDrinkViewModelChanged += _DrinkViewModel_OnDrinkViewModelChanged;
+      this._OrderViewModel = new OrderViewModel();
+      this._OrderViewModel.OnOrderViewModelChanged += _OrderViewModel_OnOrderViewModelChanged;
+      
 
+      // set up gui elements      
       ListView view = FindViewById<ListView>(Resource.Id.drinkListView);
       view.ItemClick += view_ItemClick;
 
-      this._SetDrinkList(ViewModel.Instance().ScfService.DrinkNames);
+      this._SetDrinkList(this._DrinkViewModel.DrinkNames);
     }
 
     void view_ItemClick(object sender, AdapterView.ItemClickEventArgs e) {
       ListView view = FindViewById<ListView>(Resource.Id.drinkListView);
-      ViewModel.Instance().ScfService.OrderDrink(view.Adapter.GetItem(e.Position).ToString());
+      this._OrderViewModel.OrderDrink(view.Adapter.GetItem(e.Position).ToString());
     }
     #endregion
 
     #region Model event handlers
-    void ScfService_OnOrderChanged(object sender, OrderChangedEventArgs e) {
+    void _OrderViewModel_OnOrderViewModelChanged(object sender, ViewModelChangedEventArgs e) {
+      string sOrderMessage = "Last order, ID: ";
+      sOrderMessage += this._OrderViewModel.CurrentOrder.OrderId;
+      sOrderMessage += " Drink: ";
+      sOrderMessage += this._OrderViewModel.CurrentOrder.DrinkName;
+      
       RunOnUiThread(() => {
         TextView text = FindViewById<TextView>(Resource.Id.txtLastOrder);
-        text.Text = "Last order, ID: " + e.Order.OrderId + " Drink: " + e.Order.DrinkName;
+        text.Text = sOrderMessage;
       });
     }
 
-    void ScfService_OnDrinkNamesChanged(object sender, DrinkNamesChangedEventArgs e) {
+    void _DrinkViewModel_OnDrinkViewModelChanged(object sender, ViewModelChangedEventArgs e) {
+      IList<string> drinkNames = this._DrinkViewModel.DrinkNames;
       RunOnUiThread(() => {
-        this._SetDrinkList(e.DrinkNames);
+        this._SetDrinkList(drinkNames);
       });
     }
 
