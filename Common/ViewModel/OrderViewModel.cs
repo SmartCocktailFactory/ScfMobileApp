@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Common.ViewModel {
-  class OrderViewModel {
+  class OrderViewModel  : IViewModel {
 
     #region Members
     private Model.IOrderService _OrderService = null;
@@ -24,7 +24,10 @@ namespace Common.ViewModel {
     #endregion
 
     #region Events
-    public event EventHandler<ViewModelChangedEventArgs> OnOrderViewModelChanged;
+    public event EventHandler<ViewModelChangedEventArgs> OnViewModelChanged;
+    public void DisposeViewModel() {
+      this._OrderService.OnOrderChanged -= this._MyService_OnOrderChanged;
+    }
     #endregion
 
     #region Constructor
@@ -52,9 +55,9 @@ namespace Common.ViewModel {
 
     #region Private methods
     private void _NotifyModelChanged() {
-      if (this.OnOrderViewModelChanged != null) {
+      if (this.OnViewModelChanged != null) {
         Task.Factory.StartNew(() => {
-          this.OnOrderViewModelChanged(this, new ViewModelChangedEventArgs());
+          this.OnViewModelChanged(this, new ViewModelChangedEventArgs());
         });
       }
     }

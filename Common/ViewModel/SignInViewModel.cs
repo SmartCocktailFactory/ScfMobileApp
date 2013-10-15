@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Common.ViewModel {
-  class SignInViewModel {
+  class SignInViewModel : IViewModel {
     #region Members
     private Model.ISignInService _SignInService;
     #endregion
@@ -26,8 +26,12 @@ namespace Common.ViewModel {
     }
     #endregion
 
-    #region Events
-    public event EventHandler<ViewModelChangedEventArgs> OnSignInViewModelChanged;
+    #region IViewModel
+    public event EventHandler<ViewModelChangedEventArgs> OnViewModelChanged;
+
+    public void DisposeViewModel() {
+      this._SignInService.OnWelcomeMessageChanged -= _MyService_OnWelcomeMessageChanged;
+    }
     #endregion
 
     #region Constructor
@@ -39,9 +43,9 @@ namespace Common.ViewModel {
 
     #region Event handlers
     void _MyService_OnWelcomeMessageChanged(object sender, Model.WelcomeMessageReceivedEventArgs e) {
-      if (this.OnSignInViewModelChanged != null) {
+      if (this.OnViewModelChanged != null) {
         Task.Factory.StartNew(() => {
-          this.OnSignInViewModelChanged(this, new ViewModelChangedEventArgs());
+          this.OnViewModelChanged(this, new ViewModelChangedEventArgs());
         });
       }
     }

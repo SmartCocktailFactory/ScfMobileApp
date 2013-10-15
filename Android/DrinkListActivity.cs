@@ -28,9 +28,9 @@ namespace ScfMobileApp.Android {
 
       // set up view models
       this._DrinkViewModel = new DrinkViewModel();
-      this._DrinkViewModel.OnDrinkViewModelChanged += _DrinkViewModel_OnDrinkViewModelChanged;
+      this._DrinkViewModel.OnViewModelChanged += _DrinkViewModel_OnDrinkViewModelChanged;
       this._OrderViewModel = new OrderViewModel();
-      this._OrderViewModel.OnOrderViewModelChanged += _OrderViewModel_OnOrderViewModelChanged;
+      this._OrderViewModel.OnViewModelChanged += _OrderViewModel_OnOrderViewModelChanged;
       
 
       // set up gui elements      
@@ -38,6 +38,13 @@ namespace ScfMobileApp.Android {
       view.ItemClick += view_ItemClick;
 
       this._SetDrinkList(this._DrinkViewModel.DrinkNames);
+    }
+
+    protected override void OnDestroy() {
+      base.OnDestroy();
+
+      this._DrinkViewModel.DisposeViewModel();
+      this._OrderViewModel.DisposeViewModel();
     }
 
     void view_ItemClick(object sender, AdapterView.ItemClickEventArgs e) {

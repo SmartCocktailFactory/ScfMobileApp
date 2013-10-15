@@ -30,8 +30,15 @@ namespace ScfMobileApp.Android {
 
       // set up view model
       this._SignInViewModel = new SignInViewModel();
-      this._SignInViewModel.OnSignInViewModelChanged += _SignInViewModel_OnSignInViewModelChanged;
+      this._SignInViewModel.OnViewModelChanged += _SignInViewModel_OnSignInViewModelChanged;
     }
+
+    protected override void OnDestroy() {
+      base.OnDestroy();
+
+      this._SignInViewModel.DisposeViewModel();
+    }
+
     #endregion
 
     #region Model event handlers

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Common.ViewModel {
-  class DrinkViewModel {
+  class DrinkViewModel : IViewModel {
 
     #region Members
     private Model.IDrinkService _DrinkService = null;
@@ -24,15 +24,20 @@ namespace Common.ViewModel {
     }
     #endregion
 
-    #region Events
-    public event EventHandler<ViewModelChangedEventArgs> OnDrinkViewModelChanged;
-    #endregion
-
     #region Constructor
     public DrinkViewModel() {
       this._DrinkService = Model.ModelFactory.Instance().DrinkService;
       this._DrinkService.OnDrinkNamesChanged += _MyService_OnDrinkNamesChanged;
       this._DrinkService.OnDrinksChanged += _MyService_OnDrinksChanged;
+    }
+    #endregion
+
+    #region IViewModel
+    public event EventHandler<ViewModelChangedEventArgs> OnViewModelChanged;
+
+    public void DisposeViewModel() {
+      this._DrinkService.OnDrinkNamesChanged -= this._MyService_OnDrinkNamesChanged;
+      this._DrinkService.OnDrinksChanged -= this._MyService_OnDrinksChanged;
     }
     #endregion
 
@@ -48,9 +53,9 @@ namespace Common.ViewModel {
 
     #region Private methods
     private void _NotifyViewModelChanged() {
-      if (this.OnDrinkViewModelChanged != null) {
+      if (this.OnViewModelChanged != null) {
         Task.Factory.StartNew(() => {
-          this.OnDrinkViewModelChanged(this, new ViewModelChangedEventArgs());
+          this.OnViewModelChanged(this, new ViewModelChangedEventArgs());
         });
       }
     }
