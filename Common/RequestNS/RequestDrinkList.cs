@@ -23,7 +23,7 @@ namespace Common.RequestNS {
 
       foreach (string s in rawDrinks) {
         ViewModel.Drink d = new ViewModel.Drink();
-        d.Name = s.Trim(' ');
+        d.Name = s.Trim(new char[]{' ', '\n'});
         drinkList.Add(d);
       }
 
