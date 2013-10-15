@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.ViewModel {
+namespace Common.Model {
   class DrinksChangedEventArgs : EventArgs {
-    public List<Drink> Drinks { get; private set; }
+    public List<ViewModel.Drink> Drinks { get; private set; }
 
-    public DrinksChangedEventArgs(IList<Drink> drinks) {
+    public DrinksChangedEventArgs(IList<ViewModel.Drink> drinks) {
       this.Drinks = drinks.ToList();
     }
   }

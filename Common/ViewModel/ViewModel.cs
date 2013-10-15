@@ -8,20 +8,20 @@ namespace Common.ViewModel {
   class ViewModel {
     #region Members
     private static ViewModel _Singleton = null;
-    private Model.ScfService _Service = null;
+    //todo private ScfVMService _VMService = null;
     #endregion
 
     #region Properties
-    public ICocktailFactory ScfService {
-      get {
-        return this._Service;
-      }
-    }
+    //public ICocktailFactory ScfService {
+    //  get {
+    //    return this._VMService;
+    //  }
+    //}
     #endregion
 
     #region Constructor
     public ViewModel() {
-      this._Service = new Model.ScfService();
+     // this._VMService = new ScfVMService();
     }
     #endregion
 
@@ -33,9 +33,9 @@ namespace Common.ViewModel {
       return ViewModel._Singleton;
     }
 
-    public ICocktailFactory GetService() {
-      return this._Service;
-    }
+    //public ICocktailFactory GetService() {
+    //  return this._VMService;
+    //}
     #endregion
   }
 }

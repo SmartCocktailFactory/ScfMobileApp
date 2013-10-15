@@ -39,7 +39,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\ScfService.cs" />
+    <Compile Include="Model\ModelFactory.cs" />
+    <Compile Include="Model\ScfSignInService.cs" />
+    <Compile Include="Model\ISignInService.cs" />
+    <Compile Include="Model\IDrinkService.cs" />
+    <Compile Include="Model\IOrderService.cs" />
+    <Compile Include="Model\ScfDrinkService.cs" />
+    <Compile Include="Model\ScfOrderService.cs" />
     <Compile Include="RequestNS\IRequestExecutor.cs" />
     <Compile Include="RequestNS\Request.cs" />
     <Compile Include="RequestNS\RequestDrinkList.cs" />
@@ -50,13 +56,12 @@
     <Compile Include="Model\RequestExecutor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\Drink.cs" />
-    <Compile Include="ViewModel\DrinkNamesChangedEventArgs.cs" />
-    <Compile Include="ViewModel\DrinksChangedEventArgs.cs" />
-    <Compile Include="ViewModel\ICocktailFactory.cs" />
+    <Compile Include="Model\DrinkNamesChangedEventArgs.cs" />
+    <Compile Include="Model\DrinksChangedEventArgs.cs" />
     <Compile Include="ViewModel\Order.cs" />
-    <Compile Include="ViewModel\OrderChangedEventArgs.cs" />
+    <Compile Include="Model\OrderChangedEventArgs.cs" />
     <Compile Include="ViewModel\ViewModel.cs" />
-    <Compile Include="ViewModel\WelcomeMessageReceivedEventArgs.cs" />
+    <Compile Include="Model\WelcomeMessageReceivedEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

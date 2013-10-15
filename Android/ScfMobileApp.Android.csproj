@@ -56,11 +56,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Common\Model\DrinkNamesChangedEventArgs.cs">
+      <Link>Model\DrinkNamesChangedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\DrinksChangedEventArgs.cs">
+      <Link>Model\DrinksChangedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\IDrinkService.cs">
+      <Link>Model\IDrinkService.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\IOrderService.cs">
+      <Link>Model\IOrderService.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\ISignInService.cs">
+      <Link>Model\ISignInService.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\ModelFactory.cs">
+      <Link>Model\ModelFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\OrderChangedEventArgs.cs">
+      <Link>Model\OrderChangedEventArgs.cs</Link>
+    </Compile>
     <Compile Include="..\Common\Model\RequestExecutor.cs">
       <Link>Model\RequestExecutor.cs</Link>
     </Compile>
-    <Compile Include="..\Common\Model\ScfService.cs">
-      <Link>Model\ScfService.cs</Link>
+    <Compile Include="..\Common\Model\ScfDrinkService.cs">
+      <Link>Model\ScfDrinkService.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\ScfOrderService.cs">
+      <Link>Model\ScfOrderService.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\ScfSignInService.cs">
+      <Link>Model\ScfSignInService.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\WelcomeMessageReceivedEventArgs.cs">
+      <Link>Model\WelcomeMessageReceivedEventArgs.cs</Link>
     </Compile>
     <Compile Include="..\Common\RequestNS\IRequestExecutor.cs">
       <Link>RequestNS\IRequestExecutor.cs</Link>
@@ -86,26 +116,11 @@
     <Compile Include="..\Common\ViewModel\Drink.cs">
       <Link>ViewModel\Drink.cs</Link>
     </Compile>
-    <Compile Include="..\Common\ViewModel\DrinkNamesChangedEventArgs.cs">
-      <Link>ViewModel\DrinkNamesChangedEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\Common\ViewModel\DrinksChangedEventArgs.cs">
-      <Link>ViewModel\DrinksChangedEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\Common\ViewModel\ICocktailFactory.cs">
-      <Link>ViewModel\ICocktailFactory.cs</Link>
-    </Compile>
     <Compile Include="..\Common\ViewModel\Order.cs">
       <Link>ViewModel\Order.cs</Link>
     </Compile>
-    <Compile Include="..\Common\ViewModel\OrderChangedEventArgs.cs">
-      <Link>ViewModel\OrderChangedEventArgs.cs</Link>
-    </Compile>
     <Compile Include="..\Common\ViewModel\ViewModel.cs">
       <Link>ViewModel\ViewModel.cs</Link>
-    </Compile>
-    <Compile Include="..\Common\ViewModel\WelcomeMessageReceivedEventArgs.cs">
-      <Link>ViewModel\WelcomeMessageReceivedEventArgs.cs</Link>
     </Compile>
     <Compile Include="Activity1.cs" />
     <Compile Include="DrinkListActivity.cs" />

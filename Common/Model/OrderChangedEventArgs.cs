@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.ViewModel {
+namespace Common.Model {
   class OrderChangedEventArgs : EventArgs {
-    public Order Order { get; private set; }
+    public Common.ViewModel.Order Order { get; private set; }
 
-    public OrderChangedEventArgs(Order order) {
+    public OrderChangedEventArgs(Common.ViewModel.Order order) {
       this.Order = order;
     }
   }
