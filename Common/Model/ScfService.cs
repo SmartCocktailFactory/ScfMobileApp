@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Common.Model {
-  class ScfService : ViewModel.ICocktailFactory {
+  class ScfService : ICocktailFactory {
 
     #region Members
     private RequestExecutor _Executor = null;
@@ -26,10 +26,10 @@ namespace Common.Model {
     #endregion
 
     #region ViewModel.ICocktailFactory
-    public event EventHandler<ViewModel.WelcomeMessageReceivedEventArgs> OnWelcomeMessageChanged;
-    public event EventHandler<ViewModel.DrinkNamesChangedEventArgs> OnDrinkNamesChanged;
-    public event EventHandler<ViewModel.DrinksChangedEventArgs> OnDrinksChanged;
-    public event EventHandler<ViewModel.OrderChangedEventArgs> OnOrderChanged;
+    public event EventHandler<WelcomeMessageReceivedEventArgs> OnWelcomeMessageChanged;
+    public event EventHandler<DrinkNamesChangedEventArgs> OnDrinkNamesChanged;
+    public event EventHandler<DrinksChangedEventArgs> OnDrinksChanged;
+    public event EventHandler<OrderChangedEventArgs> OnOrderChanged;
 
     public string WelcomeMessage {
       get {
@@ -96,7 +96,7 @@ namespace Common.Model {
     private void _NotifyWelcomeMessageChanged() {
       if (this.OnWelcomeMessageChanged != null) {
         Task.Factory.StartNew(() => {
-          this.OnWelcomeMessageChanged(this, new ViewModel.WelcomeMessageReceivedEventArgs(this._WelcomeMessage));
+          this.OnWelcomeMessageChanged(this, new WelcomeMessageReceivedEventArgs(this._WelcomeMessage));
         });
       }
     }
@@ -104,7 +104,7 @@ namespace Common.Model {
     private void _NotifyDrinkListChanged() {
       if (this.OnDrinkNamesChanged != null) {
         Task.Factory.StartNew(() => {
-          this.OnDrinkNamesChanged(this, new ViewModel.DrinkNamesChangedEventArgs(this.DrinkNames));
+          this.OnDrinkNamesChanged(this, new DrinkNamesChangedEventArgs(this.DrinkNames));
         });
       }
     }
@@ -112,7 +112,7 @@ namespace Common.Model {
     private void _NotifyOrderChanged(ViewModel.Order order) {
       if (this.OnOrderChanged != null) {
         Task.Factory.StartNew(() => {
-          this.OnOrderChanged(this, new ViewModel.OrderChangedEventArgs(order));
+          this.OnOrderChanged(this, new OrderChangedEventArgs(order));
         });
       }
     }

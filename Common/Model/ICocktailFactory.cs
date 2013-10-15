@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.ViewModel {
+namespace Common.Model {
   interface ICocktailFactory {
     #region Properties
     string WelcomeMessage { get; }
     IList<string> DrinkNames { get; }
-    IList<Drink> Drinks { get; }
-    Order CurrentOrder { get; }
+    IList<ViewModel.Drink> Drinks { get; }
+    ViewModel.Order CurrentOrder { get; }
     string ScfRemoteUrl { get; set; }
     #endregion
 
@@ -24,6 +24,5 @@ namespace Common.ViewModel {
     #region Methods
     void OrderDrink(string drinkId);
     #endregion
-
   }
 }

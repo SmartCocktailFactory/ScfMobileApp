@@ -56,11 +56,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Common\Model\DrinkNamesChangedEventArgs.cs">
+      <Link>Model\DrinkNamesChangedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\DrinksChangedEventArgs.cs">
+      <Link>Model\DrinksChangedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\ICocktailFactory.cs">
+      <Link>Model\ICocktailFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\OrderChangedEventArgs.cs">
+      <Link>Model\OrderChangedEventArgs.cs</Link>
+    </Compile>
     <Compile Include="..\Common\Model\RequestExecutor.cs">
       <Link>Model\RequestExecutor.cs</Link>
     </Compile>
     <Compile Include="..\Common\Model\ScfService.cs">
       <Link>Model\ScfService.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\ScfServiceFactory.cs">
+      <Link>Model\ScfServiceFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\WelcomeMessageReceivedEventArgs.cs">
+      <Link>Model\WelcomeMessageReceivedEventArgs.cs</Link>
     </Compile>
     <Compile Include="..\Common\RequestNS\IRequestExecutor.cs">
       <Link>RequestNS\IRequestExecutor.cs</Link>
@@ -86,26 +104,20 @@
     <Compile Include="..\Common\ViewModel\Drink.cs">
       <Link>ViewModel\Drink.cs</Link>
     </Compile>
-    <Compile Include="..\Common\ViewModel\DrinkNamesChangedEventArgs.cs">
-      <Link>ViewModel\DrinkNamesChangedEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\Common\ViewModel\DrinksChangedEventArgs.cs">
-      <Link>ViewModel\DrinksChangedEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\Common\ViewModel\ICocktailFactory.cs">
-      <Link>ViewModel\ICocktailFactory.cs</Link>
+    <Compile Include="..\Common\ViewModel\DrinkViewModel.cs">
+      <Link>ViewModel\DrinkViewModel.cs</Link>
     </Compile>
     <Compile Include="..\Common\ViewModel\Order.cs">
       <Link>ViewModel\Order.cs</Link>
     </Compile>
-    <Compile Include="..\Common\ViewModel\OrderChangedEventArgs.cs">
-      <Link>ViewModel\OrderChangedEventArgs.cs</Link>
+    <Compile Include="..\Common\ViewModel\OrderViewModel.cs">
+      <Link>ViewModel\OrderViewModel.cs</Link>
     </Compile>
-    <Compile Include="..\Common\ViewModel\ViewModel.cs">
-      <Link>ViewModel\ViewModel.cs</Link>
+    <Compile Include="..\Common\ViewModel\SignInViewModel.cs">
+      <Link>ViewModel\SignInViewModel.cs</Link>
     </Compile>
-    <Compile Include="..\Common\ViewModel\WelcomeMessageReceivedEventArgs.cs">
-      <Link>ViewModel\WelcomeMessageReceivedEventArgs.cs</Link>
+    <Compile Include="..\Common\ViewModel\ViewModelChangedEventArgs.cs">
+      <Link>ViewModel\ViewModelChangedEventArgs.cs</Link>
     </Compile>
     <Compile Include="Activity1.cs" />
     <Compile Include="DrinkListActivity.cs" />
@@ -140,7 +152,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="08d87ef2-4f72-4c6c-84b6-d47267b027cb" />
+      <UserProperties ProjectLinkReference="08d87ef2-4f72-4c6c-84b6-d47267b027cb" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

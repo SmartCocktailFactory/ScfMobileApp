@@ -13,29 +13,37 @@ using System.Collections.Generic;
 namespace ScfMobileApp.Android {
   [Activity(Label = "Smart Cocktail Facotry", MainLauncher = true, Icon = "@drawable/SCF_Logo_Android_drawable")]
   public class Activity1 : Activity {
+    #region Members
+    private SignInViewModel _SignInViewModel;
+    #endregion
 
+    #region Gui event handlers
     protected override void OnCreate(Bundle bundle) {
       base.OnCreate(bundle);
 
       // Set our view from the "main" layout resource
       SetContentView(Resource.Layout.Main);
 
-      // Get our button from the layout resource,
-      // and attach an event to it
-      Button button = FindViewById<Button>(Resource.Id.btnConnect);
-      button.Click += delegate { this._OnConnect(); };
-
+      // set up button delegates
+      FindViewById<Button>(Resource.Id.btnConnect).Click += delegate { this._OnConnect(); };
       FindViewById<Button>(Resource.Id.btnGetDrinks).Click += delegate { StartActivity(typeof(DrinkListActivity)); };
 
-
-      ViewModel.Instance().ScfService.OnWelcomeMessageChanged += _ScfService_OnWelcomeMessageChanged;
+      // set up view model
+      this._SignInViewModel = new SignInViewModel();
+      this._SignInViewModel.OnSignInViewModelChanged += _SignInViewModel_OnSignInViewModelChanged;
     }
+    #endregion
 
-    void _ScfService_OnWelcomeMessageChanged(object sender, WelcomeMessageReceivedEventArgs e) {
+    #region Model event handlers
+    void _SignInViewModel_OnSignInViewModelChanged(object sender, Common.ViewModel.ViewModelChangedEventArgs e) {
+      string message = this._SignInViewModel.WelcomeMessage;
       RunOnUiThread(() => {
-        this._SetWelcomeMessage(e.WelcomeMessage);
+        this._SetWelcomeMessage(message);
       });
     }
+    #endregion
+
+    #region Private methods
     private void _OnConnect() {
       TextView tbxServiceUrl = FindViewById<TextView>(Resource.Id.tbxServiceUrl);
 
@@ -43,8 +51,8 @@ namespace ScfMobileApp.Android {
         tbxServiceUrl.Text = "Please enter SCM URL";
         return;
       }
-      ViewModel.Instance().ScfService.ScfRemoteUrl = tbxServiceUrl.Text;
-      this._SetWelcomeMessage(ViewModel.Instance().ScfService.WelcomeMessage);
+      this._SignInViewModel.RemoteUrl = tbxServiceUrl.Text;
+      this._SetWelcomeMessage(this._SignInViewModel.WelcomeMessage);
     }
 
     private void _SetWelcomeMessage(string message) {
@@ -55,6 +63,7 @@ namespace ScfMobileApp.Android {
         FindViewById<Button>(Resource.Id.btnGetDrinks).Visibility = ViewStates.Visible;
       }
     }
+    #endregion
   }
 }
 
