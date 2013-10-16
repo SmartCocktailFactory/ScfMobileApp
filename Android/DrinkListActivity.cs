@@ -33,7 +33,7 @@ namespace ScfMobileApp.Android {
       this._OrderViewModel.OnViewModelChanged += _OrderViewModel_OnOrderViewModelChanged;
       
 
-      // set up gui elements      
+      // set up gui elements
       ListView view = FindViewById<ListView>(Resource.Id.drinkListView);
       view.ItemClick += view_ItemClick;
 
@@ -49,8 +49,10 @@ namespace ScfMobileApp.Android {
 
     void view_ItemClick(object sender, AdapterView.ItemClickEventArgs e) {
       ListView view = FindViewById<ListView>(Resource.Id.drinkListView);
+      string drinkName = view.Adapter.GetItem(e.Position).ToString();
+      string drinkId = this._DrinkViewModel.Drinks.First(x => x.Name == drinkName).DrinkId;
 
-      this._TriggerDrinkDetailsActivity(view.Adapter.GetItem(e.Position).ToString());
+      this._TriggerDrinkDetailsActivity(drinkId);
     }
     #endregion
 
