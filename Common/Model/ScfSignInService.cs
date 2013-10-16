@@ -16,17 +16,12 @@ namespace Common.Model {
     #region Model.ISignInService
 
     public event EventHandler<WelcomeMessageReceivedEventArgs> OnWelcomeMessageChanged;
-    
-    public string WelcomeMessage
-    {
-        get
-        {
-            if (string.IsNullOrEmpty(this._WelcomeMessage))
-                {
-                this._RequestWelcomeMessage();
-            }
-            return this._WelcomeMessage;
-        }
+
+    public string WelcomeMessage {
+      get {
+        this._RequestWelcomeMessage();
+        return this._WelcomeMessage;
+      }
     }
 
 
@@ -53,14 +48,12 @@ namespace Common.Model {
         }
     }
 
-      private void _RequestWelcomeMessage()
-    {
-        Task.Factory.StartNew(() =>
-        {
-            RequestNS.ARequest request = this._Factory.CreateWelcomeRequest();
-            request.OnRequestCompleted += welcomeRequest_OnRequestCompleted;
-            request.Execute();
-        });
+    private void _RequestWelcomeMessage() {
+      Task.Factory.StartNew(() => {
+        RequestNS.ARequest request = this._Factory.CreateWelcomeRequest();
+        request.OnRequestCompleted += welcomeRequest_OnRequestCompleted;
+        request.Execute();
+      });
     }
 
     #endregion

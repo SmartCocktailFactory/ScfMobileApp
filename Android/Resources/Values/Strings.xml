@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="GetDrinks">Request Drinks</string>
-  <string name="Connect">Connect to SCF</string>
-  <string name="ApplicationName">XamarinRtEST.Android</string>
+  <string name="Connecting">Connecting to SCF...</string>
+  <string name="NotConnected">Not connected to SCF</string>
+  <string name="Connect">Retry</string>
+  <string name="ApplicationName">ScfMobileApp.Android</string>
   <string name="ServiceUrl">http://192.168.1.50:12345</string>
 </resources>

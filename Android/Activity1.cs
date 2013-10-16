@@ -15,6 +15,7 @@ namespace ScfMobileApp.Android {
   public class Activity1 : Activity {
     #region Members
     private SignInViewModel _SignInViewModel;
+    private bool _ConnectedActivityTriggered = false;
     #endregion
 
     #region Gui event handlers
@@ -25,18 +26,25 @@ namespace ScfMobileApp.Android {
       SetContentView(Resource.Layout.Main);
 
       // set up button delegates
-      FindViewById<Button>(Resource.Id.btnConnect).Click += delegate { this._OnConnect(); };
-      FindViewById<Button>(Resource.Id.btnGetDrinks).Click += delegate { StartActivity(typeof(DrinkListActivity)); };
+      FindViewById<Button>(Resource.Id.btnConnect).Click += delegate { this._Connect(); };
 
       // set up view model
       this._SignInViewModel = new SignInViewModel();
       this._SignInViewModel.OnViewModelChanged += _SignInViewModel_OnSignInViewModelChanged;
+
+      this._Connect();
     }
 
     protected override void OnDestroy() {
       base.OnDestroy();
 
       this._SignInViewModel.DisposeViewModel();
+    }
+
+    protected override void OnResume() {
+      base.OnResume();
+
+      this._ConnectedActivityTriggered = false;
     }
 
     #endregion
@@ -51,26 +59,58 @@ namespace ScfMobileApp.Android {
     #endregion
 
     #region Private methods
-    private void _OnConnect() {
+    private void _Connect() {
       TextView tbxServiceUrl = FindViewById<TextView>(Resource.Id.tbxServiceUrl);
+      TextView textConnectionState = FindViewById<TextView>(Resource.Id.lblConnectStatus);
+      textConnectionState.SetText(Resource.String.Connecting);
 
       if(string.IsNullOrEmpty(tbxServiceUrl.Text)) {
         tbxServiceUrl.Text = "Please enter SCM URL";
         return;
       }
+
+      this._SetConnectingDependentWidgedVisibility(true);
       this._SignInViewModel.RemoteUrl = tbxServiceUrl.Text;
-      this._SetWelcomeMessage(this._SignInViewModel.WelcomeMessage);
+
+      string welcomeMessage = this._SignInViewModel.WelcomeMessage;
+      if (!string.IsNullOrEmpty(welcomeMessage)) {
+        this._SetWelcomeMessage(welcomeMessage);
+      }
+    }
+
+    private void _SetConnectingDependentWidgedVisibility(bool connecting) {
+      TextView tbxServiceUrl = FindViewById<TextView>(Resource.Id.tbxServiceUrl);
+      tbxServiceUrl.Enabled = !connecting;
+
+      Button btnConnect = FindViewById<Button>(Resource.Id.btnConnect);
+      ProgressBar progress = FindViewById<ProgressBar>(Resource.Id.progressBar1);
+      if (connecting == true) {
+        progress.Visibility = ViewStates.Visible;
+        btnConnect.Visibility = ViewStates.Invisible;
+      } else {
+        progress.Visibility = ViewStates.Invisible;
+        btnConnect.Visibility = ViewStates.Visible;
+      }
     }
 
     private void _SetWelcomeMessage(string message) {
-      TextView response = FindViewById<TextView>(Resource.Id.tbxResponse);
-      response.Text = message;
+      this._SetConnectingDependentWidgedVisibility(false);
+
+      TextView textConnectionState = FindViewById<TextView>(Resource.Id.lblConnectStatus);
 
       if (!string.IsNullOrEmpty(message)) {
-        FindViewById<Button>(Resource.Id.btnGetDrinks).Visibility = ViewStates.Visible;
+        textConnectionState.Text = message;
+        this._TriggerDrinkListActivity();
+        
+      }
+    }
+
+    private void _TriggerDrinkListActivity() {
+      if (this._ConnectedActivityTriggered == false) {
+        StartActivity(typeof(DrinkListActivity));
+        this._ConnectedActivityTriggered = true;
       }
     }
     #endregion
   }
 }
-

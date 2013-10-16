@@ -4,25 +4,33 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/SCF_Background_dark">
+    <TextView
+        android:id="@+id/lblConnectStatus"
+        android:text="@string/Connecting"
+        android:textSize="25sp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
     <EditText
+        android:id="@+id/tbxServiceUrl"
+        android:text="@string/ServiceUrl"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/ServiceUrl"
-        android:id="@+id/tbxServiceUrl" />
+        android:enabled="false" />
     <Button
         android:id="@+id/btnConnect"
+        android:text="@string/Connect"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Connect" />
-    <Button
-        android:id="@+id/btnGetDrinks"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/GetDrinks"
+        android:enabled="true"
         android:visibility="invisible" />
     <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
         android:id="@+id/tbxResponse"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginBottom="0.0dp" />
 </LinearLayout>

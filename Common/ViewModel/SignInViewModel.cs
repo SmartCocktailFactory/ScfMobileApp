@@ -8,12 +8,17 @@ namespace Common.ViewModel {
   class SignInViewModel : IViewModel {
     #region Members
     private Model.ISignInService _SignInService;
+    private string _CachedWelcomeMessage = string.Empty;
     #endregion
 
     #region Properties
     public string WelcomeMessage {
       get {
-        return this._SignInService.WelcomeMessage;
+        if(string.IsNullOrEmpty(this._CachedWelcomeMessage)) {
+          return this._SignInService.WelcomeMessage;
+        } else {
+          return this._CachedWelcomeMessage;
+        }
       }
     }
     public string RemoteUrl {
@@ -21,6 +26,7 @@ namespace Common.ViewModel {
         return Model.ModelFactory.Instance().RequestFactory.RemoteBaseUrl;
       }
       set {
+        this._CachedWelcomeMessage = string.Empty;
         Model.ModelFactory.Instance().RequestFactory.RemoteBaseUrl = value;
       }
     }
@@ -43,6 +49,8 @@ namespace Common.ViewModel {
 
     #region Event handlers
     void _MyService_OnWelcomeMessageChanged(object sender, Model.WelcomeMessageReceivedEventArgs e) {
+      this._CachedWelcomeMessage = e.WelcomeMessage;
+
       if (this.OnViewModelChanged != null) {
         Task.Factory.StartNew(() => {
           this.OnViewModelChanged(this, new ViewModelChangedEventArgs());
