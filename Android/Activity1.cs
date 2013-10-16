@@ -11,7 +11,7 @@ using Common.ViewModel;
 using System.Collections.Generic;
 
 namespace ScfMobileApp.Android {
-  [Activity(Label = "Smart Cocktail Facotry", MainLauncher = true, Icon = "@drawable/SCF_Logo_Android_drawable")]
+  [Activity(Label = "Smart Cocktail Factory", MainLauncher = true, Icon = "@drawable/SCF_Logo_Android_drawable")]
   public class Activity1 : Activity {
     #region Members
     private SignInViewModel _SignInViewModel;
