@@ -42,26 +42,29 @@ namespace Common.Model {
           WebRequest webRequest = HttpWebRequest.Create(_CurrentRequest.RemoteUrl);
           webRequest.ContentType = _CurrentRequest.ContentType;
           webRequest.Method = _CurrentRequest.RequestMethod;
+          webRequest.Timeout = 5000;
 
-          this._CurrentResponse = webRequest.GetResponse() as HttpWebResponse;
+          this._CurrentResponse = null;
+          try {
+            this._CurrentResponse = webRequest.GetResponse() as HttpWebResponse;
+          } catch (WebException ex) {
 
-          if (this._CurrentResponse.StatusCode != HttpStatusCode.OK) {
-            this._CurrentRequest.AddResponse("Invalid return status code: " + this._CurrentResponse.StatusCode);
           }
-          StreamReader reader = new StreamReader(this._CurrentResponse.GetResponseStream());
-          string content = reader.ReadToEnd();
-          if (string.IsNullOrWhiteSpace(content)) {
-            this._CurrentRequest.AddResponse("Response contained empty body...");
-          } else {
-            this._CurrentRequest.AddResponse(content);
+
+          if (this._CurrentResponse != null) {
+            if (this._CurrentResponse.StatusCode != HttpStatusCode.OK) {
+              this._CurrentRequest.AddResponse("Invalid return status code: " + this._CurrentResponse.StatusCode);
+            }
+            StreamReader reader = new StreamReader(this._CurrentResponse.GetResponseStream());
+            string content = reader.ReadToEnd();
+            if (string.IsNullOrWhiteSpace(content)) {
+              this._CurrentRequest.AddResponse("Response contained empty body...");
+            } else {
+              this._CurrentRequest.AddResponse(content);
+            }
           }
-          Console.WriteLine("worker thread: request is handled: " + _CurrentRequest.RemoteUrl);
-          Console.WriteLine("worker thread: number of remaining requests is: " + _theExecutor.numberOfPendingRequests());
-        }//endwhile
-        //no more requests available
-        Console.WriteLine("worker thread: no more requests available.");
+        }
       }
-      Console.WriteLine("worker thread: terminating gracefully.");
     }
 
 
