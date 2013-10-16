@@ -27,6 +27,7 @@ namespace ScfMobileApp.Android {
 
       // set up button delegates
       FindViewById<Button>(Resource.Id.btnConnect).Click += delegate { this._Connect(); };
+      FindViewById<Button>(Resource.Id.btnAbortConnect).Click += ButtonAbortConnection_Click;
 
       // set up view model
       this._SignInViewModel = new SignInViewModel();
@@ -47,6 +48,9 @@ namespace ScfMobileApp.Android {
       this._ConnectedActivityTriggered = false;
     }
 
+    private void ButtonAbortConnection_Click(object sender, EventArgs e) {
+      this._SetConnectingDependentWidgedVisibility(false);
+    }
     #endregion
 
     #region Model event handlers
