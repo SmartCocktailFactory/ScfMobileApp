@@ -16,13 +16,14 @@ namespace Common.Model {
     private HttpWebResponse _CurrentResponse = null;
     List<ARequest> _requestQueue = new List<ARequest>();
     private object _requestLock = new object();
+    private Worker _workerObject;
     #endregion
 
 
     #region Constructor
     public RequestExecutor() {
-      Worker workerObject = new Worker(this);
-      Thread workerThread = new Thread(workerObject.DoWork);
+      _workerObject = new Worker(this);
+      Thread workerThread = new Thread(_workerObject.DoWork);
       workerThread.Start();
     }
     #endregion
@@ -34,7 +35,7 @@ namespace Common.Model {
         _requestQueue.Add(request);
       }
       ///signal...
-      //end of queueing
+      _workerObject.getEvent().Set();
     }
 
     public ARequest getAndRemoveRequest() {
@@ -58,6 +59,7 @@ namespace Common.Model {
     private HttpWebResponse _CurrentResponse = null;
     private ARequest _CurrentRequest = null;
     private RequestExecutor _theExecutor;
+    static AutoResetEvent autoEvent = new AutoResetEvent(false);
     #endregion
 
     #region Constructor
@@ -73,43 +75,44 @@ namespace Common.Model {
       _shouldStop = false;
       while (!_shouldStop) {
         //wait for signal
-        //TODO
+        autoEvent.WaitOne();
         //assume at least one request is available: fetch it
-        //if possible, take a request from the list
-        while ((_CurrentRequest=_theExecutor.getAndRemoveRequest()) == null) {
-          //no request available; delay
-          Thread.Sleep(1000);
-        }
-        //a request found; handle it
-        Console.WriteLine("worker thread: fetched a request: "+ _CurrentRequest.RemoteUrl);
-        WebRequest webRequest = HttpWebRequest.Create( _CurrentRequest.RemoteUrl);
-        webRequest.ContentType = _CurrentRequest.ContentType;
-        webRequest.Method = _CurrentRequest.RequestMethod;
+        while ((_CurrentRequest = _theExecutor.getAndRemoveRequest()) != null) {
+          //a request found; handle it
+          Console.WriteLine("worker thread: fetched a request: " + _CurrentRequest.RemoteUrl);
+          WebRequest webRequest = HttpWebRequest.Create(_CurrentRequest.RemoteUrl);
+          webRequest.ContentType = _CurrentRequest.ContentType;
+          webRequest.Method = _CurrentRequest.RequestMethod;
 
-        this._CurrentResponse = webRequest.GetResponse() as HttpWebResponse;
+          this._CurrentResponse = webRequest.GetResponse() as HttpWebResponse;
 
-        if (this._CurrentResponse.StatusCode != HttpStatusCode.OK) {
-          this._CurrentRequest.AddResponse("Invalid return status code: " + this._CurrentResponse.StatusCode);
-        }
-        StreamReader reader = new StreamReader(this._CurrentResponse.GetResponseStream());
-        string content = reader.ReadToEnd();
-        if (string.IsNullOrWhiteSpace(content)) {
-          this._CurrentRequest.AddResponse("Response contained empty body...");
-        } else {
-          this._CurrentRequest.AddResponse(content);
-        }
+          if (this._CurrentResponse.StatusCode != HttpStatusCode.OK) {
+            this._CurrentRequest.AddResponse("Invalid return status code: " + this._CurrentResponse.StatusCode);
+          }
+          StreamReader reader = new StreamReader(this._CurrentResponse.GetResponseStream());
+          string content = reader.ReadToEnd();
+          if (string.IsNullOrWhiteSpace(content)) {
+            this._CurrentRequest.AddResponse("Response contained empty body...");
+          } else {
+            this._CurrentRequest.AddResponse(content);
+          }
+        }//endwhile
+        //no more requests available
+        Console.WriteLine("worker thread: no more requests available.");
       }
       Console.WriteLine("worker thread: terminating gracefully.");
     }
+
     public void RequestStop() {
       _shouldStop = true;
     }
 
+    public AutoResetEvent getEvent() {
+      return autoEvent;
+    }
 
 
-
-    // Volatile is used as hint to the compiler that this data
-    // member will be accessed by multiple threads.
+    // means to stop worker (currently unused)
     private volatile bool _shouldStop;
   }
 }
