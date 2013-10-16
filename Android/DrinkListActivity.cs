@@ -49,7 +49,8 @@ namespace ScfMobileApp.Android {
 
     void view_ItemClick(object sender, AdapterView.ItemClickEventArgs e) {
       ListView view = FindViewById<ListView>(Resource.Id.drinkListView);
-      this._OrderViewModel.OrderDrink(view.Adapter.GetItem(e.Position).ToString());
+
+      this._TriggerDrinkDetailsActivity(view.Adapter.GetItem(e.Position).ToString());
     }
     #endregion
 
@@ -76,6 +77,15 @@ namespace ScfMobileApp.Android {
     private void _SetDrinkList(IList<string> drinkNames) {
       ListView view = FindViewById<ListView>(Resource.Id.drinkListView);
       view.Adapter = new ArrayAdapter(this, Android.Resource.Layout.ListViewDataItems, drinkNames.ToArray());
+    }
+    #endregion
+
+    #region Private methods
+    private void _TriggerDrinkDetailsActivity(string drinkId) {
+      Intent drinkIntend = new Intent(this, typeof(DrinkDetailsActivity));
+      drinkIntend.PutExtra("drinkId", drinkId);
+
+      StartActivity(drinkIntend);
     }
     #endregion
   }
