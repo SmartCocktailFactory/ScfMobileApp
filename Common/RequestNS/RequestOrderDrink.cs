@@ -26,7 +26,7 @@ namespace Common.RequestNS {
       : base(baseUrl, executor) {
       this.RelativeUrl = "/orders/{0}";
       this.ContentType = "application/json";
-      this.RequestMethod = "PUT";
+      this.RequestMethod = "POST";
     }
     #endregion
 
