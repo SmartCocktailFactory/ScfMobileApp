@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\RequestWorker.cs" />
     <Compile Include="Model\ModelFactory.cs" />
     <Compile Include="Model\ScfSignInService.cs" />
     <Compile Include="Model\ISignInService.cs" />
