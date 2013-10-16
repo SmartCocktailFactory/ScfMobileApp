@@ -7,7 +7,13 @@ using System.Threading.Tasks;
 namespace Common.RequestNS {
   public abstract class ARequest {
     #region Properties
+    public string BaseUrl { get; private set; }
     public string RelativeUrl { get; protected set; }
+    public string RemoteUrl {
+      get {
+        return this.BaseUrl + this.RelativeUrl;
+      }
+    }
     public string RequestMethod { get; protected set; }
     public string ContentType { get; protected set; }
     public string Response { get; protected set; }
@@ -22,9 +28,9 @@ namespace Common.RequestNS {
     #endregion
 
     #region Constructor
-    protected ARequest(IRequestExecutor executor) {
+    protected ARequest(string baseUrl, IRequestExecutor executor) {
       this._myExecutor = executor;
-
+      this._SetBaseUrl(baseUrl);
     }
     #endregion
 
@@ -44,6 +50,14 @@ namespace Common.RequestNS {
         Task.Factory.StartNew(() => {
           this.OnRequestCompleted(this, new RequestCompletedEventArgs(this));
         });
+      }
+    }
+
+    private void _SetBaseUrl(string url) {
+      if (!url.StartsWith("http://")) {
+        this.BaseUrl = "http://" + url;
+      } else {
+        this.BaseUrl = url;
       }
     }
     #endregion

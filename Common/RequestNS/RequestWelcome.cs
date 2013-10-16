@@ -8,8 +8,8 @@ namespace Common.RequestNS {
   public class RequestWelcome : ARequest {
 
     #region Constructor
-    public RequestWelcome(IRequestExecutor executor)
-      : base(executor) {
+    public RequestWelcome(string baseUrl, IRequestExecutor executor)
+      : base(baseUrl, executor) {
       this.RelativeUrl = "";
       this.ContentType = "application/json";
       this.RequestMethod = "GET";         

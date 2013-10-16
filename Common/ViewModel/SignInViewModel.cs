@@ -18,10 +18,10 @@ namespace Common.ViewModel {
     }
     public string RemoteUrl {
       get {
-        return this._SignInService.ScfRemoteUrl;
+        return Model.ModelFactory.Instance().RequestFactory.RemoteBaseUrl;
       }
       set {
-        this._SignInService.ScfRemoteUrl = value;
+        Model.ModelFactory.Instance().RequestFactory.RemoteBaseUrl = value;
       }
     }
     #endregion

@@ -8,8 +8,8 @@ namespace Common.RequestNS {
   public class RequestDrinkList : ARequest {
 
     #region Constructor
-    public RequestDrinkList(IRequestExecutor executor)
-      : base(executor) {
+    public RequestDrinkList(string baseUrl, IRequestExecutor executor)
+      : base(baseUrl, executor) {
       this.RelativeUrl = "/drinks";
       this.ContentType = "application/json";
       this.RequestMethod = "GET";
