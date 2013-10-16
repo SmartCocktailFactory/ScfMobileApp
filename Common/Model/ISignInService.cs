@@ -10,7 +10,6 @@ namespace Common.Model
     {
         #region Properties
         string WelcomeMessage { get; }
-        string ScfRemoteUrl { get; set; }
         #endregion
 
         #region Events

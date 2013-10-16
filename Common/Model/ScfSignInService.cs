@@ -29,14 +29,6 @@ namespace Common.Model {
         }
     }
 
-    public string ScfRemoteUrl {
-      get {
-        return ModelFactory.Instance().Executor.BaseUrl;
-      }
-      set {
-        this._SetRemoteUrl(value);
-      }
-    }
 
 
 
@@ -70,12 +62,6 @@ namespace Common.Model {
             request.Execute();
         });
     }
-
-      private void _SetRemoteUrl(string remoteUrl) {
-        if (!string.Equals(this.ScfRemoteUrl, remoteUrl)) {
-          ModelFactory.Instance().Executor.BaseUrl = remoteUrl;
-        }
-      }
 
     #endregion
 
