@@ -16,8 +16,14 @@ namespace ScfMobileApp.Android {
     protected override void OnCreate(Bundle bundle) {
       base.OnCreate(bundle);
 
+      SetContentView(Resource.Layout.DrinkDetails);
+
+
       if(!string.IsNullOrEmpty(Intent.GetStringExtra("drinkId"))) {
         this.Title = Intent.GetStringExtra("drinkId");
+
+        Button orderDrink = FindViewById<Button>(Resource.Id.btnOrderDrink);
+        orderDrink.Text="Order" + Intent.GetStringExtra("drinkId");
       }
       // Create your application here
     }

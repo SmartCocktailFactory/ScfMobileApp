@@ -59,6 +59,7 @@
     <Compile Include="ViewModel\Drink.cs" />
     <Compile Include="Model\DrinkNamesChangedEventArgs.cs" />
     <Compile Include="Model\DrinksChangedEventArgs.cs" />
+    <Compile Include="ViewModel\DrinkDetailViewModel.cs" />
     <Compile Include="ViewModel\DrinkViewModel.cs" />
     <Compile Include="ViewModel\IViewModel.cs" />
     <Compile Include="ViewModel\Order.cs" />
