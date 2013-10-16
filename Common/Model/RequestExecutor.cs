@@ -34,8 +34,12 @@ namespace Common.Model {
       lock (this._requestLock) {
         _requestQueue.Add(request);
       }
-      ///signal...
+      //signal the worker thread that a request is available
       _workerObject.getEvent().Set();
+    }
+
+    public int numberOfPendingRequests() {
+      return _requestQueue.Count;
     }
 
     public ARequest getAndRemoveRequest() {
@@ -53,7 +57,7 @@ namespace Common.Model {
 
   }
 
-  //worker thread (taken from msdn)
+  //worker thread
   public class Worker {
     #region Members
     private HttpWebResponse _CurrentResponse = null;
@@ -70,16 +74,17 @@ namespace Common.Model {
 
 
 
-    // This method will be called when the thread is started.
+    // This method will be called when the worker thread is started.
     public void DoWork() {
-      _shouldStop = false;
-      while (!_shouldStop) {
-        //wait for signal
+      //forever
+      while (true) {
+        Console.WriteLine("worker thread: wait for signal");
         autoEvent.WaitOne();
-        //assume at least one request is available: fetch it
+        Console.WriteLine("worker thread: signal was set; number of requests is: " + _theExecutor.numberOfPendingRequests());
+        //assume at least one request is available: fetch the first one
         while ((_CurrentRequest = _theExecutor.getAndRemoveRequest()) != null) {
-          //a request found; handle it
-          Console.WriteLine("worker thread: fetched a request: " + _CurrentRequest.RemoteUrl);
+          //a request fetched; handle it
+          Console.WriteLine("worker thread: handle the request: " + _CurrentRequest.RemoteUrl);
           WebRequest webRequest = HttpWebRequest.Create(_CurrentRequest.RemoteUrl);
           webRequest.ContentType = _CurrentRequest.ContentType;
           webRequest.Method = _CurrentRequest.RequestMethod;
@@ -96,6 +101,8 @@ namespace Common.Model {
           } else {
             this._CurrentRequest.AddResponse(content);
           }
+          Console.WriteLine("worker thread: request is handled: " + _CurrentRequest.RemoteUrl);
+          Console.WriteLine("worker thread: number of remaining requests is: " + _theExecutor.numberOfPendingRequests());
         }//endwhile
         //no more requests available
         Console.WriteLine("worker thread: no more requests available.");
@@ -103,16 +110,10 @@ namespace Common.Model {
       Console.WriteLine("worker thread: terminating gracefully.");
     }
 
-    public void RequestStop() {
-      _shouldStop = true;
-    }
 
     public AutoResetEvent getEvent() {
       return autoEvent;
     }
 
-
-    // means to stop worker (currently unused)
-    private volatile bool _shouldStop;
   }
 }
