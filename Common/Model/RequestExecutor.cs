@@ -29,7 +29,7 @@ namespace Common.Model {
     #region Public methods
     public void Execute(ARequest request) {
       this._CurrentRequest = request;
-      WebRequest webRequest = HttpWebRequest.Create(this.BaseUrl + request.RelativeUrl);
+      WebRequest webRequest = HttpWebRequest.Create(request.RemoteUrl);
       webRequest.ContentType = request.ContentType;
       webRequest.Method = request.RequestMethod;
 
