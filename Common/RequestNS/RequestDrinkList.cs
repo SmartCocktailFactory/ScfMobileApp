@@ -19,17 +19,21 @@ namespace Common.RequestNS {
     #region Public methods
     public List<ViewModel.Drink> GetDrinks() {
       List<ViewModel.Drink> drinkList = new List<ViewModel.Drink>();
-      string[] rawDrinks = this.Response.Replace("[", "").Replace("]", "").Replace("\"", "").Split(',');
+      string[] rawDrinks = this.Response.Replace("\n", "").Replace(" ", "")
+        .Replace("[", "").Replace("]", "")
+        .Replace("{", "")
+        .Replace("\"", "").Split(new string[] {"},"}, StringSplitOptions.RemoveEmptyEntries);
 
       foreach (string s in rawDrinks) {
         ViewModel.Drink d = new ViewModel.Drink();
-        d.Name = s.Trim(new char[]{' ', '\n'});
+        string[] properties = s.Replace("}", "").Split(',');
+
+        d.DrinkId = properties[0].Remove(0, properties[0].IndexOf(':') + 1);
+        d.Name = properties[1].Remove(0, properties[1].IndexOf(':') + 1);
         drinkList.Add(d);
       }
-
       return drinkList;
     }
     #endregion
-
   }
 }
