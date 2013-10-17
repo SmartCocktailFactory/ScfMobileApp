@@ -35,9 +35,11 @@ namespace Common.Model {
       });
     }
 
-    public void UpdateOrderStatus() {
+    public void UpdateOrderStatus(string orderId) {
       Task.Factory.StartNew(() => {
-        
+        RequestNS.ARequest request = this._Factory.CreateOrderStatusRequest(orderId);
+        request.OnRequestCompleted += orderUpdaterequest_OnRequestCompleted;
+        request.Execute();
       });
     }
     #endregion
@@ -62,9 +64,20 @@ namespace Common.Model {
       order.OrderId = orderResponse.GetOrderAmount();
 
       this._CurrentOrders.Add(order);
-      this._NotifyOrderChanged(order);
+      this.UpdateOrderStatus(order.OrderId);
     }
 
+    void orderUpdaterequest_OnRequestCompleted(object sender, RequestNS.RequestCompletedEventArgs e) {
+      RequestNS.RequestOrderStatus orderStatus = e.Request as RequestNS.RequestOrderStatus;
+      ViewModel.Order editOrder = this.CurrentOrders.First(x => x.OrderId == orderStatus.OrderId);
+      ViewModel.Order updatedOrder = orderStatus.GetOrder();
+
+      editOrder.DrinkId = updatedOrder.DrinkId;
+      editOrder.ExpectedSecondsToDeliver = updatedOrder.ExpectedSecondsToDeliver;
+      editOrder.OrderStatus = updatedOrder.OrderStatus;
+
+      this._NotifyOrderChanged(editOrder);
+    }
     #endregion
   }
 }
