@@ -67,12 +67,11 @@ namespace ScfMobileApp.Android {
         sOrderMessage += "!!!!";
         _oldOrderStatus = this._OrderViewModel.CurrentOrder.OrderStatus;
       }
-//      sOrderMessage += " sec ";
       
       RunOnUiThread(() => {
         TextView text = FindViewById<TextView>(Resource.Id.txtOrderResponse);
         text.Text = sOrderMessage;
-        //text.SetTextColor = 
+        //GEHT NICHT text.SetTextColor(Android.Graphics.Color.RED //TextColor =Color.RED;
       });
 
     }
