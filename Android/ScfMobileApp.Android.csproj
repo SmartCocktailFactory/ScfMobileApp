@@ -50,8 +50,7 @@
   <ItemGroup>
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Newtonsoft.Json">
       <HintPath>..\Components\json.net-4.5.11\lib\android\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -116,6 +115,9 @@
     </Compile>
     <Compile Include="..\Common\RequestNS\RequestOrderDrink.cs">
       <Link>RequestNS\RequestOrderDrink.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\RequestNS\RequestOrderStatus.cs">
+      <Link>RequestNS\RequestOrderStatus.cs</Link>
     </Compile>
     <Compile Include="..\Common\RequestNS\RequestWelcome.cs">
       <Link>RequestNS\RequestWelcome.cs</Link>
@@ -189,7 +191,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ProjectLinkReference="08d87ef2-4f72-4c6c-84b6-d47267b027cb" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
+      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="08d87ef2-4f72-4c6c-84b6-d47267b027cb" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

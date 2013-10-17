@@ -10,6 +10,7 @@ namespace Common.Model {
 
     #region Members
     private RequestNS.RequestFactory _Factory = null;
+    private List<ViewModel.Order> _CurrentOrders = new List<ViewModel.Order>();
     #endregion
 
     #region Constructor
@@ -22,18 +23,21 @@ namespace Common.Model {
 
     public event EventHandler<OrderChangedEventArgs> OnOrderChanged;
 
-
-
-    public ViewModel.Order CurrentOrder {
-      get { throw new NotImplementedException(); }
+    public IList<ViewModel.Order> CurrentOrders {
+      get { return this._CurrentOrders; }
     }
-
 
     public void OrderDrink(string drinkId) {
       Task.Factory.StartNew(() => {
         RequestNS.ARequest request = this._Factory.CreateOrderDrinkRequest(drinkId);
         request.OnRequestCompleted += orderRequest_OnRequestCompleted;
         request.Execute();
+      });
+    }
+
+    public void UpdateOrderStatus() {
+      Task.Factory.StartNew(() => {
+        
       });
     }
     #endregion
@@ -55,10 +59,9 @@ namespace Common.Model {
     void orderRequest_OnRequestCompleted(object sender, RequestNS.RequestCompletedEventArgs e) {
       RequestNS.RequestOrderDrink orderResponse = e.Request as RequestNS.RequestOrderDrink;
       ViewModel.Order order = new ViewModel.Order();
-      order.DrinkName = orderResponse.DrinkId;
       order.OrderId = orderResponse.GetOrderAmount();
-      order.ExpectedTimeToDeliver = new TimeSpan(0, 1, 23);
 
+      this._CurrentOrders.Add(order);
       this._NotifyOrderChanged(order);
     }
 

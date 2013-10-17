@@ -30,5 +30,10 @@ namespace Common.RequestNS {
       return order;
     }
 
+    public ARequest CreateOrderStatusRequest(string orderId) {
+      RequestOrderStatus order = new RequestOrderStatus(this.RemoteBaseUrl, this.Executor);
+      order.OrderId = orderId;
+      return order;
+    }
   }
 }

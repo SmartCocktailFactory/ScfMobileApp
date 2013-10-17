@@ -53,6 +53,7 @@
     <Compile Include="RequestNS\RequestEventArgs.cs" />
     <Compile Include="RequestNS\RequestFactory.cs" />
     <Compile Include="RequestNS\RequestOrderDrink.cs" />
+    <Compile Include="RequestNS\RequestOrderStatus.cs" />
     <Compile Include="RequestNS\RequestWelcome.cs" />
     <Compile Include="Model\RequestExecutor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
