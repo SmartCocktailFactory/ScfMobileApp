@@ -3,19 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 
 namespace Common.Model {
   class ScfOrderService : IOrderService {
 
     #region Members
+    private const int UpdateIntervalMs = 10000;
     private RequestNS.RequestFactory _Factory = null;
     private List<ViewModel.Order> _CurrentOrders = new List<ViewModel.Order>();
+    private Timer _OrderUpdateTick;
     #endregion
 
     #region Constructor
     public ScfOrderService(RequestNS.RequestFactory requestFactory) {
       this._Factory = requestFactory;
+
+      this._OrderUpdateTick = new Timer(UpdateIntervalMs);
+      this._OrderUpdateTick.Elapsed += _OrderUpdateTick_Elapsed;
+      this._OrderUpdateTick.Enabled = true;
     }
     #endregion
 
@@ -54,6 +61,9 @@ namespace Common.Model {
       }
     }
 
+    private List<string> _GetUncompletedOrderIds() {
+      return this.CurrentOrders.Where(x => x.ExpectedSecondsToDeliver > 0).Select(x => x.OrderId).ToList();
+    }
     #endregion
 
     #region Event handlers
@@ -69,14 +79,27 @@ namespace Common.Model {
 
     void orderUpdaterequest_OnRequestCompleted(object sender, RequestNS.RequestCompletedEventArgs e) {
       RequestNS.RequestOrderStatus orderStatus = e.Request as RequestNS.RequestOrderStatus;
-      ViewModel.Order editOrder = this.CurrentOrders.First(x => x.OrderId == orderStatus.OrderId);
-      ViewModel.Order updatedOrder = orderStatus.GetOrder();
+      try {
+        ViewModel.Order editOrder = this.CurrentOrders.First(x => x.OrderId == orderStatus.OrderId);
 
-      editOrder.DrinkId = updatedOrder.DrinkId;
-      editOrder.ExpectedSecondsToDeliver = updatedOrder.ExpectedSecondsToDeliver;
-      editOrder.OrderStatus = updatedOrder.OrderStatus;
+        ViewModel.Order updatedOrder = orderStatus.GetOrder();
 
-      this._NotifyOrderChanged(editOrder);
+        editOrder.DrinkId = updatedOrder.DrinkId;
+        editOrder.ExpectedSecondsToDeliver = updatedOrder.ExpectedSecondsToDeliver;
+        editOrder.OrderStatus = updatedOrder.OrderStatus;
+
+        this._NotifyOrderChanged(editOrder);
+      } catch (InvalidOperationException) {
+      } catch (ArgumentNullException) {
+      }
+    }
+
+    void _OrderUpdateTick_Elapsed(object sender, ElapsedEventArgs e) {
+      List<string> uncompletedOrderIds = this._GetUncompletedOrderIds();
+
+      foreach (string orderId in uncompletedOrderIds) {
+        this.UpdateOrderStatus(orderId);
+      }
     }
     #endregion
   }
