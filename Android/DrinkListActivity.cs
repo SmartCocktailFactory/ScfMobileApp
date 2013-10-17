@@ -52,7 +52,7 @@ namespace ScfMobileApp.Android {
       string drinkName = view.Adapter.GetItem(e.Position).ToString();
       string drinkId = this._DrinkViewModel.Drinks.First(x => x.Name == drinkName).DrinkId;
 
-      this._TriggerDrinkDetailsActivity(drinkId);
+      this._TriggerDrinkDetailsActivity(drinkId, drinkName);
     }
     #endregion
 
@@ -83,9 +83,10 @@ namespace ScfMobileApp.Android {
     #endregion
 
     #region Private methods
-    private void _TriggerDrinkDetailsActivity(string drinkId) {
+    private void _TriggerDrinkDetailsActivity(string drinkId, string drinkName) {
       Intent drinkIntend = new Intent(this, typeof(DrinkDetailsActivity));
       drinkIntend.PutExtra("drinkId", drinkId);
+      drinkIntend.PutExtra("drinkName", drinkName);
 
       StartActivity(drinkIntend);
     }

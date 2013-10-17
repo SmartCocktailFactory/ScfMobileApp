@@ -19,6 +19,7 @@ namespace ScfMobileApp.Android {
     
     #region Members
     private string _drinkId = null;
+    private string _drinkName = null;
     private OrderViewModel _OrderViewModel;
     #endregion
 
@@ -28,12 +29,14 @@ namespace ScfMobileApp.Android {
 
       SetContentView(Resource.Layout.DrinkDetails);
 
-        _drinkId = Intent.GetStringExtra("drinkId");
-        if (!string.IsNullOrEmpty(_drinkId)) {
+      _drinkId = Intent.GetStringExtra("drinkId");
+      _drinkName = Intent.GetStringExtra("drinkName");
+      if (!string.IsNullOrEmpty(_drinkId)) {
         this.Title = _drinkId;
 
         Button orderDrink = FindViewById<Button>(Resource.Id.btnOrderDrink);
-        orderDrink.Text = "Order " + _drinkId;
+        orderDrink.Text = "Order " + _drinkName + " (" + _drinkId + ")";
+
         orderDrink.Click += ButtonOrderDrink_Click;
 
         this._OrderViewModel = new OrderViewModel();
