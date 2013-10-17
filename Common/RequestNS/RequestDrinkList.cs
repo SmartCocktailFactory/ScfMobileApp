@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 namespace Common.RequestNS {
   public class RequestDrinkList : ARequest {
 
@@ -19,17 +22,12 @@ namespace Common.RequestNS {
     #region Public methods
     public List<ViewModel.Drink> GetDrinks() {
       List<ViewModel.Drink> drinkList = new List<ViewModel.Drink>();
-      string[] rawDrinks = this.Response.Replace("\n", "").Replace(" ", "")
-        .Replace("[", "").Replace("]", "")
-        .Replace("{", "")
-        .Replace("\"", "").Split(new string[] {"},"}, StringSplitOptions.RemoveEmptyEntries);
+      var rawDrinks = JObject.Parse(this.Response);
 
-      foreach (string s in rawDrinks) {
+      foreach (var drink in rawDrinks["drinks"]) {
         ViewModel.Drink d = new ViewModel.Drink();
-        string[] properties = s.Replace("}", "").Split(',');
-
-        d.DrinkId = properties[0].Remove(0, properties[0].IndexOf(':') + 1);
-        d.Name = properties[1].Remove(0, properties[1].IndexOf(':') + 1);
+        d.DrinkId = drink["id"].ToString();
+        d.Name = drink["name"].ToString();
         drinkList.Add(d);
       }
       return drinkList;
