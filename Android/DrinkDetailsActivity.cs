@@ -21,6 +21,7 @@ namespace ScfMobileApp.Android {
     private string _drinkId = null;
     private string _drinkName = null;
     private OrderViewModel _OrderViewModel;
+    //static private int _oldOrderStatus;
     #endregion
 
     #region GUI event handlers
@@ -35,7 +36,7 @@ namespace ScfMobileApp.Android {
         this.Title = _drinkId;
 
         Button orderDrink = FindViewById<Button>(Resource.Id.btnOrderDrink);
-        orderDrink.Text = "Order " + _drinkName + " (" + _drinkId + ")";
+        orderDrink.Text = "Order " + _drinkName;
 
         orderDrink.Click += ButtonOrderDrink_Click;
 
@@ -57,7 +58,10 @@ namespace ScfMobileApp.Android {
             string sOrderMessage = "Last order, ID: ";
       sOrderMessage += this._OrderViewModel.CurrentOrder.OrderId;
       sOrderMessage += " Drink: ";
-      sOrderMessage += this._OrderViewModel.CurrentOrder.DrinkName;
+      sOrderMessage += this._OrderViewModel.CurrentOrder.DrinkId;
+      sOrderMessage += " Due in ";
+      sOrderMessage += this._OrderViewModel.CurrentOrder.ExpectedSecondsToDeliver;
+      sOrderMessage += " sec ";
       
       RunOnUiThread(() => {
         TextView text = FindViewById<TextView>(Resource.Id.txtOrderResponse);
