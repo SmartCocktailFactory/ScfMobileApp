@@ -21,7 +21,7 @@ namespace ScfMobileApp.Android {
     private string _drinkId = null;
     private string _drinkName = null;
     private OrderViewModel _OrderViewModel;
-    //static private int _oldOrderStatus;
+    static private string _oldOrderStatus = null;
     #endregion
 
     #region GUI event handlers
@@ -61,11 +61,18 @@ namespace ScfMobileApp.Android {
       sOrderMessage += this._OrderViewModel.CurrentOrder.DrinkId;
       sOrderMessage += " Due in ";
       sOrderMessage += this._OrderViewModel.CurrentOrder.ExpectedSecondsToDeliver;
-      sOrderMessage += " sec ";
+      sOrderMessage += " sec; Status: ";
+      sOrderMessage += this._OrderViewModel.CurrentOrder.OrderStatus;
+      if (this._OrderViewModel.CurrentOrder.OrderStatus != _oldOrderStatus) {
+        sOrderMessage += "!!!!";
+        _oldOrderStatus = this._OrderViewModel.CurrentOrder.OrderStatus;
+      }
+//      sOrderMessage += " sec ";
       
       RunOnUiThread(() => {
         TextView text = FindViewById<TextView>(Resource.Id.txtOrderResponse);
         text.Text = sOrderMessage;
+        //text.SetTextColor = 
       });
 
     }

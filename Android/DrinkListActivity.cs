@@ -64,7 +64,8 @@ namespace ScfMobileApp.Android {
       sOrderMessage += this._OrderViewModel.CurrentOrder.DrinkId;
       sOrderMessage += " Due in ";
       sOrderMessage += this._OrderViewModel.CurrentOrder.ExpectedSecondsToDeliver;
-      sOrderMessage += " sec ";
+      sOrderMessage += " sec; Status: ";
+      sOrderMessage += this._OrderViewModel.CurrentOrder.OrderStatus;
       
       RunOnUiThread(() => {
         TextView text = FindViewById<TextView>(Resource.Id.txtLastOrder);
