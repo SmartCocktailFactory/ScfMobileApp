@@ -28,6 +28,7 @@ namespace Common.ViewModel {
       set {
         this._CachedWelcomeMessage = string.Empty;
         Model.ModelFactory.Instance().RequestFactory.RemoteBaseUrl = value;
+        Model.ModelFactory.Instance().ResetServices();
       }
     }
     #endregion

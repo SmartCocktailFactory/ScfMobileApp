@@ -23,15 +23,17 @@ namespace Common.Model {
         return this._WelcomeMessage;
       }
     }
-
-
-
-
     #endregion
 
     #region Constructor
     public ScfSignInService(RequestNS.RequestFactory requestFactory) {
       this._Factory = requestFactory;
+    }
+    #endregion
+
+    #region Public methods
+    public void ResetService() {
+      this._WelcomeMessage = string.Empty;
     }
     #endregion
 

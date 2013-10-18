@@ -40,6 +40,12 @@ namespace Common.Model {
     }
     #endregion
 
+    #region Public methods
+    public void ResetService() {
+      this._Drinks = new List<ViewModel.Drink>();
+    }
+    #endregion
+
     #region Private methods
 
     private void _RequestDrinks() {

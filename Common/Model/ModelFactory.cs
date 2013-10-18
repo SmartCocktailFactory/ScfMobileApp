@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 
 namespace Common.Model{
-    class ModelFactory {
+  class ModelFactory {
 
     #region Members
     private static ModelFactory _Singleton = null;
     #endregion
 
     #region Properties
-    public ScfDrinkService DrinkService { get; private set;}
+    public ScfDrinkService DrinkService { get; private set; }
     public ScfOrderService OrderService { get; private set; }
     public ScfSignInService SignInService { get; private set; }
     public RequestExecutor Executor { get; private set; }
@@ -38,6 +38,12 @@ namespace Common.Model{
       }
       return ModelFactory._Singleton;
     }
-    #endregion
+
+    public void ResetServices() {
+      this.DrinkService.ResetService();
+      this.OrderService.ResetService();
+      this.SignInService.ResetService();
     }
+    #endregion
+  }
 }
