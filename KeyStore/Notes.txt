@@ -1,0 +1,3 @@
+Keystore PW: SmartCocktailFactory
+Key:  ScfDemoKey
+PW:   SmartCocktailFactory
