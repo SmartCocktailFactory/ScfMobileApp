@@ -5,5 +5,5 @@
   <string name="AbortConnect">Abort</string>
   <string name="Connect">Retry</string>
   <string name="ApplicationName">ScfMobileApp.Android</string>
-  <string name="ServiceUrl">http://192.168.1.50:12345</string>
+  <string name="ServiceUrl">http://192.168.1.40:12345</string>
 </resources>
