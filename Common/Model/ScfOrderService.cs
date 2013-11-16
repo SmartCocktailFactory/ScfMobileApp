@@ -12,7 +12,7 @@ namespace Common.Model {
     #region Members
     private const int UpdateIntervalMs = 10000;
     private RequestNS.RequestFactory _Factory = null;
-    private List<ViewModel.Order> _CurrentOrders = new List<ViewModel.Order>();
+		private List<DTO.Order> _CurrentOrders = new List<DTO.Order>();
     private Timer _OrderUpdateTick;
     #endregion
 
@@ -30,7 +30,7 @@ namespace Common.Model {
 
     public event EventHandler<OrderChangedEventArgs> OnOrderChanged;
 
-    public IList<ViewModel.Order> CurrentOrders {
+		public IList<DTO.Order> CurrentOrders {
       get { return this._CurrentOrders; }
     }
 
@@ -53,13 +53,13 @@ namespace Common.Model {
 
     #region Public methods
     public void ResetService() {
-      this._CurrentOrders = new List<ViewModel.Order>();
+			this._CurrentOrders = new List<DTO.Order>();
     }
     #endregion
 
     #region Private methods
 
-    private void _NotifyOrderChanged(ViewModel.Order order) {
+		private void _NotifyOrderChanged(DTO.Order order) {
       if (this.OnOrderChanged != null) {
         Task.Factory.StartNew(() => {
           this.OnOrderChanged(this, new OrderChangedEventArgs(order));
@@ -76,7 +76,7 @@ namespace Common.Model {
 
     void orderRequest_OnRequestCompleted(object sender, RequestNS.RequestCompletedEventArgs e) {
       RequestNS.RequestOrderDrink orderResponse = e.Request as RequestNS.RequestOrderDrink;
-      ViewModel.Order order = new ViewModel.Order();
+			DTO.Order order = new DTO.Order();
       order.OrderId = orderResponse.GetOrderAmount();
 
       this._CurrentOrders.Add(order);
@@ -86,9 +86,9 @@ namespace Common.Model {
     void orderUpdaterequest_OnRequestCompleted(object sender, RequestNS.RequestCompletedEventArgs e) {
       RequestNS.RequestOrderStatus orderStatus = e.Request as RequestNS.RequestOrderStatus;
       try {
-        ViewModel.Order editOrder = this.CurrentOrders.First(x => x.OrderId == orderStatus.OrderId);
+				DTO.Order editOrder = this.CurrentOrders.First(x => x.OrderId == orderStatus.OrderId);
 
-        ViewModel.Order updatedOrder = orderStatus.GetOrder();
+				DTO.Order updatedOrder = orderStatus.GetOrder();
 
         editOrder.DrinkId = updatedOrder.DrinkId;
         editOrder.ExpectedSecondsToDeliver = updatedOrder.ExpectedSecondsToDeliver;

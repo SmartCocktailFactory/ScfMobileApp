@@ -10,7 +10,7 @@ namespace Common.Model
     {
         #region Properties
         IList<string> DrinkNames { get; }
-        IList<ViewModel.Drink> Drinks { get; }
+		IList<DTO.Drink> Drinks { get; }
         #endregion
 
         #region Events

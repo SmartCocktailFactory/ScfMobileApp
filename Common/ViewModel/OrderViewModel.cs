@@ -9,12 +9,12 @@ namespace Common.ViewModel {
 
     #region Members
     private Model.IOrderService _OrderService = null;
-    private Order _CurrentOrder = new Order();
+		private DTO.Order _CurrentOrder = new DTO.Order();
     private object _OrderLock = new object();
     #endregion
 
     #region Properties
-    public Order CurrentOrder {
+		public DTO.Order CurrentOrder {
       get {
         lock (this._OrderLock) {
           return _CurrentOrder;

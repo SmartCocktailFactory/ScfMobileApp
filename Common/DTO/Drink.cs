@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.ViewModel {
+namespace Common.DTO {
   public class Drink {
     #region Properties
     public string DrinkId { get; set; }

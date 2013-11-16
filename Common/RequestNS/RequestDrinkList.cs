@@ -20,12 +20,12 @@ namespace Common.RequestNS {
     #endregion
 
     #region Public methods
-    public List<ViewModel.Drink> GetDrinks() {
-      List<ViewModel.Drink> drinkList = new List<ViewModel.Drink>();
+		public List<DTO.Drink> GetDrinks() {
+			List<DTO.Drink> drinkList = new List<DTO.Drink>();
       var rawDrinks = JObject.Parse(this.Response);
 
       foreach (var drink in rawDrinks["drinks"]) {
-        ViewModel.Drink d = new ViewModel.Drink();
+				DTO.Drink d = new DTO.Drink();
         d.DrinkId = drink["id"].ToString();
         d.Name = drink["name"].ToString();
         drinkList.Add(d);

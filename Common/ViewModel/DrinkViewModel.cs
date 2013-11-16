@@ -17,7 +17,7 @@ namespace Common.ViewModel {
         return this._DrinkService.DrinkNames;
       }
     }
-    public IList<Drink> Drinks {
+		public IList<DTO.Drink> Drinks {
       get {
         return this._DrinkService.Drinks;
       }

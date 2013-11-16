@@ -10,11 +10,11 @@ namespace Common.Model {
 
     #region Members
     private RequestNS.RequestFactory _Factory = null;
-    List<ViewModel.Drink> _Drinks = new List<ViewModel.Drink>();
+		List<DTO.Drink> _Drinks = new List<DTO.Drink>();
     #endregion
 
     #region Properties
-    public IList<ViewModel.Drink> Drinks {
+		public IList<DTO.Drink> Drinks {
       get {
         if (this._Drinks.Count == 0) {
           this._RequestDrinks();
@@ -42,7 +42,7 @@ namespace Common.Model {
 
     #region Public methods
     public void ResetService() {
-      this._Drinks = new List<ViewModel.Drink>();
+			this._Drinks = new List<DTO.Drink>();
     }
     #endregion
 

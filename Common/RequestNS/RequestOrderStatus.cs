@@ -33,8 +33,8 @@ namespace Common.RequestNS {
     #endregion
 
     #region Public method
-    public ViewModel.Order GetOrder() {
-      ViewModel.Order order = new ViewModel.Order();
+		public DTO.Order GetOrder() {
+			DTO.Order order = new DTO.Order();
       var rawOrder = JObject.Parse(this.Response);
       int seconds = 0;
 
