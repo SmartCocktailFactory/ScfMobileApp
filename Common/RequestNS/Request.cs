@@ -5,6 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Common.RequestNS {
+
+  public enum RequestStates {
+    Created,
+    Executing,
+    Successful,
+    Error
+  }
+
   public abstract class ARequest {
     #region Properties
     public string BaseUrl { get; private set; }
@@ -17,6 +25,12 @@ namespace Common.RequestNS {
     public string RequestMethod { get; protected set; }
     public string ContentType { get; protected set; }
     public string Response { get; protected set; }
+    public RequestStates State { get; protected set; }
+    public bool SuccessfulExecuted {
+      get {
+        return this.State == RequestStates.Successful;
+      }
+    }
     #endregion
 
     #region Events
@@ -29,6 +43,7 @@ namespace Common.RequestNS {
 
     #region Constructor
     protected ARequest(string baseUrl, IRequestExecutor executor) {
+      this.State = RequestStates.Created;
       this._myExecutor = executor;
       this._SetBaseUrl(baseUrl);
     }
@@ -36,9 +51,17 @@ namespace Common.RequestNS {
 
     #region Public methods
     public virtual void Execute() {
+      this.State = RequestStates.Executing;
       this._myExecutor.Execute(this);
     }
-    public void AddResponse(string response) {
+    public virtual void AddResponse(string response) {
+      this.State = RequestStates.Successful;
+      this.Response += response;
+      this._NotifyExecuted();
+    }
+
+    public virtual void SetRequestFailed(string response) {
+      this.State = RequestStates.Error;
       this.Response += response;
       this._NotifyExecuted();
     }

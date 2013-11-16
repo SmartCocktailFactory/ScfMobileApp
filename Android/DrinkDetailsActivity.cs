@@ -18,10 +18,8 @@ namespace ScfMobileApp.Android {
   public class DrinkDetailsActivity : Activity {
     
     #region Members
-    private string _drinkId = null;
-    private string _drinkName = null;
-    private OrderViewModel _OrderViewModel;
-    static private string _oldOrderStatus = null;
+    private string _DrinkId = null;
+    private DrinkDetailViewModel _DrinkDetailsViewModel;
     #endregion
 
     #region GUI event handlers
@@ -30,56 +28,63 @@ namespace ScfMobileApp.Android {
 
       SetContentView(Resource.Layout.DrinkDetails);
 
-      _drinkId = Intent.GetStringExtra("drinkId");
-      _drinkName = Intent.GetStringExtra("drinkName");
-      if (!string.IsNullOrEmpty(_drinkId)) {
-        this.Title = _drinkId;
+      this._DrinkDetailsViewModel = new DrinkDetailViewModel();
+      this._DrinkDetailsViewModel.OnViewModelChanged += _DrinkDetailsViewModel_OnViewModelChanged;
 
+      this._DrinkId = Intent.GetStringExtra("drinkId");
+
+      if(!string.IsNullOrEmpty(_DrinkId)) {
         Button orderDrink = FindViewById<Button>(Resource.Id.btnOrderDrink);
-        orderDrink.Text = "Order " + _drinkName;
-
         orderDrink.Click += ButtonOrderDrink_Click;
 
-        this._OrderViewModel = new OrderViewModel();
-
-        this._OrderViewModel.OnViewModelChanged += _OrderViewModel_OnViewModelChanged;
-
-
-      } else {
-        //activity is useless; finish it
-        Console.WriteLine("can't get drinkId. Result: " +_drinkId);
-        Finish();
+        this._UpdateDrink();
       }
-      // Create your application here
     }
 
-    void _OrderViewModel_OnViewModelChanged(object sender, ViewModelChangedEventArgs e) {
+    protected override void OnDestroy() {
+      this._DrinkDetailsViewModel.OnViewModelChanged -= _DrinkDetailsViewModel_OnViewModelChanged;
+      this._DrinkDetailsViewModel.DisposeViewModel();
 
-            string sOrderMessage = "Last order, ID: ";
-      sOrderMessage += this._OrderViewModel.CurrentOrder.OrderId;
-      sOrderMessage += " Drink: ";
-      sOrderMessage += this._OrderViewModel.CurrentOrder.DrinkId;
-      sOrderMessage += " Due in ";
-      sOrderMessage += this._OrderViewModel.CurrentOrder.ExpectedSecondsToDeliver;
-      sOrderMessage += " sec; Status: ";
-      sOrderMessage += this._OrderViewModel.CurrentOrder.OrderStatus;
-      if (this._OrderViewModel.CurrentOrder.OrderStatus != _oldOrderStatus) {
-        sOrderMessage += "!!!!";
-        _oldOrderStatus = this._OrderViewModel.CurrentOrder.OrderStatus;
-      }
-      
-      RunOnUiThread(() => {
-        TextView text = FindViewById<TextView>(Resource.Id.txtOrderResponse);
-        text.Text = sOrderMessage;
-        //GEHT NICHT text.SetTextColor(Android.Graphics.Color.RED //TextColor =Color.RED;
+      base.OnDestroy();
+    }
+
+    void _DrinkDetailsViewModel_OnViewModelChanged(object sender, ViewModelChangedEventArgs e) {
+      this.RunOnUiThread(() => {
+        this._UpdateDrink();
       });
-
     }
 
     private void ButtonOrderDrink_Click(object sender, EventArgs e) {
-      this._OrderViewModel.OrderDrink(_drinkId);    
+      this._DrinkDetailsViewModel.OrderDrink(this._DrinkId);
+      this._TriggerOrderistActivity();
     }
-  #endregion
+    #endregion
 
+    #region Private mehtods
+    private void _UpdateDrink() {
+      Common.DTO.Drink drink = this._DrinkDetailsViewModel.GetDrink(this._DrinkId);
+      this.Title = drink.Name;
+      TextView txtDrinkDetails = FindViewById<TextView>(Resource.Id.txtDrinkDetails);
+      txtDrinkDetails.Text = drink.Description;
+      txtDrinkDetails.Text += "\nRecipe:" + drink.Recipe.Replace("[", "").Replace("]", "").Replace(",", "").Replace("\"", "");
+      ;
+
+      Button orderDrink = FindViewById<Button>(Resource.Id.btnOrderDrink);
+
+      string drinkName = drink.Name;
+      if (drinkName.Contains('(')) {
+        drinkName = drinkName.Remove(drinkName.IndexOf('(') - 1);
+      }
+
+      orderDrink.Text = "Order '" + drinkName + "'";
+    }
+
+    private void _TriggerOrderistActivity() {
+      Intent orderIntend = new Intent(this, typeof(OrderListActivity));
+
+      StartActivity(orderIntend);
+    }
+
+    #endregion
   }
 }

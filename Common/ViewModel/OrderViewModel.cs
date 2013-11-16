@@ -9,35 +9,54 @@ namespace Common.ViewModel {
 
     #region Members
     private Model.IOrderService _OrderService = null;
-    private Order _CurrentOrder = new Order();
+    private Model.IDrinkService _DrinkService = null;
+		private DTO.Order _CurrentOrder = null;
     private object _OrderLock = new object();
     #endregion
 
     #region Properties
-    public Order CurrentOrder {
+		public DTO.Order CurrentOrder {
       get {
         lock (this._OrderLock) {
           return _CurrentOrder;
         }
       }
     }
+    public IList<DTO.Order> PendingOrders {
+      get {
+        return this._OrderService.CurrentOrders.Where(x => x.OrderStateId == DTO.StateId.Pending).ToList();
+      }
+    }
+    public IList<DTO.Order> CompletedOrders {
+      get {
+        return this._OrderService.CurrentOrders.Where(x => x.OrderStateId == DTO.StateId.Completed).ToList();
+      }
+    }
+    public IList<OrderDetails> DetailedOrders {
+      get {
+        return this._GetDetailedOrder();
+      }
+    }
     #endregion
 
     #region Events
     public event EventHandler<ViewModelChangedEventArgs> OnViewModelChanged;
-    public void DisposeViewModel() {
-      this._OrderService.OnOrderChanged -= this._MyService_OnOrderChanged;
-    }
     #endregion
 
     #region Constructor
     public OrderViewModel() {
       this._OrderService = Model.ModelFactory.Instance().OrderService;
       this._OrderService.OnOrderChanged += _MyService_OnOrderChanged;
+
+      this._DrinkService = Model.ModelFactory.Instance().DrinkService;
     }
     #endregion
 
     #region Public methods
+    public void DisposeViewModel() {
+      this._OrderService.OnOrderChanged -= this._MyService_OnOrderChanged;
+    }
+
     public void OrderDrink(string drinkId) {
       this._OrderService.OrderDrink(drinkId);
     }
@@ -45,9 +64,7 @@ namespace Common.ViewModel {
 
     #region Event handlers
     void _MyService_OnOrderChanged(object sender, Model.OrderChangedEventArgs e) {
-      lock (this._OrderLock) {
-        this._CurrentOrder = e.Order;
-      }
+      this._UpdateCurrentOrder(e.Order);
 
       this._NotifyModelChanged();
     }
@@ -60,6 +77,33 @@ namespace Common.ViewModel {
           this.OnViewModelChanged(this, new ViewModelChangedEventArgs());
         });
       }
+    }
+
+    private void _UpdateCurrentOrder(DTO.Order incomminCorder) {
+      if (this._CurrentOrder != null) {
+        if(this._CurrentOrder.OrderId == incomminCorder.OrderId) {
+          if (incomminCorder.OrderStateId != DTO.StateId.InProgress) {
+            this._CurrentOrder = null;
+          }
+        }
+      }
+
+      if (incomminCorder.OrderStateId == DTO.StateId.InProgress) {
+        this._CurrentOrder = incomminCorder;
+      }
+    }
+
+    private IList<OrderDetails> _GetDetailedOrder() {
+      List<OrderDetails> lstOrderDetails = new List<OrderDetails>();
+      IList<DTO.Order> orders = this._OrderService.CurrentOrders.OrderBy(x => x.ExpectedSecondsToDeliver).ToList();
+      OrderDetails details;
+
+      foreach (DTO.Order curOrder in orders) {
+        details = new OrderDetails(this._DrinkService.GetDrink(curOrder.DrinkId), curOrder);
+        lstOrderDetails.Add(details);
+      }
+
+      return lstOrderDetails;
     }
     #endregion
   }

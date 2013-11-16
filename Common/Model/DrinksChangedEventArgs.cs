@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Common.Model {
-  class DrinksChangedEventArgs : EventArgs {
-    public List<ViewModel.Drink> Drinks { get; private set; }
+  public class DrinksChangedEventArgs : EventArgs {
+		public List<DTO.Drink> Drinks { get; private set; }
 
-    public DrinksChangedEventArgs(IList<ViewModel.Drink> drinks) {
+		public DrinksChangedEventArgs(IList<DTO.Drink> drinks) {
       this.Drinks = drinks.ToList();
     }
   }

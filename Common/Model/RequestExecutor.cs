@@ -13,17 +13,16 @@ namespace Common.Model {
 
   public class RequestExecutor : RequestNS.IRequestExecutor {
     #region Members
-    private HttpWebResponse _CurrentResponse = null;
     List<ARequest> _requestQueue = new List<ARequest>();
     private object _requestLock = new object();
-    private Worker _workerObject;
+    private Worker _WorkerThread;
     #endregion
 
 
     #region Constructor
     public RequestExecutor() {
-      _workerObject = new Worker(this);
-      Thread workerThread = new Thread(_workerObject.DoWork);
+      _WorkerThread = new Worker(this);
+      Thread workerThread = new Thread(_WorkerThread.DoWork);
       workerThread.Start();
     }
     #endregion
@@ -34,8 +33,7 @@ namespace Common.Model {
       lock (this._requestLock) {
         _requestQueue.Add(request);
       }
-      //signal the worker thread that a request is available
-      _workerObject.getEvent().Set();
+      this._WorkerThread.TriggerWorker();
     }
 
     public int numberOfPendingRequests() {
@@ -53,7 +51,10 @@ namespace Common.Model {
 
       return tempReq;
     }
-    #endregion
 
+    public void Dispose() {
+      this._WorkerThread.Stop();
+    }
+    #endregion
   }
 }

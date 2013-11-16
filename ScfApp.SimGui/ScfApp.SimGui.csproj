@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{40FCF8CA-C940-4437-95FD-09F2B077EB19}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ScfApp.SimGui</RootNamespace>
+    <AssemblyName>ScfApp.SimGui</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="..\Common\DTO\Drink.cs">
+      <Link>DTO\Drink.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\DTO\Order.cs">
+      <Link>DTO\Order.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\DrinkNamesChangedEventArgs.cs">
+      <Link>Model\DrinkNamesChangedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\DrinksChangedEventArgs.cs">
+      <Link>Model\DrinksChangedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\IDrinkService.cs">
+      <Link>Model\IDrinkService.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\IOrderService.cs">
+      <Link>Model\IOrderService.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\ISignInService.cs">
+      <Link>Model\ISignInService.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\ModelFactory.cs">
+      <Link>Model\ModelFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\OrderChangedEventArgs.cs">
+      <Link>Model\OrderChangedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\RequestExecutor.cs">
+      <Link>Model\RequestExecutor.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\RequestWorker.cs">
+      <Link>Model\RequestWorker.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\ScfDrinkService.cs">
+      <Link>Model\ScfDrinkService.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\ScfOrderService.cs">
+      <Link>Model\ScfOrderService.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\ScfSignInService.cs">
+      <Link>Model\ScfSignInService.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\WelcomeMessageReceivedEventArgs.cs">
+      <Link>Model\WelcomeMessageReceivedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\RequestNS\IRequestExecutor.cs">
+      <Link>RequestNS\IRequestExecutor.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\RequestNS\Request.cs">
+      <Link>RequestNS\Request.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\RequestNS\RequestDrinkDetails.cs">
+      <Link>RequestNS\RequestDrinkDetails.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\RequestNS\RequestDrinkList.cs">
+      <Link>RequestNS\RequestDrinkList.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\RequestNS\RequestEventArgs.cs">
+      <Link>RequestNS\RequestEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\RequestNS\RequestFactory.cs">
+      <Link>RequestNS\RequestFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\RequestNS\RequestOrderDrink.cs">
+      <Link>RequestNS\RequestOrderDrink.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\RequestNS\RequestOrderStatus.cs">
+      <Link>RequestNS\RequestOrderStatus.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\RequestNS\RequestWelcome.cs">
+      <Link>RequestNS\RequestWelcome.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\ViewModel\DrinkDetailViewModel.cs">
+      <Link>ViewModel\DrinkDetailViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\ViewModel\DrinkViewModel.cs">
+      <Link>ViewModel\DrinkViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\ViewModel\IViewModel.cs">
+      <Link>ViewModel\IViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\ViewModel\OrderDetails.cs">
+      <Link>ViewModel\OrderDetails.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\ViewModel\OrderViewModel.cs">
+      <Link>ViewModel\OrderViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\ViewModel\SignInViewModel.cs">
+      <Link>ViewModel\SignInViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\ViewModel\ViewModelChangedEventArgs.cs">
+      <Link>ViewModel\ViewModelChangedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="DrinkListView.xaml.cs">
+      <DependentUpon>DrinkListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OrderView.xaml.cs">
+      <DependentUpon>OrderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SignInView.xaml.cs">
+      <DependentUpon>SignInView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="DrinkListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="OrderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SignInView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties ProjectLinkReference="08d87ef2-4f72-4c6c-84b6-d47267b027cb" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScfMobileApp.Common", "Comm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScfMobileApp.Android", "Android\ScfMobileApp.Android.csproj", "{EF6764AB-DE6B-4DB8-A0C2-64C6EA4BCC9E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScfApp.SimGui", "ScfApp.SimGui\ScfApp.SimGui.csproj", "{40FCF8CA-C940-4437-95FD-09F2B077EB19}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,13 +15,16 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{08D87EF2-4F72-4C6C-84B6-D47267B027CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{08D87EF2-4F72-4C6C-84B6-D47267B027CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{08D87EF2-4F72-4C6C-84B6-D47267B027CB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EF6764AB-DE6B-4DB8-A0C2-64C6EA4BCC9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EF6764AB-DE6B-4DB8-A0C2-64C6EA4BCC9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF6764AB-DE6B-4DB8-A0C2-64C6EA4BCC9E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{EF6764AB-DE6B-4DB8-A0C2-64C6EA4BCC9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF6764AB-DE6B-4DB8-A0C2-64C6EA4BCC9E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EF6764AB-DE6B-4DB8-A0C2-64C6EA4BCC9E}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{40FCF8CA-C940-4437-95FD-09F2B077EB19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40FCF8CA-C940-4437-95FD-09F2B077EB19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40FCF8CA-C940-4437-95FD-09F2B077EB19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40FCF8CA-C940-4437-95FD-09F2B077EB19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

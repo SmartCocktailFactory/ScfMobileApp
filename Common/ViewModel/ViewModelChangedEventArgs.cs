@@ -5,6 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Common.ViewModel {
-  class ViewModelChangedEventArgs : EventArgs {
+  public class ViewModelChangedEventArgs : EventArgs {
   }
 }

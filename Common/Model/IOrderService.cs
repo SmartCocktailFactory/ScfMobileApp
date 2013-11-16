@@ -8,7 +8,7 @@ namespace Common.Model
 {
   interface IOrderService {
     #region Properties
-    IList<ViewModel.Order> CurrentOrders { get; }
+		IList<DTO.Order> CurrentOrders { get; }
     #endregion
 
     #region Events

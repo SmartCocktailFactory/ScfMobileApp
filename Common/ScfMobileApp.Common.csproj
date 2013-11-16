@@ -49,6 +49,7 @@
     <Compile Include="Model\ScfOrderService.cs" />
     <Compile Include="RequestNS\IRequestExecutor.cs" />
     <Compile Include="RequestNS\Request.cs" />
+    <Compile Include="RequestNS\RequestDrinkDetails.cs" />
     <Compile Include="RequestNS\RequestDrinkList.cs" />
     <Compile Include="RequestNS\RequestEventArgs.cs" />
     <Compile Include="RequestNS\RequestFactory.cs" />
@@ -57,14 +58,15 @@
     <Compile Include="RequestNS\RequestWelcome.cs" />
     <Compile Include="Model\RequestExecutor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\Drink.cs" />
+    <Compile Include="DTO\Drink.cs" />
     <Compile Include="Model\DrinkNamesChangedEventArgs.cs" />
     <Compile Include="Model\DrinksChangedEventArgs.cs" />
     <Compile Include="ViewModel\DrinkDetailViewModel.cs" />
     <Compile Include="ViewModel\DrinkViewModel.cs" />
     <Compile Include="ViewModel\IViewModel.cs" />
-    <Compile Include="ViewModel\Order.cs" />
+    <Compile Include="DTO\Order.cs" />
     <Compile Include="Model\OrderChangedEventArgs.cs" />
+    <Compile Include="ViewModel\OrderDetails.cs" />
     <Compile Include="ViewModel\OrderViewModel.cs" />
     <Compile Include="ViewModel\SignInViewModel.cs" />
     <Compile Include="Model\WelcomeMessageReceivedEventArgs.cs" />

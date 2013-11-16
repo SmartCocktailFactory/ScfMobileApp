@@ -22,6 +22,7 @@
     <MandroidI18n />
     <JavaMaximumHeapSize />
     <JavaOptions />
+    <AndroidLinkSkip />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,10 +32,10 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <AndroidLinkMode>None</AndroidLinkMode>
-    <AndroidLinkSkip />
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+    <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
+    <AndroidLinkSkip />
     <BundleAssemblies>False</BundleAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -46,21 +47,19 @@
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
     <AndroidLinkMode>Full</AndroidLinkMode>
-    <AndroidLinkSkip />
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
     <BundleAssemblies>True</BundleAssemblies>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Components\json.net-4.5.11\lib\android\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\Components\json.net-4.5.11\lib\android\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Common\Model\DrinkNamesChangedEventArgs.cs">
@@ -108,6 +107,9 @@
     <Compile Include="..\Common\RequestNS\Request.cs">
       <Link>RequestNS\Request.cs</Link>
     </Compile>
+    <Compile Include="..\Common\RequestNS\RequestDrinkDetails.cs">
+      <Link>RequestNS\RequestDrinkDetails.cs</Link>
+    </Compile>
     <Compile Include="..\Common\RequestNS\RequestDrinkList.cs">
       <Link>RequestNS\RequestDrinkList.cs</Link>
     </Compile>
@@ -126,9 +128,6 @@
     <Compile Include="..\Common\RequestNS\RequestWelcome.cs">
       <Link>RequestNS\RequestWelcome.cs</Link>
     </Compile>
-    <Compile Include="..\Common\ViewModel\Drink.cs">
-      <Link>ViewModel\Drink.cs</Link>
-    </Compile>
     <Compile Include="..\Common\ViewModel\DrinkDetailViewModel.cs">
       <Link>ViewModel\DrinkDetailViewModel.cs</Link>
     </Compile>
@@ -138,8 +137,8 @@
     <Compile Include="..\Common\ViewModel\IViewModel.cs">
       <Link>ViewModel\IViewModel.cs</Link>
     </Compile>
-    <Compile Include="..\Common\ViewModel\Order.cs">
-      <Link>ViewModel\Order.cs</Link>
+    <Compile Include="..\Common\ViewModel\OrderDetails.cs">
+      <Link>ViewModel\OrderDetails.cs</Link>
     </Compile>
     <Compile Include="..\Common\ViewModel\OrderViewModel.cs">
       <Link>ViewModel\OrderViewModel.cs</Link>
@@ -153,8 +152,18 @@
     <Compile Include="Activity1.cs" />
     <Compile Include="DrinkDetailsActivity.cs" />
     <Compile Include="DrinkListActivity.cs" />
+    <Compile Include="DrinkListAdapter.cs" />
+    <Compile Include="OrderDetailListAdapter.cs" />
+    <Compile Include="OrderListActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="..\Common\DTO\Drink.cs">
+      <Link>DTO\Drink.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\DTO\Order.cs">
+      <Link>DTO\Order.cs</Link>
+    </Compile>
+    <Compile Include="SplashActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -163,6 +172,9 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\DrinkDetails.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\OrderList.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -185,11 +197,17 @@
     <AndroidResource Include="Resources\Layout\ListViewDataItems.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\Layout\OrderViewDataItem.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Drawable\SCF_Logo_Android_xxhdpi.png" />
+    <AndroidResource Include="Resources\Values\Styles.xml" />
+    <AndroidResource Include="Resources\Drawable\scf_splash_screen.png" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="json.net">
-      <Visible>False</Visible>
       <Version>4.5.11</Version>
+      <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Common.ViewModel {
-  interface IViewModel {
+  public interface IViewModel {
     #region Events
     event EventHandler<ViewModelChangedEventArgs> OnViewModelChanged;
     #endregion

@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 
 namespace Common.Model {
-  class ScfDrinkService : IDrinkService {
+  public class ScfDrinkService : IDrinkService {
 
     #region Members
     private RequestNS.RequestFactory _Factory = null;
-    List<ViewModel.Drink> _Drinks = new List<ViewModel.Drink>();
+		List<DTO.Drink> _Drinks = new List<DTO.Drink>();
     #endregion
 
     #region Properties
-    public IList<ViewModel.Drink> Drinks {
+		public IList<DTO.Drink> Drinks {
       get {
         if (this._Drinks.Count == 0) {
           this._RequestDrinks();
         }
-        return this._Drinks.ToList();
+        return new List<DTO.Drink>(this._Drinks.Select(x => ((DTO.Drink)x.Clone())));
       }
     }
     #endregion
@@ -38,11 +38,25 @@ namespace Common.Model {
     public IList<string> DrinkNames {
       get { return this.Drinks.Select(x => x.Name).ToList(); }
     }
+
+    DTO.Drink IDrinkService.GetDrink(string drinkId) {
+      if (drinkId == "") {
+        return new DTO.Drink();
+      }
+
+      DTO.Drink drink = this.Drinks.FirstOrDefault(x => x.DrinkId == drinkId);
+
+      if (drink.Description == string.Empty) {
+        this._RequestDrinkDetails(drinkId);
+      }
+      return drink;
+    }
+
     #endregion
 
     #region Public methods
     public void ResetService() {
-      this._Drinks = new List<ViewModel.Drink>();
+			this._Drinks = new List<DTO.Drink>();
     }
     #endregion
 
@@ -56,6 +70,13 @@ namespace Common.Model {
       });
     }
 
+    private void _RequestDrinkDetails(string drinkId) {
+      Task.Factory.StartNew(() => {
+        RequestNS.RequestDrinkDetails drinkDetails = this._Factory.CreateDrinkDetailsRequest(drinkId);
+        drinkDetails.OnRequestCompleted += drinkDetails_OnRequestCompleted;
+        drinkDetails.Execute();
+      });
+    }
 
     private void _NotifyDrinkListChanged() {
       if (this.OnDrinkNamesChanged != null) {
@@ -65,18 +86,43 @@ namespace Common.Model {
       }
     }
 
-
+    private void _NotifyDrinkChanged() {
+      if (this.OnDrinksChanged != null) {
+        Task.Factory.StartNew(() => {
+          this.OnDrinksChanged(this, new DrinksChangedEventArgs(this.Drinks));
+        });
+      }
+    }
     #endregion
 
     #region Event handlers
 
     void getDrinkRequest_OnRequestCompleted(object sender, RequestNS.RequestCompletedEventArgs e) {
-      RequestNS.RequestDrinkList drinkList = e.Request as RequestNS.RequestDrinkList;
-      this._Drinks = drinkList.GetDrinks();
+      if (e.Request.State != RequestNS.RequestStates.Successful) {
+        this._RequestDrinks();
+        return;
+      }
+        RequestNS.RequestDrinkList drinkList = e.Request as RequestNS.RequestDrinkList;
 
-      this._NotifyDrinkListChanged();
+        this._Drinks = drinkList.GetDrinks();
+
+        this._NotifyDrinkListChanged();
+     }
+
+    void drinkDetails_OnRequestCompleted(object sender, RequestNS.RequestCompletedEventArgs e) {
+      RequestNS.RequestDrinkDetails request = e.Request as RequestNS.RequestDrinkDetails;
+
+      if (request.SuccessfulExecuted != true) {
+        return;
+      }
+
+      DTO.Drink drink = this._Drinks.First(x => x.DrinkId == request.DrinkId);
+      DTO.Drink other = request.GetDrinkDetails();
+      drink.Description = other.Description;
+      drink.Recipe = other.Recipe;
+
+      this._NotifyDrinkChanged();
     }
-
 
     #endregion
   }

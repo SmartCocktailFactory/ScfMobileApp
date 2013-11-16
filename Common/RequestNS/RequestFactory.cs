@@ -16,24 +16,31 @@ namespace Common.RequestNS {
       this.RemoteBaseUrl = string.Empty;
     }
 
-    public ARequest CreateWelcomeRequest() {
+    public RequestWelcome CreateWelcomeRequest() {
       return new RequestWelcome(this.RemoteBaseUrl, this.Executor);
     }
 
-    public ARequest CreateGetDrinkRequest() {
+    public RequestDrinkList CreateGetDrinkRequest() {
       return new RequestDrinkList(this.RemoteBaseUrl, this.Executor);
     }
 
-    public ARequest CreateOrderDrinkRequest(string drinkId) {
+    public RequestOrderDrink CreateOrderDrinkRequest(string drinkId) {
       RequestOrderDrink order = new RequestOrderDrink(this.RemoteBaseUrl, this.Executor);
       order.DrinkId = drinkId;
       return order;
     }
 
-    public ARequest CreateOrderStatusRequest(string orderId) {
+    public RequestOrderStatus CreateOrderStatusRequest(string orderId) {
       RequestOrderStatus order = new RequestOrderStatus(this.RemoteBaseUrl, this.Executor);
       order.OrderId = orderId;
       return order;
     }
+
+    public RequestDrinkDetails CreateDrinkDetailsRequest(string drinkId) {
+      RequestDrinkDetails order = new RequestDrinkDetails(this.RemoteBaseUrl, this.Executor);
+      order.DrinkId = drinkId;
+      return order;
+    }
+
   }
 }

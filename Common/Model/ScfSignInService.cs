@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 
 namespace Common.Model {
-  class ScfSignInService : ISignInService {
+  public class ScfSignInService : ISignInService {
 
     #region Members
     private RequestNS.RequestFactory _Factory = null;
@@ -19,7 +19,9 @@ namespace Common.Model {
 
     public string WelcomeMessage {
       get {
-        this._RequestWelcomeMessage();
+        if (string.IsNullOrEmpty(this._WelcomeMessage)) {
+          this._RequestWelcomeMessage();
+        }
         return this._WelcomeMessage;
       }
     }
@@ -39,15 +41,12 @@ namespace Common.Model {
 
     #region Private methods
 
-    private void _NotifyWelcomeMessageChanged()
-    {
-        if (this.OnWelcomeMessageChanged != null)
-        {
-            Task.Factory.StartNew(() =>
-            {
-                this.OnWelcomeMessageChanged(this, new WelcomeMessageReceivedEventArgs(this._WelcomeMessage));
-            });
-        }
+    private void _NotifyWelcomeMessageChanged() {
+      if (this.OnWelcomeMessageChanged != null) {
+        Task.Factory.StartNew(() => {
+          this.OnWelcomeMessageChanged(this, new WelcomeMessageReceivedEventArgs(this._WelcomeMessage));
+        });
+      }
     }
 
     private void _RequestWelcomeMessage() {
@@ -61,12 +60,13 @@ namespace Common.Model {
     #endregion
 
     #region Event handlers
-    void welcomeRequest_OnRequestCompleted(object sender, RequestNS.RequestCompletedEventArgs e)
-    {
-        RequestNS.RequestWelcome welcomeMessage = e.Request as RequestNS.RequestWelcome;
+    void welcomeRequest_OnRequestCompleted(object sender, RequestNS.RequestCompletedEventArgs e) {
+      RequestNS.RequestWelcome welcomeMessage = e.Request as RequestNS.RequestWelcome;
 
+      if (welcomeMessage.SuccessfulExecuted == true) {
         this._WelcomeMessage = welcomeMessage.Response;
-        this._NotifyWelcomeMessageChanged();
+      }
+      this._NotifyWelcomeMessageChanged();
     }
     #endregion
   }
