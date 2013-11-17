@@ -22,6 +22,8 @@ namespace Common.RequestNS {
     #region Public methods
 		public List<DTO.Drink> GetDrinks() {
 			List<DTO.Drink> drinkList = new List<DTO.Drink>();
+     
+
       //var rawDrinks = JObject.Parse(this.Response);
 
       //foreach (var drink in rawDrinks["drinks"]) {

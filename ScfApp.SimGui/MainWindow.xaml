@@ -5,12 +5,12 @@
         Title="MainWindow" Height="298.057" Width="477.599" Closing="Window_Closing">
     <Grid Margin="0,0,2,13">
         <TabControl HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
-            <TabItem Header="Sign In">
+            <TabItem x:Name="tabSignIn" Header="Sign In" Margin="10,0,-14,-3">
                 <Grid Background="#FFE5E5E5">
                     <local:SignInView x:Name="cmpSignIn"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="TabItem">
+            <TabItem x:Name="tabDrinkList" Header="Drink List">
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
         </TabControl>

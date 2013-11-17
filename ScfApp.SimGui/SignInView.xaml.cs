@@ -34,13 +34,24 @@ namespace ScfApp.SimGui {
     #region GUI event handler
     private void UserControl_Loaded(object sender, RoutedEventArgs e) {
       this.DataContext = this._mySignInViewModel;
+
+      this._SetConnecting();
       this.tbxRemoteAddress.Text = _RemoteAddress;
       this.tbxRemoteAddress.IsEnabled = false;
       this.tbxWelcomeMessage.Text = "none";
-      this._mySignInViewModel.RemoteUrl = this.tbxRemoteAddress.Text;
       this._mySignInViewModel.OnViewModelChanged += _mySignInViewModel_OnViewModelChanged;
-      this.tbxWelcomeMessage.Text = this._mySignInViewModel.WelcomeMessage;
+
+      this._Connect();
     }
+
+    private void btnAbort_Click(object sender, RoutedEventArgs e) {
+      this._StopConnecting();
+    }
+
+    private void btnConnect_Click(object sender, RoutedEventArgs e) {
+      this._Connect();
+    }
+
     #endregion
 
     #region Model event handler
@@ -48,6 +59,27 @@ namespace ScfApp.SimGui {
       this.Dispatcher.Invoke(delegate {
         this.tbxWelcomeMessage.Text = this._mySignInViewModel.WelcomeMessage;
       });
+    }
+    #endregion
+
+    #region Private methods
+    private void _Connect() {
+      this._SetConnecting();
+
+      Common.Model.ModelFactory.Instance().ResetServices();
+
+      this._mySignInViewModel.RemoteUrl = this.tbxRemoteAddress.Text;
+      this.tbxWelcomeMessage.Text = this._mySignInViewModel.WelcomeMessage;
+    }
+
+    private void _SetConnecting() {
+      this.btnConnect.IsEnabled = false;
+      this.tbxRemoteAddress.IsEnabled = false;
+    }
+
+    private void _StopConnecting() {
+      this.btnConnect.IsEnabled = true;
+      this.tbxRemoteAddress.IsEnabled = true;
     }
     #endregion
   }
