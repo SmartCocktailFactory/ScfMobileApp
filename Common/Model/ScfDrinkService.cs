@@ -72,6 +72,7 @@ namespace Common.Model {
 
     void getDrinkRequest_OnRequestCompleted(object sender, RequestNS.RequestCompletedEventArgs e) {
       if (e.Request.State != RequestNS.RequestStates.Successful) {
+        this._RequestDrinks();
         return;
       }
         RequestNS.RequestDrinkList drinkList = e.Request as RequestNS.RequestDrinkList;

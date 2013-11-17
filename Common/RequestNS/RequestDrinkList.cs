@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+//using Newtonsoft.Json;
+//using Newtonsoft.Json.Linq;
 
 namespace Common.RequestNS {
   public class RequestDrinkList : ARequest {
@@ -22,14 +22,14 @@ namespace Common.RequestNS {
     #region Public methods
 		public List<DTO.Drink> GetDrinks() {
 			List<DTO.Drink> drinkList = new List<DTO.Drink>();
-      var rawDrinks = JObject.Parse(this.Response);
+      //var rawDrinks = JObject.Parse(this.Response);
 
-      foreach (var drink in rawDrinks["drinks"]) {
-				DTO.Drink d = new DTO.Drink();
-        d.DrinkId = drink["id"].ToString();
-        d.Name = drink["name"].ToString();
-        drinkList.Add(d);
-      }
+      //foreach (var drink in rawDrinks["drinks"]) {
+      //  DTO.Drink d = new DTO.Drink();
+      //  d.DrinkId = drink["id"].ToString();
+      //  d.Name = drink["name"].ToString();
+      //  drinkList.Add(d);
+      //}
       return drinkList;
     }
     #endregion
