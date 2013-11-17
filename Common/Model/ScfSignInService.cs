@@ -61,10 +61,6 @@ namespace Common.Model {
 
     #region Event handlers
     void welcomeRequest_OnRequestCompleted(object sender, RequestNS.RequestCompletedEventArgs e) {
-      if (e.Request.State != RequestNS.RequestStates.Successful) {
-        this._RequestWelcomeMessage();
-        return;
-      }
       RequestNS.RequestWelcome welcomeMessage = e.Request as RequestNS.RequestWelcome;
 
       this._WelcomeMessage = welcomeMessage.Response;

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Common.ViewModel {
-  class SignInViewModel : IViewModel {
+  public class SignInViewModel : IViewModel {
     #region Members
     private Model.ISignInService _SignInService;
     #endregion
