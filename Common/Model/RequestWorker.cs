@@ -53,7 +53,7 @@ namespace Common.Model {
 
           if (this._CurrentResponse != null) {
             if (this._CurrentResponse.StatusCode != HttpStatusCode.OK) {
-              this._CurrentRequest.AddResponse("Invalid return status code: " + this._CurrentResponse.StatusCode);
+              this._CurrentRequest.SetRequestFailed("Invalid return status code: " + this._CurrentResponse.StatusCode);
             }
             StreamReader reader = new StreamReader(this._CurrentResponse.GetResponseStream());
             string content = reader.ReadToEnd();

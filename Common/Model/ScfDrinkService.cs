@@ -71,12 +71,15 @@ namespace Common.Model {
     #region Event handlers
 
     void getDrinkRequest_OnRequestCompleted(object sender, RequestNS.RequestCompletedEventArgs e) {
-      RequestNS.RequestDrinkList drinkList = e.Request as RequestNS.RequestDrinkList;
-      this._Drinks = drinkList.GetDrinks();
+      if (e.Request.State != RequestNS.RequestStates.Successful) {
+        return;
+      }
+        RequestNS.RequestDrinkList drinkList = e.Request as RequestNS.RequestDrinkList;
 
-      this._NotifyDrinkListChanged();
-    }
+        this._Drinks = drinkList.GetDrinks();
 
+        this._NotifyDrinkListChanged();
+     }
 
     #endregion
   }

@@ -75,6 +75,9 @@ namespace Common.Model {
     #region Event handlers
 
     void orderRequest_OnRequestCompleted(object sender, RequestNS.RequestCompletedEventArgs e) {
+      if (e.Request.State != RequestNS.RequestStates.Successful) {
+        return;
+      }
       RequestNS.RequestOrderDrink orderResponse = e.Request as RequestNS.RequestOrderDrink;
 			DTO.Order order = new DTO.Order();
       order.OrderId = orderResponse.GetOrderAmount();
@@ -84,6 +87,10 @@ namespace Common.Model {
     }
 
     void orderUpdaterequest_OnRequestCompleted(object sender, RequestNS.RequestCompletedEventArgs e) {
+      if (e.Request.State != RequestNS.RequestStates.Successful) {
+        return;
+      }
+
       RequestNS.RequestOrderStatus orderStatus = e.Request as RequestNS.RequestOrderStatus;
       try {
 				DTO.Order editOrder = this.CurrentOrders.First(x => x.OrderId == orderStatus.OrderId);
