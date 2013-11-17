@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common.DTO {
 
-  class Order {
+  public class Order {
     public string OrderId { get; set; }
     public string DrinkId { get; set; }
     public string OrderStatus { get; set; }

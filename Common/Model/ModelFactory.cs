@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 
 namespace Common.Model{
-  class ModelFactory {
+  public class ModelFactory {
 
     #region Members
     private static ModelFactory _Singleton = null;
@@ -43,6 +43,11 @@ namespace Common.Model{
       this.DrinkService.ResetService();
       this.OrderService.ResetService();
       this.SignInService.ResetService();
+    }
+
+    public void Dispose() {
+      this.ResetServices();
+      this.Executor.Dispose();
     }
     #endregion
   }

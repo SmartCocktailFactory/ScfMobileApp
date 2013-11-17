@@ -21,5 +21,9 @@ namespace ScfApp.SimGui {
     public MainWindow() {
       InitializeComponent();
     }
+
+    private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
+      Common.Model.ModelFactory.Instance().Dispose();
+    }
   }
 }

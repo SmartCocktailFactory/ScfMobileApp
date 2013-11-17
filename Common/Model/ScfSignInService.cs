@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 
 namespace Common.Model {
-  class ScfSignInService : ISignInService {
+  public class ScfSignInService : ISignInService {
 
     #region Members
     private RequestNS.RequestFactory _Factory = null;

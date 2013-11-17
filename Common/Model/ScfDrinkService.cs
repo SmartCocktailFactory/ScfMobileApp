@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 
 namespace Common.Model {
-  class ScfDrinkService : IDrinkService {
+  public class ScfDrinkService : IDrinkService {
 
     #region Members
     private RequestNS.RequestFactory _Factory = null;

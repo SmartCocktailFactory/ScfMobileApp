@@ -7,7 +7,7 @@ using System.Timers;
 
 
 namespace Common.Model {
-  class ScfOrderService : IOrderService {
+  public class ScfOrderService : IOrderService {
 
     #region Members
     private const int UpdateIntervalMs = 10000;

@@ -18,6 +18,11 @@ namespace ScfApp.SimGui {
   /// Interaction logic for SignInView.xaml
   /// </summary>
   public partial class SignInView : UserControl {
+
+    #region Constants
+    private static string _RemoteAddress = "http://192.168.1.35:12345";
+    #endregion
+
     #region Members
     public Common.ViewModel.SignInViewModel _mySignInViewModel = new Common.ViewModel.SignInViewModel();
     #endregion
@@ -29,8 +34,10 @@ namespace ScfApp.SimGui {
     #region GUI event handler
     private void UserControl_Loaded(object sender, RoutedEventArgs e) {
       this.DataContext = this._mySignInViewModel;
+      this.tbxRemoteAddress.Text = _RemoteAddress;
+      this.tbxRemoteAddress.IsEnabled = false;
       this.tbxWelcomeMessage.Text = "none";
-      this._mySignInViewModel.RemoteUrl = "http://192.168.1.40:12345";
+      this._mySignInViewModel.RemoteUrl = this.tbxRemoteAddress.Text;
       this._mySignInViewModel.OnViewModelChanged += _mySignInViewModel_OnViewModelChanged;
       this.tbxWelcomeMessage.Text = this._mySignInViewModel.WelcomeMessage;
     }
