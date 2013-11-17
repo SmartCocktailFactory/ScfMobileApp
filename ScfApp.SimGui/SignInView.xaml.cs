@@ -23,23 +23,30 @@ namespace ScfApp.SimGui {
     private static string _RemoteAddress = "http://192.168.1.35:12345";
     #endregion
 
-    #region Members
-    public Common.ViewModel.SignInViewModel _mySignInViewModel = new Common.ViewModel.SignInViewModel();
+    #region Properties
+    public Common.ViewModel.SignInViewModel SignInViewModel { get; private set; }
     #endregion
 
     public SignInView() {
       InitializeComponent();
+
+      this.SignInViewModel = new Common.ViewModel.SignInViewModel();
     }
+
+    #region Events
+    public event EventHandler OnConnected;
+    public event EventHandler OnConnecting;
+    #endregion
 
     #region GUI event handler
     private void UserControl_Loaded(object sender, RoutedEventArgs e) {
-      this.DataContext = this._mySignInViewModel;
+      this.DataContext = this.SignInViewModel;
 
       this._SetConnecting();
       this.tbxRemoteAddress.Text = _RemoteAddress;
       this.tbxRemoteAddress.IsEnabled = false;
       this.tbxWelcomeMessage.Text = "none";
-      this._mySignInViewModel.OnViewModelChanged += _mySignInViewModel_OnViewModelChanged;
+      this.SignInViewModel.OnViewModelChanged += _mySignInViewModel_OnViewModelChanged;
 
       this._Connect();
     }
@@ -57,19 +64,31 @@ namespace ScfApp.SimGui {
     #region Model event handler
     void _mySignInViewModel_OnViewModelChanged(object sender, Common.ViewModel.ViewModelChangedEventArgs e) {
       this.Dispatcher.Invoke(delegate {
-        this.tbxWelcomeMessage.Text = this._mySignInViewModel.WelcomeMessage;
+        this.tbxWelcomeMessage.Text = this.SignInViewModel.WelcomeMessage;
+      });
+
+      if (this.OnConnected != null) {
+        this.OnConnected(this, new EventArgs());
+      }
+
+      this.Dispatcher.Invoke(delegate {
+        this._StopConnecting();
       });
     }
     #endregion
 
     #region Private methods
     private void _Connect() {
+      if (this.OnConnecting != null) {
+        this.OnConnecting(this, new EventArgs());
+      }
+
       this._SetConnecting();
 
       Common.Model.ModelFactory.Instance().ResetServices();
 
-      this._mySignInViewModel.RemoteUrl = this.tbxRemoteAddress.Text;
-      this.tbxWelcomeMessage.Text = this._mySignInViewModel.WelcomeMessage;
+      this.SignInViewModel.RemoteUrl = this.tbxRemoteAddress.Text;
+      this.tbxWelcomeMessage.Text = this.SignInViewModel.WelcomeMessage;
     }
 
     private void _SetConnecting() {

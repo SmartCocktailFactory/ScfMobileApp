@@ -26,8 +26,19 @@ namespace ScfApp.SimGui {
       Common.Model.ModelFactory.Instance().Dispose();
     }
 
-    private void btnAbort_Click(object sender, RoutedEventArgs e) {
-      
+    private void Window_Loaded(object sender, RoutedEventArgs e) {
+      this.cmpSignIn.OnConnecting += cmpSignIn_OnConnecting;
+      this.cmpSignIn.OnConnected += cmpSignIn_OnConnected;
+    }
+
+    void cmpSignIn_OnConnecting(object sender, EventArgs e) {
+      this.tabDrinkList.Visibility = System.Windows.Visibility.Hidden;
+    }
+
+    void cmpSignIn_OnConnected(object sender, EventArgs e) {
+      this.Dispatcher.Invoke(delegate {
+        this.tabDrinkList.Visibility = System.Windows.Visibility.Visible;
+      });
     }
   }
 }
