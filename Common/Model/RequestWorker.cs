@@ -48,6 +48,7 @@ namespace Common.Model {
           try {
             this._CurrentResponse = webRequest.GetResponse() as HttpWebResponse;
           } catch (WebException ex) {
+            this._CurrentRequest.SetRequestFailed("Web request failed");
 
           }
 
