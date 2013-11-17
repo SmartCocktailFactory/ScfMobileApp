@@ -1,0 +1,18 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:ScfApp.SimGui" x:Class="ScfApp.SimGui.MainWindow"
+        Title="MainWindow" Height="298.057" Width="477.599">
+    <Grid Margin="0,0,2,13">
+        <TabControl HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+            <TabItem Header="Sign In">
+                <Grid Background="#FFE5E5E5">
+                    <local:SignInView x:Name="cmpSignIn"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="TabItem">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
