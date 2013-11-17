@@ -12,6 +12,7 @@ namespace Common.Model {
     #region Members
     private const int UpdateIntervalMs = 10000;
     private RequestNS.RequestFactory _Factory = null;
+    private List<DTO.Order> _CompletedOrders = new List<DTO.Order>();
 		private List<DTO.Order> _CurrentOrders = new List<DTO.Order>();
     private Timer _OrderUpdateTick;
     #endregion
@@ -29,6 +30,10 @@ namespace Common.Model {
     #region Model.IOrderService
 
     public event EventHandler<OrderChangedEventArgs> OnOrderChanged;
+
+    public IList<DTO.Order> CompletedOrders {
+      get { return this._CompletedOrders; }
+    }
 
 		public IList<DTO.Order> CurrentOrders {
       get { return this._CurrentOrders; }

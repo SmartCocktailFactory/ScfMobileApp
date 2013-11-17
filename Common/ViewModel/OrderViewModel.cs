@@ -9,7 +9,7 @@ namespace Common.ViewModel {
 
     #region Members
     private Model.IOrderService _OrderService = null;
-		private DTO.Order _CurrentOrder = new DTO.Order();
+		private DTO.Order _CurrentOrder = null;
     private object _OrderLock = new object();
     #endregion
 

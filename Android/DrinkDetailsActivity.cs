@@ -54,26 +54,27 @@ namespace ScfMobileApp.Android {
     }
 
     void _OrderViewModel_OnViewModelChanged(object sender, ViewModelChangedEventArgs e) {
-
-            string sOrderMessage = "Last order, ID: ";
-      sOrderMessage += this._OrderViewModel.CurrentOrder.OrderId;
-      sOrderMessage += " Drink: ";
-      sOrderMessage += this._OrderViewModel.CurrentOrder.DrinkId;
-      sOrderMessage += " Due in ";
-      sOrderMessage += this._OrderViewModel.CurrentOrder.ExpectedSecondsToDeliver;
-      sOrderMessage += " sec; Status: ";
-      sOrderMessage += this._OrderViewModel.CurrentOrder.OrderStatus;
-      if (this._OrderViewModel.CurrentOrder.OrderStatus != _oldOrderStatus) {
-        sOrderMessage += "!!!!";
-        _oldOrderStatus = this._OrderViewModel.CurrentOrder.OrderStatus;
-      }
-      
+      string sOrderMessage = string.empty;
+      if (this._OrderViewModel.CurrentOrder == null) {
+        sOrderMessage = "No pending ordres";
+      } else {
+        sOrderMessage += "Last order, ID: ";
+        sOrderMessage += this._OrderViewModel.CurrentOrder.OrderId;
+        sOrderMessage += " Drink: ";
+        sOrderMessage += this._OrderViewModel.CurrentOrder.DrinkId;
+        sOrderMessage += " Due in ";
+        sOrderMessage += this._OrderViewModel.CurrentOrder.ExpectedSecondsToDeliver;
+        sOrderMessage += " sec; Status: ";
+        sOrderMessage += this._OrderViewModel.CurrentOrder.OrderStatus;
+        if (this._OrderViewModel.CurrentOrder.OrderStatus != _oldOrderStatus) {
+          sOrderMessage += "!!!!";
+          _oldOrderStatus = this._OrderViewModel.CurrentOrder.OrderStatus;
+        }
+      }      
       RunOnUiThread(() => {
         TextView text = FindViewById<TextView>(Resource.Id.txtOrderResponse);
         text.Text = sOrderMessage;
-        //GEHT NICHT text.SetTextColor(Android.Graphics.Color.RED //TextColor =Color.RED;
       });
-
     }
 
     private void ButtonOrderDrink_Click(object sender, EventArgs e) {

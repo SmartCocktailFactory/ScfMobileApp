@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
+
+//using Newtonsoft.Json.Linq;
 
 namespace Common.RequestNS {
   class RequestOrderStatus : ARequest {
@@ -35,14 +36,14 @@ namespace Common.RequestNS {
     #region Public method
 		public DTO.Order GetOrder() {
 			DTO.Order order = new DTO.Order();
-      var rawOrder = JObject.Parse(this.Response);
-      int seconds = 0;
+      //var rawOrder = JObject.Parse(this.Response);
+      //int seconds = 0;
 
-      order.DrinkId = rawOrder["drink_id"].ToString();
-      order.OrderStatus = rawOrder["status"].ToString();
+      //order.DrinkId = rawOrder["drink_id"].ToString();
+      //order.OrderStatus = rawOrder["status"].ToString();
 
-      int.TryParse(rawOrder["expected_time_to_completion"].ToString(), out seconds);
-      order.ExpectedSecondsToDeliver = seconds;
+      //int.TryParse(rawOrder["expected_time_to_completion"].ToString(), out seconds);
+      //order.ExpectedSecondsToDeliver = seconds;
 
       return order;
     }
