@@ -17,26 +17,42 @@ namespace Common.Model {
     private HttpWebResponse _CurrentResponse = null;
     private ARequest _CurrentRequest = null;
     private RequestExecutor _theExecutor;
-    static AutoResetEvent autoEvent = new AutoResetEvent(false);
+    private AutoResetEvent _TriggerWorker = new AutoResetEvent(false);
+    private bool _IsWorking = true;
+    #endregion
+
+    #region Properties
+    public bool Working {
+      get {
+        lock (this) {
+          return this._IsWorking;
+        }
+      }
+      private set {
+        lock(this) {
+          this._IsWorking = value;
+        }
+      }
+    }
     #endregion
 
     #region Constructor
     public Worker(RequestExecutor theExecutor) {
       _theExecutor = theExecutor;
+      this.Working = true;
     }
     #endregion
 
-
-
+    #region Public methods
     // This method will be called when the worker thread is started.
     public void DoWork() {
       //forever
-      while (true) {
+      while (this.Working) {
         Console.WriteLine("worker thread: wait for signal");
-        autoEvent.WaitOne();
+        _TriggerWorker.WaitOne();
         Console.WriteLine("worker thread: signal was set; number of requests is: " + _theExecutor.numberOfPendingRequests());
         //assume at least one request is available: fetch the first one
-        while ((_CurrentRequest = _theExecutor.getAndRemoveRequest()) != null) {
+        if ((_CurrentRequest = _theExecutor.getAndRemoveRequest()) != null) {
           //a request fetched; handle it
           Console.WriteLine("worker thread: handle the request: " + _CurrentRequest.RemoteUrl);
           WebRequest webRequest = HttpWebRequest.Create(_CurrentRequest.RemoteUrl);
@@ -68,10 +84,14 @@ namespace Common.Model {
       }
     }
 
-
-    public AutoResetEvent getEvent() {
-      return autoEvent;
+    public void TriggerWorker() {
+      this._TriggerWorker.Set();  
     }
 
+    public void Stop() {
+      this.Working = false;
+      this.TriggerWorker();
+    }
+    #endregion
   }
 }
