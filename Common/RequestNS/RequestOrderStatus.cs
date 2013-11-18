@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 //using Newtonsoft.Json.Linq;
 
 namespace Common.RequestNS {
-  class RequestOrderStatus : ARequest {
+  public class RequestOrderStatus : ARequest {
 
     #region Members
     private string _OrderId = string.Empty;

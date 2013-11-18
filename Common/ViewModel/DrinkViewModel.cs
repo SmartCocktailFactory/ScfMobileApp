@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Common.ViewModel {
-  class DrinkViewModel : IViewModel {
+  public class DrinkViewModel : IViewModel {
 
     #region Members
     private Model.IDrinkService _DrinkService = null;

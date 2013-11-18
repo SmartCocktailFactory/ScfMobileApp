@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Common.RequestNS {
-  class RequestOrderDrink : ARequest {
+  public class RequestOrderDrink : ARequest {
     #region Members
     private string _DrinkId;
     #endregion

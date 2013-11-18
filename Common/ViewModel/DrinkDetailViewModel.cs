@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Common.ViewModel {
-  class DrinkDetailViewModel : IViewModel {
+  public class DrinkDetailViewModel : IViewModel {
 
     #region IViewModel
     public event EventHandler<ViewModelChangedEventArgs> OnViewModelChanged;

@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -53,9 +56,103 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="..\Common\DTO\Drink.cs">
+      <Link>DTO\Drink.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\DTO\Order.cs">
+      <Link>DTO\Order.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\DrinkNamesChangedEventArgs.cs">
+      <Link>Model\DrinkNamesChangedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\DrinksChangedEventArgs.cs">
+      <Link>Model\DrinksChangedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\IDrinkService.cs">
+      <Link>Model\IDrinkService.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\IOrderService.cs">
+      <Link>Model\IOrderService.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\ISignInService.cs">
+      <Link>Model\ISignInService.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\ModelFactory.cs">
+      <Link>Model\ModelFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\OrderChangedEventArgs.cs">
+      <Link>Model\OrderChangedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\RequestExecutor.cs">
+      <Link>Model\RequestExecutor.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\RequestWorker.cs">
+      <Link>Model\RequestWorker.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\ScfDrinkService.cs">
+      <Link>Model\ScfDrinkService.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\ScfOrderService.cs">
+      <Link>Model\ScfOrderService.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\ScfSignInService.cs">
+      <Link>Model\ScfSignInService.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Model\WelcomeMessageReceivedEventArgs.cs">
+      <Link>Model\WelcomeMessageReceivedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\RequestNS\IRequestExecutor.cs">
+      <Link>RequestNS\IRequestExecutor.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\RequestNS\Request.cs">
+      <Link>RequestNS\Request.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\RequestNS\RequestDrinkList.cs">
+      <Link>RequestNS\RequestDrinkList.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\RequestNS\RequestEventArgs.cs">
+      <Link>RequestNS\RequestEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\RequestNS\RequestFactory.cs">
+      <Link>RequestNS\RequestFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\RequestNS\RequestOrderDrink.cs">
+      <Link>RequestNS\RequestOrderDrink.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\RequestNS\RequestOrderStatus.cs">
+      <Link>RequestNS\RequestOrderStatus.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\RequestNS\RequestWelcome.cs">
+      <Link>RequestNS\RequestWelcome.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\ViewModel\DrinkDetailViewModel.cs">
+      <Link>ViewModel\DrinkDetailViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\ViewModel\DrinkViewModel.cs">
+      <Link>ViewModel\DrinkViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\ViewModel\IViewModel.cs">
+      <Link>ViewModel\IViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\ViewModel\OrderViewModel.cs">
+      <Link>ViewModel\OrderViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\ViewModel\SignInViewModel.cs">
+      <Link>ViewModel\SignInViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\ViewModel\ViewModelChangedEventArgs.cs">
+      <Link>ViewModel\ViewModelChangedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="DrinkListView.xaml.cs">
+      <DependentUpon>DrinkListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SignInView.xaml.cs">
       <DependentUpon>SignInView.xaml</DependentUpon>
     </Compile>
+    <Page Include="DrinkListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -91,6 +188,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -107,6 +205,11 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties ProjectLinkReference="08d87ef2-4f72-4c6c-84b6-d47267b027cb" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
+    </VisualStudio>
+  </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

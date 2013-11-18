@@ -40,5 +40,11 @@ namespace ScfApp.SimGui {
         this.tabDrinkList.Visibility = System.Windows.Visibility.Visible;
       });
     }
+
+    private void tabDrinkList_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e) {
+      if (this.IsVisible == true) {
+        this.cmpDrinkListView.Reload();
+      }
+    }
   }
 }
