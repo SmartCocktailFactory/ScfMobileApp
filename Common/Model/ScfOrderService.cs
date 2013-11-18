@@ -98,7 +98,11 @@ namespace Common.Model {
 
       RequestNS.RequestOrderStatus orderStatus = e.Request as RequestNS.RequestOrderStatus;
       try {
-				DTO.Order editOrder = this.CurrentOrders.First(x => x.OrderId == orderStatus.OrderId);
+				DTO.Order editOrder = this.CurrentOrders.FirstOrDefault(x => x.OrderId == orderStatus.OrderId);
+        if (editOrder == null) {
+          editOrder = new DTO.Order();
+          this.CurrentOrders.Add(editOrder);
+        }
 
 				DTO.Order updatedOrder = orderStatus.GetOrder();
 

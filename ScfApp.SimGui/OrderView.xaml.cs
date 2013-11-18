@@ -47,7 +47,7 @@ namespace ScfApp.SimGui {
       IList<Common.DTO.Order> pendingOrders = this._OrderModel.Orders;
 
       foreach (Common.DTO.Order curOrder in pendingOrders) {
-        item = new ListViewItem { Content = "drinkd: " + curOrder.DrinkId + ", id: " + curOrder.OrderId + ", status: " + curOrder.OrderStatus };
+        item = new ListViewItem { Content = "drinkd: " + curOrder.DrinkId + ", id: " + curOrder.OrderId + ", status: " + curOrder.OrderStatus + ", timeToFinish: " + curOrder.ExpectedSecondsToDeliver };
         if (currentOrder != null && currentOrder.OrderId == curOrder.OrderId) {
           item.Background = Brushes.LightBlue;
         }
