@@ -21,6 +21,11 @@ namespace Common.ViewModel {
         }
       }
     }
+    public IList<DTO.Order> Orders {
+      get {
+        return this._OrderService.CurrentOrders;
+      }
+    }
     #endregion
 
     #region Events

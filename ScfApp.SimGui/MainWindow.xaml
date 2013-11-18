@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:ScfApp.SimGui" x:Class="ScfApp.SimGui.MainWindow"
-        Title="MainWindow" Height="437.057" Width="409.599" Closing="Window_Closing" Loaded="Window_Loaded">
+        Title="MainWindow" Height="401.057" Width="511.599" Closing="Window_Closing" Loaded="Window_Loaded">
     <Grid Margin="0,0,2,13">
         <TabControl HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" >
             <TabItem x:Name="tabSignIn" Header="Sign In">
@@ -12,7 +12,7 @@
             </TabItem>
             <TabItem x:Name="tabDrinkList" Header="Drink List" IsVisibleChanged="tabDrinkList_IsVisibleChanged">
                 <Grid Background="#FFE5E5E5">
-                    <local:DrinkListView x:Name="cmpDrinkListView"/>
+                    <local:DrinkListView x:Name="cmpDrinkListView" Height="Auto" Width="Auto"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="tabOrderList" Header="Order List" IsVisibleChanged="tabOrderList_IsVisibleChanged">

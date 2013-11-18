@@ -42,8 +42,16 @@ namespace ScfApp.SimGui {
 
     private void _UpdateOrder(Common.DTO.Order currentOrder) {
       this.lstOrderView.Items.Clear();
-      if (currentOrder != null) {
-        this.lstOrderView.Items.Add(new ListViewItem { Content = "drinkd: " + currentOrder.DrinkId + ", id: " + currentOrder.OrderId + ", status: " + currentOrder.OrderStatus });
+
+      ListViewItem item;
+      IList<Common.DTO.Order> pendingOrders = this._OrderModel.Orders;
+
+      foreach (Common.DTO.Order curOrder in pendingOrders) {
+        item = new ListViewItem { Content = "drinkd: " + curOrder.DrinkId + ", id: " + curOrder.OrderId + ", status: " + curOrder.OrderStatus };
+        if (currentOrder != null && currentOrder.OrderId == curOrder.OrderId) {
+          item.Background = Brushes.LightBlue;
+        }
+        this.lstOrderView.Items.Add(item);
       }
     }
   }

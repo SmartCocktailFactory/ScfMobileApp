@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <ListView x:Name="lstOrderView" Loaded="ListView_Loaded">
+        <ListView x:Name="lstOrderView" Loaded="ListView_Loaded" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn />
