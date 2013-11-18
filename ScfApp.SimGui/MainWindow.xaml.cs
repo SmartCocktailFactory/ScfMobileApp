@@ -20,6 +20,8 @@ namespace ScfApp.SimGui {
   public partial class MainWindow : Window {
     public MainWindow() {
       InitializeComponent();
+      this.tabOrderList.Visibility = System.Windows.Visibility.Hidden;
+      this.tabDrinkList.Visibility = System.Windows.Visibility.Hidden;
     }
 
     private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
@@ -33,17 +35,25 @@ namespace ScfApp.SimGui {
 
     void cmpSignIn_OnConnecting(object sender, EventArgs e) {
       this.tabDrinkList.Visibility = System.Windows.Visibility.Hidden;
+      this.tabOrderList.Visibility = System.Windows.Visibility.Hidden;
     }
 
     void cmpSignIn_OnConnected(object sender, EventArgs e) {
       this.Dispatcher.Invoke(delegate {
         this.tabDrinkList.Visibility = System.Windows.Visibility.Visible;
+        this.tabOrderList.Visibility = System.Windows.Visibility.Visible;
       });
     }
 
     private void tabDrinkList_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e) {
-      if (this.IsVisible == true) {
+      if (this.tabDrinkList.IsVisible == true) {
         this.cmpDrinkListView.Reload();
+      }
+    }
+
+    private void tabOrderList_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e) {
+      if (this.tabOrderList.IsVisible == true) {
+        this.cmpOrderView.Reload();
       }
     }
   }

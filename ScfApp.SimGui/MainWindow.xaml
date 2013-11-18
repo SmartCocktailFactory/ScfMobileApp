@@ -5,14 +5,19 @@
         Title="MainWindow" Height="437.057" Width="409.599" Closing="Window_Closing" Loaded="Window_Loaded">
     <Grid Margin="0,0,2,13">
         <TabControl HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" >
-            <TabItem x:Name="tabSignIn" Header="Sign In" Margin="10,0,-14,-3">
+            <TabItem x:Name="tabSignIn" Header="Sign In">
                 <Grid Background="#FFE5E5E5">
                     <local:SignInView x:Name="cmpSignIn"/>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="tabDrinkList" Header="Drink List" IsVisibleChanged="tabDrinkList_IsVisibleChanged" Margin="14,0,-18,-3" Visibility="Hidden">
+            <TabItem x:Name="tabDrinkList" Header="Drink List" IsVisibleChanged="tabDrinkList_IsVisibleChanged">
                 <Grid Background="#FFE5E5E5">
                     <local:DrinkListView x:Name="cmpDrinkListView"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="tabOrderList" Header="Order List" IsVisibleChanged="tabOrderList_IsVisibleChanged">
+                <Grid Background="#FFE5E5E5">
+                    <local:OrderView x:Name="cmpOrderView"/>
                 </Grid>
             </TabItem>
         </TabControl>
