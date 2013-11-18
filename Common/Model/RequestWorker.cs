@@ -52,7 +52,7 @@ namespace Common.Model {
         _TriggerWorker.WaitOne();
         Console.WriteLine("worker thread: signal was set; number of requests is: " + _theExecutor.numberOfPendingRequests());
         //assume at least one request is available: fetch the first one
-        if ((_CurrentRequest = _theExecutor.getAndRemoveRequest()) != null) {
+        while ((_CurrentRequest = _theExecutor.getAndRemoveRequest()) != null) {
           //a request fetched; handle it
           Console.WriteLine("worker thread: handle the request: " + _CurrentRequest.RemoteUrl);
           WebRequest webRequest = HttpWebRequest.Create(_CurrentRequest.RemoteUrl);
