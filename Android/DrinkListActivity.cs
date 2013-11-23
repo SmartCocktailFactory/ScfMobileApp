@@ -13,7 +13,7 @@ using Android.Widget;
 using Common.ViewModel;
 
 namespace ScfMobileApp.Android {
-  [Activity(Label = "Drink list", Icon = "@drawable/SCF_Logo_Android_drawable")]
+  [Activity(Label = "Drink List", Icon = "@drawable/SCF_Logo_Android_drawable")]
   public class DrinkListActivity : Activity {
     #region Members
     private DrinkViewModel _DrinkViewModel;

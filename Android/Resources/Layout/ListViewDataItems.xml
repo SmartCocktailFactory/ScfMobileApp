@@ -5,8 +5,7 @@
     android:layout_height="match_parent"
     android:minWidth="25px"
     android:minHeight="25px">
-  <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/textItem"
+  <TextView android:id="@+id/textItem"
             android:textSize="44sp"
             android:background="#80000000"
             android:layout_width="fill_parent"

@@ -13,7 +13,6 @@ namespace Common.Model {
 
   public class RequestExecutor : RequestNS.IRequestExecutor {
     #region Members
-    private HttpWebResponse _CurrentResponse = null;
     List<ARequest> _requestQueue = new List<ARequest>();
     private object _requestLock = new object();
     private Worker _WorkerThread;

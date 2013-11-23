@@ -66,6 +66,7 @@
     <Compile Include="ViewModel\IViewModel.cs" />
     <Compile Include="DTO\Order.cs" />
     <Compile Include="Model\OrderChangedEventArgs.cs" />
+    <Compile Include="ViewModel\OrderDetails.cs" />
     <Compile Include="ViewModel\OrderViewModel.cs" />
     <Compile Include="ViewModel\SignInViewModel.cs" />
     <Compile Include="Model\WelcomeMessageReceivedEventArgs.cs" />

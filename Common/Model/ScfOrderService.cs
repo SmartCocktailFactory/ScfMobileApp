@@ -123,10 +123,11 @@ namespace Common.Model {
     #region Event handlers
 
     void orderRequest_OnRequestCompleted(object sender, RequestNS.RequestCompletedEventArgs e) {
+      RequestNS.RequestOrderDrink orderResponse = e.Request as RequestNS.RequestOrderDrink;
       if (e.Request.State != RequestNS.RequestStates.Successful) {
         return;
       }
-      RequestNS.RequestOrderDrink orderResponse = e.Request as RequestNS.RequestOrderDrink;
+
 			DTO.Order order = new DTO.Order();
       order.OrderId = orderResponse.GetOrderAmount();
 

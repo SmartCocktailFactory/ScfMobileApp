@@ -137,6 +137,9 @@
     <Compile Include="..\Common\ViewModel\IViewModel.cs">
       <Link>ViewModel\IViewModel.cs</Link>
     </Compile>
+    <Compile Include="..\Common\ViewModel\OrderDetails.cs">
+      <Link>ViewModel\OrderDetails.cs</Link>
+    </Compile>
     <Compile Include="..\Common\ViewModel\OrderViewModel.cs">
       <Link>ViewModel\OrderViewModel.cs</Link>
     </Compile>

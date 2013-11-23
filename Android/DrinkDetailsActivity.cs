@@ -55,6 +55,7 @@ namespace ScfMobileApp.Android {
 
     private void ButtonOrderDrink_Click(object sender, EventArgs e) {
       this._DrinkDetailsViewModel.OrderDrink(this._DrinkId);
+      this._TriggerOrderistActivity();
     }
     #endregion
 
@@ -76,7 +77,13 @@ namespace ScfMobileApp.Android {
 
       orderDrink.Text = "Order '" + drinkName + "'";
     }
-    #endregion
 
+    private void _TriggerOrderistActivity() {
+      Intent orderIntend = new Intent(this, typeof(OrderListActivity));
+
+      StartActivity(orderIntend);
+    }
+
+    #endregion
   }
 }

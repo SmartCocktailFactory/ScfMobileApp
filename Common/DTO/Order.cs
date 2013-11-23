@@ -28,8 +28,6 @@ namespace Common.DTO {
       this.ExpectedSecondsToDeliver = 60;
     }
 
-
-
     public object Clone() {
       return this.MemberwiseClone();
     }

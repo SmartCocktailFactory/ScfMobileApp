@@ -134,6 +134,9 @@
     <Compile Include="..\Common\ViewModel\IViewModel.cs">
       <Link>ViewModel\IViewModel.cs</Link>
     </Compile>
+    <Compile Include="..\Common\ViewModel\OrderDetails.cs">
+      <Link>ViewModel\OrderDetails.cs</Link>
+    </Compile>
     <Compile Include="..\Common\ViewModel\OrderViewModel.cs">
       <Link>ViewModel\OrderViewModel.cs</Link>
     </Compile>
@@ -147,6 +150,8 @@
     <Compile Include="DrinkDetailsActivity.cs" />
     <Compile Include="DrinkListActivity.cs" />
     <Compile Include="DrinkListAdapter.cs" />
+    <Compile Include="OrderDetailListAdapter.cs" />
+    <Compile Include="OrderListActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="..\Common\DTO\Drink.cs">
@@ -163,6 +168,9 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\DrinkDetails.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\OrderList.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -185,6 +193,7 @@
     <AndroidResource Include="Resources\Layout\ListViewDataItems.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\Layout\OrderViewDataItem.xml" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="json.net">
@@ -195,7 +204,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="08d87ef2-4f72-4c6c-84b6-d47267b027cb" />
+      <UserProperties ProjectLinkReference="08d87ef2-4f72-4c6c-84b6-d47267b027cb" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

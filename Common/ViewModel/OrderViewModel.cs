@@ -9,6 +9,7 @@ namespace Common.ViewModel {
 
     #region Members
     private Model.IOrderService _OrderService = null;
+    private Model.IDrinkService _DrinkService = null;
 		private DTO.Order _CurrentOrder = null;
     private object _OrderLock = new object();
     #endregion
@@ -26,13 +27,16 @@ namespace Common.ViewModel {
         return this._OrderService.CurrentOrders.Where(x => x.OrderStateId == DTO.StateId.Pending).ToList();
       }
     }
-
     public IList<DTO.Order> CompletedOrders {
       get {
         return this._OrderService.CurrentOrders.Where(x => x.OrderStateId == DTO.StateId.Completed).ToList();
       }
     }
-
+    public IList<OrderDetails> DetailedOrders {
+      get {
+        return this._GetDetailedOrder();
+      }
+    }
     #endregion
 
     #region Events
@@ -46,6 +50,8 @@ namespace Common.ViewModel {
     public OrderViewModel() {
       this._OrderService = Model.ModelFactory.Instance().OrderService;
       this._OrderService.OnOrderChanged += _MyService_OnOrderChanged;
+
+      this._DrinkService = Model.ModelFactory.Instance().DrinkService;
     }
     #endregion
 
@@ -86,6 +92,18 @@ namespace Common.ViewModel {
       }
     }
 
+    private IList<OrderDetails> _GetDetailedOrder() {
+      List<OrderDetails> lstOrderDetails = new List<OrderDetails>();
+      IList<DTO.Order> orders = this._OrderService.CurrentOrders;
+
+      OrderDetails details;
+      foreach (DTO.Order curOrder in orders) {
+        details = new OrderDetails(this._DrinkService.GetDrink(curOrder.DrinkId), curOrder);
+        lstOrderDetails.Add(details);
+      }
+
+      return lstOrderDetails;
+    }
     #endregion
   }
 }

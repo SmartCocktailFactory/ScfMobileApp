@@ -40,7 +40,11 @@ namespace Common.Model {
     }
 
     DTO.Drink IDrinkService.GetDrink(string drinkId) {
-      DTO.Drink drink = this.Drinks.First(x => x.DrinkId == drinkId);
+      if (drinkId == "") {
+        return new DTO.Drink();
+      }
+
+      DTO.Drink drink = this.Drinks.FirstOrDefault(x => x.DrinkId == drinkId);
 
       if (drink.Description == string.Empty) {
         this._RequestDrinkDetails(drinkId);
