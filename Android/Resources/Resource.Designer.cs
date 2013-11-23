@@ -72,14 +72,14 @@ namespace ScfMobileApp.Android
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f060007
-			public const int btnAbortConnect = 2131099655;
+			// aapt resource value: 0x7f060006
+			public const int btnAbortConnect = 2131099654;
 			
-			// aapt resource value: 0x7f060009
-			public const int btnConnect = 2131099657;
+			// aapt resource value: 0x7f060008
+			public const int btnConnect = 2131099656;
 			
-			// aapt resource value: 0x7f060000
-			public const int btnOrderDrink = 2131099648;
+			// aapt resource value: 0x7f060001
+			public const int btnOrderDrink = 2131099649;
 			
 			// aapt resource value: 0x7f060002
 			public const int drinkListView = 2131099650;
@@ -87,20 +87,20 @@ namespace ScfMobileApp.Android
 			// aapt resource value: 0x7f060005
 			public const int lblConnectStatus = 2131099653;
 			
-			// aapt resource value: 0x7f060006
-			public const int progressBar1 = 2131099654;
+			// aapt resource value: 0x7f060009
+			public const int progressBar1 = 2131099657;
 			
 			// aapt resource value: 0x7f06000a
 			public const int tbxResponse = 2131099658;
 			
-			// aapt resource value: 0x7f060008
-			public const int tbxServiceUrl = 2131099656;
+			// aapt resource value: 0x7f060007
+			public const int tbxServiceUrl = 2131099655;
 			
 			// aapt resource value: 0x7f060004
 			public const int textItem = 2131099652;
 			
-			// aapt resource value: 0x7f060001
-			public const int txtDrinkDetails = 2131099649;
+			// aapt resource value: 0x7f060000
+			public const int txtDrinkDetails = 2131099648;
 			
 			// aapt resource value: 0x7f060003
 			public const int txtLastOrder = 2131099651;
