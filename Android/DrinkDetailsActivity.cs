@@ -54,7 +54,7 @@ namespace ScfMobileApp.Android {
     }
 
     void _OrderViewModel_OnViewModelChanged(object sender, ViewModelChangedEventArgs e) {
-      string sOrderMessage = string.empty;
+			string sOrderMessage = string.Empty;
       if (this._OrderViewModel.CurrentOrder == null) {
         sOrderMessage = "No pending ordres";
       } else {

@@ -122,9 +122,6 @@
     <Compile Include="..\Common\RequestNS\RequestWelcome.cs">
       <Link>RequestNS\RequestWelcome.cs</Link>
     </Compile>
-    <Compile Include="..\Common\ViewModel\Drink.cs">
-      <Link>DTO\Drink.cs</Link>
-    </Compile>
     <Compile Include="..\Common\ViewModel\DrinkDetailViewModel.cs">
       <Link>ViewModel\DrinkDetailViewModel.cs</Link>
     </Compile>
@@ -133,9 +130,6 @@
     </Compile>
     <Compile Include="..\Common\ViewModel\IViewModel.cs">
       <Link>ViewModel\IViewModel.cs</Link>
-    </Compile>
-    <Compile Include="..\Common\ViewModel\Order.cs">
-      <Link>DTO\Order.cs</Link>
     </Compile>
     <Compile Include="..\Common\ViewModel\OrderViewModel.cs">
       <Link>ViewModel\OrderViewModel.cs</Link>
@@ -151,6 +145,12 @@
     <Compile Include="DrinkListActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="..\Common\DTO\Drink.cs">
+      <Link>DTO\Drink.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\DTO\Order.cs">
+      <Link>DTO\Order.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -201,7 +201,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup>
-    <Folder Include="DTO\" />
-  </ItemGroup>
 </Project>

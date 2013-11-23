@@ -19,7 +19,7 @@ namespace Common.Model {
         if (this._Drinks.Count == 0) {
           this._RequestDrinks();
         }
-        return this._Drinks.ToList();
+        return new List<DTO.Drink>(this._Drinks.Select(x => ((DTO.Drink)x.Clone())));
       }
     }
     #endregion

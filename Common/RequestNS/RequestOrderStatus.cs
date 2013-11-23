@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-//using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Linq;
 
 namespace Common.RequestNS {
   public class RequestOrderStatus : ARequest {
@@ -36,14 +36,15 @@ namespace Common.RequestNS {
     #region Public method
 		public DTO.Order GetOrder() {
 			DTO.Order order = new DTO.Order();
-      //var rawOrder = JObject.Parse(this.Response);
-      //int seconds = 0;
+      var rawOrder = JObject.Parse(this.Response);
+      int seconds = 0;
 
-      //order.DrinkId = rawOrder["drink_id"].ToString();
-      //order.OrderStatus = rawOrder["status"].ToString();
+      order.DrinkId = rawOrder["drink_id"].ToString();
+      order.OrderStatus = rawOrder["status"].ToString();
+      order.OrderStateId = this._OrderStatusToStateId(order.OrderStatus);
 
-      //int.TryParse(rawOrder["expected_time_to_completion"].ToString(), out seconds);
-      //order.ExpectedSecondsToDeliver = seconds;
+      int.TryParse(rawOrder["expected_time_to_completion"].ToString(), out seconds);
+      order.ExpectedSecondsToDeliver = seconds;
 
       return order;
     }
@@ -53,6 +54,28 @@ namespace Common.RequestNS {
     private void _SetOrderId(string orderId) {
       this._OrderId = orderId;
       this.RelativeUrl = string.Format(this.RelativeUrl, orderId);
+    }
+    #endregion
+
+    #region Private methods
+    private DTO.StateId _OrderStatusToStateId(string orderStatus) {
+      DTO.StateId state;
+      switch (orderStatus) {
+        case "pending":
+          state = DTO.StateId.Pending;
+          break;
+        case "in progress":
+          state = DTO.StateId.InProgress;
+          break;
+        case "completed":
+          state = DTO.StateId.Completed;
+          break;
+        default:
+          state = DTO.StateId.Pending;
+          break;
+      }
+
+      return state;
     }
     #endregion
 

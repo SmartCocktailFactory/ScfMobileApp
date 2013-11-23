@@ -63,7 +63,9 @@ namespace Common.Model {
     void welcomeRequest_OnRequestCompleted(object sender, RequestNS.RequestCompletedEventArgs e) {
       RequestNS.RequestWelcome welcomeMessage = e.Request as RequestNS.RequestWelcome;
 
-      this._WelcomeMessage = welcomeMessage.Response;
+      if (welcomeMessage.SuccessfulExecuted == true) {
+        this._WelcomeMessage = welcomeMessage.Response;
+      }
       this._NotifyWelcomeMessageChanged();
     }
     #endregion

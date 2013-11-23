@@ -32,11 +32,11 @@ namespace Common.Model {
     public event EventHandler<OrderChangedEventArgs> OnOrderChanged;
 
     public IList<DTO.Order> CompletedOrders {
-      get { return this._CompletedOrders; }
+      get { return new List<DTO.Order>(this._CompletedOrders.Select(x => ((DTO.Order)x.Clone()))); }
     }
 
 		public IList<DTO.Order> CurrentOrders {
-      get { return this._CurrentOrders; }
+      get { return new List<DTO.Order>(this._CurrentOrders.Select(x => ((DTO.Order)x.Clone()))); }
     }
 
     public void OrderDrink(string drinkId) {
@@ -73,7 +73,7 @@ namespace Common.Model {
     }
 
     private List<string> _GetUncompletedOrderIds() {
-      return this.CurrentOrders.Where(x => x.ExpectedSecondsToDeliver > 0).Select(x => x.OrderId).ToList();
+      return this._CurrentOrders.Where(x => x.ExpectedSecondsToDeliver > 0).Select(x => x.OrderId).ToList();
     }
     #endregion
 
@@ -98,10 +98,13 @@ namespace Common.Model {
 
       RequestNS.RequestOrderStatus orderStatus = e.Request as RequestNS.RequestOrderStatus;
       try {
-				DTO.Order editOrder = this.CurrentOrders.FirstOrDefault(x => x.OrderId == orderStatus.OrderId);
+
+				DTO.Order editOrder = this._CurrentOrders.FirstOrDefault(x => x.OrderId == orderStatus.OrderId);
+
         if (editOrder == null) {
           editOrder = new DTO.Order();
-          this.CurrentOrders.Add(editOrder);
+          editOrder.OrderId = orderStatus.OrderId;
+          this._CurrentOrders.Add(editOrder);
         }
 
 				DTO.Order updatedOrder = orderStatus.GetOrder();
