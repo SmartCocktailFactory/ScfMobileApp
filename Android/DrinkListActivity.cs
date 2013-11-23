@@ -17,6 +17,7 @@ namespace ScfMobileApp.Android {
   public class DrinkListActivity : Activity {
     #region Members
     private DrinkViewModel _DrinkViewModel;
+    private List<Common.DTO.Drink> _Drinks = new List<Common.DTO.Drink>();
     #endregion
 
     #region GUI event handlers
@@ -34,7 +35,8 @@ namespace ScfMobileApp.Android {
       ListView view = FindViewById<ListView>(Resource.Id.drinkListView);
       view.ItemClick += view_ItemClick;
 
-      this._SetDrinkList(this._DrinkViewModel.DrinkNames);
+      this._Drinks = this._DrinkViewModel.Drinks.ToList();
+      this._SetDrinkList();
     }
 
     protected override void OnDestroy() {
@@ -45,29 +47,27 @@ namespace ScfMobileApp.Android {
 
     void view_ItemClick(object sender, AdapterView.ItemClickEventArgs e) {
       ListView view = FindViewById<ListView>(Resource.Id.drinkListView);
-      string drinkName = view.Adapter.GetItem(e.Position).ToString();
-      string drinkId = this._DrinkViewModel.Drinks.First(x => x.Name == drinkName).DrinkId;
-
-      this._TriggerDrinkDetailsActivity(drinkId, drinkName);
+      Common.DTO.Drink drink = this._Drinks[e.Position];
+      this._TriggerDrinkDetailsActivity(drink.DrinkId);
     }
     #endregion
 
     #region Model event handlers
     void _DrinkViewModel_OnDrinkViewModelChanged(object sender, ViewModelChangedEventArgs e) {
-      IList<string> drinkNames = this._DrinkViewModel.DrinkNames;
+      this._Drinks = this._DrinkViewModel.Drinks.ToList();
       this.RunOnUiThread(() => {
-        this._SetDrinkList(drinkNames);
+        this._SetDrinkList();
       });
     }
 
-    private void _SetDrinkList(IList<string> drinkNames) {
+    private void _SetDrinkList() {
       ListView view = FindViewById<ListView>(Resource.Id.drinkListView);
-      view.Adapter = new ArrayAdapter(this, Android.Resource.Layout.ListViewDataItems, drinkNames.ToArray());
+      view.Adapter = new DrinkListAdapter(this, this._Drinks);
     }
     #endregion
 
     #region Private methods
-    private void _TriggerDrinkDetailsActivity(string drinkId, string drinkName) {
+    private void _TriggerDrinkDetailsActivity(string drinkId) {
       Intent drinkIntend = new Intent(this, typeof(DrinkDetailsActivity));
       drinkIntend.PutExtra("drinkId", drinkId);
 
