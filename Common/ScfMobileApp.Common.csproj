@@ -49,6 +49,7 @@
     <Compile Include="Model\ScfOrderService.cs" />
     <Compile Include="RequestNS\IRequestExecutor.cs" />
     <Compile Include="RequestNS\Request.cs" />
+    <Compile Include="RequestNS\RequestDrinkDetails.cs" />
     <Compile Include="RequestNS\RequestDrinkList.cs" />
     <Compile Include="RequestNS\RequestEventArgs.cs" />
     <Compile Include="RequestNS\RequestFactory.cs" />

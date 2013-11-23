@@ -99,11 +99,11 @@ namespace ScfMobileApp.Android
 			// aapt resource value: 0x7f060004
 			public const int textItem = 2131099652;
 			
+			// aapt resource value: 0x7f060001
+			public const int txtDrinkDetails = 2131099649;
+			
 			// aapt resource value: 0x7f060003
 			public const int txtLastOrder = 2131099651;
-			
-			// aapt resource value: 0x7f060001
-			public const int txtOrderResponse = 2131099649;
 			
 			static Id()
 			{

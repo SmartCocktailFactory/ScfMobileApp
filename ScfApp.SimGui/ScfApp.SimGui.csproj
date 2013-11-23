@@ -107,6 +107,9 @@
     <Compile Include="..\Common\RequestNS\Request.cs">
       <Link>RequestNS\Request.cs</Link>
     </Compile>
+    <Compile Include="..\Common\RequestNS\RequestDrinkDetails.cs">
+      <Link>RequestNS\RequestDrinkDetails.cs</Link>
+    </Compile>
     <Compile Include="..\Common\RequestNS\RequestDrinkList.cs">
       <Link>RequestNS\RequestDrinkList.cs</Link>
     </Compile>
@@ -208,7 +211,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="08d87ef2-4f72-4c6c-84b6-d47267b027cb" />
+      <UserProperties ProjectLinkReference="08d87ef2-4f72-4c6c-84b6-d47267b027cb" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -38,6 +38,16 @@ namespace Common.Model {
     public IList<string> DrinkNames {
       get { return this.Drinks.Select(x => x.Name).ToList(); }
     }
+
+    DTO.Drink IDrinkService.GetDrink(string drinkId) {
+      DTO.Drink drink = this.Drinks.First(x => x.DrinkId == drinkId);
+
+      if (drink.Description == string.Empty) {
+        this._RequestDrinkDetails(drinkId);
+      }
+      return drink;
+    }
+
     #endregion
 
     #region Public methods
@@ -56,6 +66,13 @@ namespace Common.Model {
       });
     }
 
+    private void _RequestDrinkDetails(string drinkId) {
+      Task.Factory.StartNew(() => {
+        RequestNS.RequestDrinkDetails drinkDetails = this._Factory.CreateDrinkDetailsRequest(drinkId);
+        drinkDetails.OnRequestCompleted += drinkDetails_OnRequestCompleted;
+        drinkDetails.Execute();
+      });
+    }
 
     private void _NotifyDrinkListChanged() {
       if (this.OnDrinkNamesChanged != null) {
@@ -65,7 +82,13 @@ namespace Common.Model {
       }
     }
 
-
+    private void _NotifyDrinkChanged() {
+      if (this.OnDrinksChanged != null) {
+        Task.Factory.StartNew(() => {
+          this.OnDrinksChanged(this, new DrinksChangedEventArgs(this.Drinks));
+        });
+      }
+    }
     #endregion
 
     #region Event handlers
@@ -81,6 +104,21 @@ namespace Common.Model {
 
         this._NotifyDrinkListChanged();
      }
+
+    void drinkDetails_OnRequestCompleted(object sender, RequestNS.RequestCompletedEventArgs e) {
+      RequestNS.RequestDrinkDetails request = e.Request as RequestNS.RequestDrinkDetails;
+
+      if (request.SuccessfulExecuted != true) {
+        return;
+      }
+
+      DTO.Drink drink = this._Drinks.First(x => x.DrinkId == request.DrinkId);
+      DTO.Drink other = request.GetDrinkDetails();
+      drink.Description = other.Description;
+      drink.Recipe = other.Recipe;
+
+      this._NotifyDrinkChanged();
+    }
 
     #endregion
   }

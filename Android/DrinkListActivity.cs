@@ -17,7 +17,6 @@ namespace ScfMobileApp.Android {
   public class DrinkListActivity : Activity {
     #region Members
     private DrinkViewModel _DrinkViewModel;
-    private OrderViewModel _OrderViewModel;
     #endregion
 
     #region GUI event handlers
@@ -29,8 +28,6 @@ namespace ScfMobileApp.Android {
       // set up view models
       this._DrinkViewModel = new DrinkViewModel();
       this._DrinkViewModel.OnViewModelChanged += _DrinkViewModel_OnDrinkViewModelChanged;
-      this._OrderViewModel = new OrderViewModel();
-      this._OrderViewModel.OnViewModelChanged += _OrderViewModel_OnOrderViewModelChanged;
       
 
       // set up gui elements
@@ -44,7 +41,6 @@ namespace ScfMobileApp.Android {
       base.OnDestroy();
 
       this._DrinkViewModel.DisposeViewModel();
-      this._OrderViewModel.DisposeViewModel();
     }
 
     void view_ItemClick(object sender, AdapterView.ItemClickEventArgs e) {
@@ -57,25 +53,9 @@ namespace ScfMobileApp.Android {
     #endregion
 
     #region Model event handlers
-    void _OrderViewModel_OnOrderViewModelChanged(object sender, ViewModelChangedEventArgs e) {
-      string sOrderMessage = "Last order, ID: ";
-      sOrderMessage += this._OrderViewModel.CurrentOrder.OrderId;
-      sOrderMessage += " Drink: ";
-      sOrderMessage += this._OrderViewModel.CurrentOrder.DrinkId;
-      sOrderMessage += " Due in ";
-      sOrderMessage += this._OrderViewModel.CurrentOrder.ExpectedSecondsToDeliver;
-      sOrderMessage += " sec; Status: ";
-      sOrderMessage += this._OrderViewModel.CurrentOrder.OrderStatus;
-      
-      RunOnUiThread(() => {
-        TextView text = FindViewById<TextView>(Resource.Id.txtLastOrder);
-        text.Text = sOrderMessage;
-      });
-    }
-
     void _DrinkViewModel_OnDrinkViewModelChanged(object sender, ViewModelChangedEventArgs e) {
       IList<string> drinkNames = this._DrinkViewModel.DrinkNames;
-      RunOnUiThread(() => {
+      this.RunOnUiThread(() => {
         this._SetDrinkList(drinkNames);
       });
     }
@@ -90,7 +70,6 @@ namespace ScfMobileApp.Android {
     private void _TriggerDrinkDetailsActivity(string drinkId, string drinkName) {
       Intent drinkIntend = new Intent(this, typeof(DrinkDetailsActivity));
       drinkIntend.PutExtra("drinkId", drinkId);
-      drinkIntend.PutExtra("drinkName", drinkName);
 
       StartActivity(drinkIntend);
     }

@@ -30,23 +30,23 @@ namespace ScfApp.SimGui {
 
     #region Public methods
     public void Reload() {
-      this._UpdateDrinks(this._DrinkModel.Drinks);
+      this._UpdateDrinkNames(this._DrinkModel.DrinkNames);
     }
     #endregion
 
     #region Model event handler
     void _Model_OnViewModelChanged(object sender, Common.ViewModel.ViewModelChangedEventArgs e) {
       this.Dispatcher.Invoke(delegate {
-        this._UpdateDrinks(this._DrinkModel.Drinks);
+        this._UpdateDrinkNames(this._DrinkModel.DrinkNames);
       });
     }
     #endregion
 
     #region Private methods
-    private void _UpdateDrinks(IList<Common.DTO.Drink> drinks) {
+    private void _UpdateDrinkNames(IList<string> drinkNames) {
       this.lstView.Items.Clear();
-      foreach (Common.DTO.Drink drink in drinks) {
-        this.lstView.Items.Add(new ListViewItem { Content = drink.Name });
+      foreach (string name in drinkNames) {
+        this.lstView.Items.Add(new ListViewItem { Content = name });
       }
     }
     #endregion

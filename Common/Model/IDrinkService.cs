@@ -7,8 +7,12 @@ using System.Threading.Tasks;
 namespace Common.Model {
   interface IDrinkService {
     #region Properties
-    IList<string> DrinkNames { get; }
     IList<DTO.Drink> Drinks { get; }
+    IList<string> DrinkNames { get; }
+    #endregion
+
+    #region Public methods
+    DTO.Drink GetDrink(string drinkId);
     #endregion
 
     #region Events

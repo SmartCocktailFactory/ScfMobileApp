@@ -35,5 +35,12 @@ namespace Common.RequestNS {
       order.OrderId = orderId;
       return order;
     }
+
+    public RequestDrinkDetails CreateDrinkDetailsRequest(string drinkId) {
+      RequestDrinkDetails order = new RequestDrinkDetails(this.RemoteBaseUrl, this.Executor);
+      order.DrinkId = drinkId;
+      return order;
+    }
+
   }
 }
