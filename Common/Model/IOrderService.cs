@@ -8,7 +8,6 @@ namespace Common.Model
 {
   interface IOrderService {
     #region Properties
-    IList<DTO.Order> CompletedOrders { get; }
 		IList<DTO.Order> CurrentOrders { get; }
     #endregion
 

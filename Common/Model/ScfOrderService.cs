@@ -12,8 +12,8 @@ namespace Common.Model {
     #region Members
     private const int UpdateIntervalMs = 10000;
     private RequestNS.RequestFactory _Factory = null;
-    private List<DTO.Order> _CompletedOrders = new List<DTO.Order>();
 		private List<DTO.Order> _CurrentOrders = new List<DTO.Order>();
+    private object _LockCurrentOrders = new object();
     private Timer _OrderUpdateTick;
     #endregion
 
@@ -31,12 +31,12 @@ namespace Common.Model {
 
     public event EventHandler<OrderChangedEventArgs> OnOrderChanged;
 
-    public IList<DTO.Order> CompletedOrders {
-      get { return new List<DTO.Order>(this._CompletedOrders.Select(x => ((DTO.Order)x.Clone()))); }
-    }
-
-		public IList<DTO.Order> CurrentOrders {
-      get { return new List<DTO.Order>(this._CurrentOrders.Select(x => ((DTO.Order)x.Clone()))); }
+    public IList<DTO.Order> CurrentOrders {
+      get {
+        lock (this._LockCurrentOrders) {
+          return new List<DTO.Order>(this._CurrentOrders.Select(x => ((DTO.Order)x.Clone())));
+        }
+      }
     }
 
     public void OrderDrink(string drinkId) {
@@ -58,7 +58,9 @@ namespace Common.Model {
 
     #region Public methods
     public void ResetService() {
-			this._CurrentOrders = new List<DTO.Order>();
+      lock (this._LockCurrentOrders) {
+        this._CurrentOrders = new List<DTO.Order>();
+      }
     }
     #endregion
 
@@ -73,7 +75,48 @@ namespace Common.Model {
     }
 
     private List<string> _GetUncompletedOrderIds() {
-      return this._CurrentOrders.Where(x => x.ExpectedSecondsToDeliver > 0).Select(x => x.OrderId).ToList();
+      lock (this._LockCurrentOrders) {
+        return this._CurrentOrders.Where(x => x.ExpectedSecondsToDeliver > 0).Select(x => x.OrderId).ToList();
+      }
+    }
+
+    private void _HandleFailedOrderRequest(RequestNS.RequestOrderStatus failedRequest) {
+      DTO.Order failedOrder = null;
+      lock (this._LockCurrentOrders) {
+        failedOrder = this._CurrentOrders.FirstOrDefault(x => x.OrderId == failedRequest.OrderId);
+        if (failedOrder != null) {
+          this._CurrentOrders.Remove(failedOrder);
+        }
+      }
+      failedOrder.OrderStateId = DTO.StateId.Failed;
+      this._NotifyOrderChanged(failedOrder);
+
+      return;
+    }
+
+    private void _UpdateOrderList(RequestNS.RequestOrderStatus orderStatus) {
+      try {
+        lock (this._LockCurrentOrders) {
+          DTO.Order editOrder = this._CurrentOrders.FirstOrDefault(x => x.OrderId == orderStatus.OrderId);
+
+          if (editOrder == null) {
+            editOrder = new DTO.Order();
+            editOrder.OrderId = orderStatus.OrderId;
+            this._CurrentOrders.Add(editOrder);
+          }
+
+          DTO.Order updatedOrder = orderStatus.GetOrder();
+
+          editOrder.DrinkId = updatedOrder.DrinkId;
+          editOrder.ExpectedSecondsToDeliver = updatedOrder.ExpectedSecondsToDeliver;
+          editOrder.OrderStatus = updatedOrder.OrderStatus;
+          editOrder.OrderStateId = updatedOrder.OrderStateId;
+
+          this._NotifyOrderChanged((DTO.Order)editOrder.Clone());
+        }
+      } catch (InvalidOperationException) {
+      } catch (ArgumentNullException) {
+      }
     }
     #endregion
 
@@ -87,35 +130,19 @@ namespace Common.Model {
 			DTO.Order order = new DTO.Order();
       order.OrderId = orderResponse.GetOrderAmount();
 
-      this._CurrentOrders.Add(order);
+      lock (this._LockCurrentOrders) {
+        this._CurrentOrders.Add(order);
+      }
       this.UpdateOrderStatus(order.OrderId);
     }
 
     void orderUpdaterequest_OnRequestCompleted(object sender, RequestNS.RequestCompletedEventArgs e) {
-      if (e.Request.State != RequestNS.RequestStates.Successful) {
-        return;
-      }
-
       RequestNS.RequestOrderStatus orderStatus = e.Request as RequestNS.RequestOrderStatus;
-      try {
 
-				DTO.Order editOrder = this._CurrentOrders.FirstOrDefault(x => x.OrderId == orderStatus.OrderId);
-
-        if (editOrder == null) {
-          editOrder = new DTO.Order();
-          editOrder.OrderId = orderStatus.OrderId;
-          this._CurrentOrders.Add(editOrder);
-        }
-
-				DTO.Order updatedOrder = orderStatus.GetOrder();
-
-        editOrder.DrinkId = updatedOrder.DrinkId;
-        editOrder.ExpectedSecondsToDeliver = updatedOrder.ExpectedSecondsToDeliver;
-        editOrder.OrderStatus = updatedOrder.OrderStatus;
-
-        this._NotifyOrderChanged(editOrder);
-      } catch (InvalidOperationException) {
-      } catch (ArgumentNullException) {
+      if (e.Request.State != RequestNS.RequestStates.Successful) {
+        this._HandleFailedOrderRequest(orderStatus);
+      } else {
+        this._UpdateOrderList(orderStatus);
       }
     }
 

@@ -27,7 +27,7 @@ namespace ScfApp.SimGui {
     }
 
     public void Reload() {
-      this._UpdateOrder(this._OrderModel.CurrentOrder);
+      this._UpdateOrder();
     }
 
     private void ListView_Loaded(object sender, RoutedEventArgs e) {
@@ -36,22 +36,34 @@ namespace ScfApp.SimGui {
 
     void _OrderModel_OnViewModelChanged(object sender, Common.ViewModel.ViewModelChangedEventArgs e) {
       this.Dispatcher.Invoke(delegate {
-        this._UpdateOrder(this._OrderModel.CurrentOrder);
+        this._UpdateOrder();
       });
     }
 
-    private void _UpdateOrder(Common.DTO.Order currentOrder) {
+    private void _UpdateOrder() {
       this.lstOrderView.Items.Clear();
 
       ListViewItem item;
-      IList<Common.DTO.Order> pendingOrders = this._OrderModel.Orders;
+      IList<Common.DTO.Order> completedOrders = this._OrderModel.CompletedOrders;
+      IList<Common.DTO.Order> pendingOrders = this._OrderModel.PendingOrders;
+      Common.DTO.Order currentOrder = this._OrderModel.CurrentOrder;
+
+
+      foreach (Common.DTO.Order curOrder in completedOrders) {
+        item = new ListViewItem { Content = "drink: " + curOrder.DrinkId + ", id: " + curOrder.OrderId + ", status: " + curOrder.OrderStatus + ", timeToFinish: " + curOrder.ExpectedSecondsToDeliver };
+        item.Background = Brushes.LightPink;
+        this.lstOrderView.Items.Add(item);
+      }
+
+      if (currentOrder != null) {
+        item = new ListViewItem { Content = "drink: " + currentOrder.DrinkId + ", id: " + currentOrder.OrderId + ", status: " + currentOrder.OrderStatus + ", timeToFinish: " + currentOrder.ExpectedSecondsToDeliver };
+        item.Background = Brushes.LightBlue;
+        this.lstOrderView.Items.Add(item);
+      }
 
       foreach (Common.DTO.Order curOrder in pendingOrders) {
-        
         item = new ListViewItem { Content = "drinkd: " + curOrder.DrinkId + ", id: " + curOrder.OrderId + ", status: " + curOrder.OrderStatus + ", timeToFinish: " + curOrder.ExpectedSecondsToDeliver };
-        if (currentOrder != null && currentOrder.OrderId == curOrder.OrderId) {
-          item.Background = Brushes.LightBlue;
-        }
+        
         this.lstOrderView.Items.Add(item);
       }
     }

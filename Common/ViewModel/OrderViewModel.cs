@@ -21,11 +21,18 @@ namespace Common.ViewModel {
         }
       }
     }
-    public IList<DTO.Order> Orders {
+    public IList<DTO.Order> PendingOrders {
       get {
-        return this._OrderService.CurrentOrders;
+        return this._OrderService.CurrentOrders.Where(x => x.OrderStateId == DTO.StateId.Pending).ToList();
       }
     }
+
+    public IList<DTO.Order> CompletedOrders {
+      get {
+        return this._OrderService.CurrentOrders.Where(x => x.OrderStateId == DTO.StateId.Completed).ToList();
+      }
+    }
+
     #endregion
 
     #region Events
@@ -50,9 +57,7 @@ namespace Common.ViewModel {
 
     #region Event handlers
     void _MyService_OnOrderChanged(object sender, Model.OrderChangedEventArgs e) {
-      lock (this._OrderLock) {
-        this._CurrentOrder = e.Order;
-      }
+      this._UpdateCurrentOrder(e.Order);
 
       this._NotifyModelChanged();
     }
@@ -66,6 +71,21 @@ namespace Common.ViewModel {
         });
       }
     }
+
+    private void _UpdateCurrentOrder(DTO.Order incomminCorder) {
+      if (this._CurrentOrder != null) {
+        if(this._CurrentOrder.OrderId == incomminCorder.OrderId) {
+          if (incomminCorder.OrderStateId != DTO.StateId.InProgress) {
+            this._CurrentOrder = null;
+          }
+        }
+      }
+
+      if (incomminCorder.OrderStateId == DTO.StateId.InProgress) {
+        this._CurrentOrder = incomminCorder;
+      }
+    }
+
     #endregion
   }
 }

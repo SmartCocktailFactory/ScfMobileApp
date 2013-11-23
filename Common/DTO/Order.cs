@@ -9,7 +9,8 @@ namespace Common.DTO {
   public enum StateId {
     Pending,
     InProgress,
-    Completed
+    Completed,
+    Failed
   };
 
   public class Order : ICloneable {
