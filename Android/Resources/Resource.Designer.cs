@@ -90,11 +90,11 @@ namespace ScfMobileApp.Android
 			// aapt resource value: 0x7f060005
 			public const int lblConnectStatus = 2131099653;
 			
-			// aapt resource value: 0x7f06000c
-			public const int lstViewOrderDetails = 2131099660;
+			// aapt resource value: 0x7f06000d
+			public const int lstViewOrderDetails = 2131099661;
 			
-			// aapt resource value: 0x7f06000b
-			public const int orderListView = 2131099659;
+			// aapt resource value: 0x7f06000c
+			public const int orderListView = 2131099660;
 			
 			// aapt resource value: 0x7f060009
 			public const int progressBar1 = 2131099657;
@@ -111,14 +111,17 @@ namespace ScfMobileApp.Android
 			// aapt resource value: 0x7f060000
 			public const int txtDrinkDetails = 2131099648;
 			
-			// aapt resource value: 0x7f06000d
-			public const int txtDrinkName = 2131099661;
-			
 			// aapt resource value: 0x7f06000e
-			public const int txtOrderId = 2131099662;
+			public const int txtDrinkName = 2131099662;
+			
+			// aapt resource value: 0x7f06000b
+			public const int txtNoOrders = 2131099659;
 			
 			// aapt resource value: 0x7f06000f
-			public const int txtSecondsToFinish = 2131099663;
+			public const int txtOrderId = 2131099663;
+			
+			// aapt resource value: 0x7f060010
+			public const int txtSecondsToFinish = 2131099664;
 			
 			static Id()
 			{

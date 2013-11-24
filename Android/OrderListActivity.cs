@@ -47,11 +47,18 @@ namespace ScfMobileApp.Android {
 
     #region Private methods
     private void _UpdateOrderList() {
+      TextView txtNoOrders = this.FindViewById<TextView>(Resource.Id.txtNoOrders);
+      txtNoOrders.Visibility = ViewStates.Gone;
+
       this._DetailedOrderList = this._OrderViewModel.DetailedOrders.ToList();
       ListView view = FindViewById<ListView>(Resource.Id.orderListView);
       view.Adapter = new OrderDetailListAdapter(this, this._DetailedOrderList);
-    }
 
+      if (this._DetailedOrderList.Count == 0) {
+        txtNoOrders.Visibility = ViewStates.Visible;
+      }
+
+    }
     #endregion
   }
 }
