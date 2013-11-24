@@ -21,6 +21,7 @@ namespace ScfMobileApp.Android {
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+            System.Threading.Thread.Sleep(1000);
             StartActivity(typeof(Activity1));
         }
     }
