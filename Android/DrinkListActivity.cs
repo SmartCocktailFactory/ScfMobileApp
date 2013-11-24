@@ -35,6 +35,9 @@ namespace ScfMobileApp.Android {
       ListView view = FindViewById<ListView>(Resource.Id.drinkListView);
       view.ItemClick += view_ItemClick;
 
+      Button btnOrders = FindViewById<Button>(Resource.Id.btnShowOrders);
+      btnOrders.Click += btnOrders_Click;
+
       this._Drinks = this._DrinkViewModel.Drinks.ToList();
       this._SetDrinkList();
     }
@@ -50,6 +53,12 @@ namespace ScfMobileApp.Android {
       ListView view = FindViewById<ListView>(Resource.Id.drinkListView);
       Common.DTO.Drink drink = this._Drinks[e.Position];
       this._TriggerDrinkDetailsActivity(drink.DrinkId);
+    }
+
+    void btnOrders_Click(object sender, EventArgs e) {
+      Intent orderIntend = new Intent(this, typeof(OrderListActivity));
+      orderIntend.AddFlags(ActivityFlags.NoHistory);
+      StartActivity(orderIntend);
     }
     #endregion
 
