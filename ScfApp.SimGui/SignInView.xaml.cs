@@ -20,7 +20,7 @@ namespace ScfApp.SimGui {
   public partial class SignInView : UserControl {
 
     #region Constants
-    private static string _RemoteAddress = "http://192.168.1.35:12345";
+    private static string _RemoteAddress = "http://192.168.1.40:12345";
     #endregion
 
     #region Properties
