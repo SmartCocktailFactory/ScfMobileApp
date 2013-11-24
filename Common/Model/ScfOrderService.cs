@@ -112,12 +112,31 @@ namespace Common.Model {
           editOrder.OrderStatus = updatedOrder.OrderStatus;
           editOrder.OrderStateId = updatedOrder.OrderStateId;
 
+          this._CleanupCompletedOrders();
+
           this._NotifyOrderChanged((DTO.Order)editOrder.Clone());
         }
       } catch (InvalidOperationException) {
       } catch (ArgumentNullException) {
       }
     }
+
+    private void _CleanupCompletedOrders() {
+      int OrderAmountToRemove = 0;
+
+      lock (this._LockCurrentOrders) {
+        List<DTO.Order> lstCompletedOrders = this._CurrentOrders.Where(x =>
+          (x.OrderStateId == DTO.StateId.Completed) ||
+          (x.OrderStateId == DTO.StateId.Failed)).ToList();
+
+        OrderAmountToRemove = lstCompletedOrders.Count - 2;
+
+        for (int i = 0; i < OrderAmountToRemove; i++) {
+          this._CurrentOrders.Remove(lstCompletedOrders[i]);
+        }
+      }
+    }
+
     #endregion
 
     #region Event handlers
