@@ -51,6 +51,7 @@ namespace ScfMobileApp.Android {
       ListView view = FindViewById<ListView>(Resource.Id.orderListView);
       view.Adapter = new OrderDetailListAdapter(this, this._DetailedOrderList);
     }
+
     #endregion
   }
 }

@@ -72,6 +72,7 @@ namespace ScfMobileApp.Android {
       Intent drinkIntend = new Intent(this, typeof(DrinkDetailsActivity));
       drinkIntend.PutExtra("drinkId", drinkId);
 
+      drinkIntend.AddFlags(ActivityFlags.NoHistory);
       StartActivity(drinkIntend);
     }
     #endregion
