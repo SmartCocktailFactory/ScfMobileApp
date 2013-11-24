@@ -39,6 +39,7 @@ namespace ScfMobileApp.Android {
     protected override void OnDestroy() {
       base.OnDestroy();
 
+      this._SignInViewModel.OnViewModelChanged -= _SignInViewModel_OnSignInViewModelChanged;
       this._SignInViewModel.DisposeViewModel();
     }
 

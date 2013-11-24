@@ -38,14 +38,15 @@ namespace ScfMobileApp.Android {
       }
 
       view.FindViewById<TextView>(Resource.Id.txtDrinkName).Text = item.DrinkName;
-      view.FindViewById<TextView>(Resource.Id.txtOrderId).Text = item.OrderId;
-      view.FindViewById<TextView>(Resource.Id.txtOrderState).Text = item.OrderStatus;
-      view.FindViewById<TextView>(Resource.Id.txtSecondsToFinish).Text = item.SecondsToFinish;
+      view.FindViewById<TextView>(Resource.Id.txtOrderId).Text = "Order: " + item.OrderId + " " + item.OrderStatus;
+      view.FindViewById<TextView>(Resource.Id.txtSecondsToFinish).Text = "Expected time: " + item.SecondsToFinish + "s";
 
       if (item.OrderStateId == Common.DTO.StateId.InProgress) {
-        view.FindViewById<LinearLayout>(Resource.Id.lstViewOrderDetails).SetBackgroundColor(Color.LimeGreen);
+        view.FindViewById<LinearLayout>(Resource.Id.lstViewOrderDetails).SetBackgroundColor(Color.ParseColor("#008080"));
       } else if (item.OrderStateId == Common.DTO.StateId.Completed) {
-        view.FindViewById<LinearLayout>(Resource.Id.lstViewOrderDetails).SetBackgroundColor(Color.LightSlateGray);
+        view.FindViewById<LinearLayout>(Resource.Id.lstViewOrderDetails).SetBackgroundColor(Color.ParseColor("#e9967a"));
+      } else {
+        view.FindViewById<LinearLayout>(Resource.Id.lstViewOrderDetails).SetBackgroundColor(Color.ParseColor("#80000000"));
       }
       return view;
     }

@@ -44,6 +44,7 @@ namespace ScfMobileApp.Android {
     protected override void OnDestroy() {
       base.OnDestroy();
 
+      this._DrinkDetailsViewModel.OnViewModelChanged -= _DrinkDetailsViewModel_OnViewModelChanged;
       this._DrinkDetailsViewModel.DisposeViewModel();
     }
 

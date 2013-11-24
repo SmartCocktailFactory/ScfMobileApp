@@ -41,9 +41,6 @@ namespace Common.ViewModel {
 
     #region Events
     public event EventHandler<ViewModelChangedEventArgs> OnViewModelChanged;
-    public void DisposeViewModel() {
-      this._OrderService.OnOrderChanged -= this._MyService_OnOrderChanged;
-    }
     #endregion
 
     #region Constructor
@@ -56,6 +53,10 @@ namespace Common.ViewModel {
     #endregion
 
     #region Public methods
+    public void DisposeViewModel() {
+      this._OrderService.OnOrderChanged -= this._MyService_OnOrderChanged;
+    }
+
     public void OrderDrink(string drinkId) {
       this._OrderService.OrderDrink(drinkId);
     }
@@ -94,9 +95,9 @@ namespace Common.ViewModel {
 
     private IList<OrderDetails> _GetDetailedOrder() {
       List<OrderDetails> lstOrderDetails = new List<OrderDetails>();
-      IList<DTO.Order> orders = this._OrderService.CurrentOrders;
-
+      IList<DTO.Order> orders = this._OrderService.CurrentOrders.OrderBy(x => x.ExpectedSecondsToDeliver).ToList();
       OrderDetails details;
+
       foreach (DTO.Order curOrder in orders) {
         details = new OrderDetails(this._DrinkService.GetDrink(curOrder.DrinkId), curOrder);
         lstOrderDetails.Add(details);

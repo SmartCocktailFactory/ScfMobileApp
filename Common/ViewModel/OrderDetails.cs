@@ -12,7 +12,7 @@ namespace Common.ViewModel {
     public string OrderId { get; set; }
     public string OrderStatus { get; set; }
     public Common.DTO.StateId OrderStateId { get; set; }
-    public string SecondsToFinish { get; set; }
+    public int SecondsToFinish { get; set; }
     #endregion
 
     #region Constructor
@@ -21,7 +21,7 @@ namespace Common.ViewModel {
       this.OrderId = order.OrderId;
       this.OrderStatus = order.OrderStatus;
       this.OrderStateId = order.OrderStateId;
-      this.SecondsToFinish = SecondsToFinish;
+      this.SecondsToFinish = order.ExpectedSecondsToDeliver;
     }
     #endregion
   }

@@ -115,10 +115,7 @@ namespace ScfMobileApp.Android
 			public const int txtOrderId = 2131099661;
 			
 			// aapt resource value: 0x7f06000e
-			public const int txtOrderState = 2131099662;
-			
-			// aapt resource value: 0x7f06000f
-			public const int txtSecondsToFinish = 2131099663;
+			public const int txtSecondsToFinish = 2131099662;
 			
 			static Id()
 			{
