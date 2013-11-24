@@ -31,10 +31,10 @@ namespace ScfMobileApp.Android {
     }
 
     protected override void OnDestroy() {
-      base.OnDestroy();
-
       this._OrderViewModel.OnViewModelChanged -= this._OrderViewModel_OnViewModelChanged;
       this._OrderViewModel.DisposeViewModel();
+
+      base.OnDestroy();
     }
 
     #region Event handlers

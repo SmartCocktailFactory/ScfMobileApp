@@ -59,6 +59,12 @@ namespace ScfMobileApp.Android
 			// aapt resource value: 0x7f020004
 			public const int SCF_Logo_Android_drawable = 2130837508;
 			
+			// aapt resource value: 0x7f020005
+			public const int SCF_Logo_Android_xxhdpi = 2130837509;
+			
+			// aapt resource value: 0x7f020006
+			public const int scf_splash_screen = 2130837510;
+			
 			static Drawable()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -201,8 +207,11 @@ namespace ScfMobileApp.Android
 		public partial class Style
 		{
 			
+			// aapt resource value: 0x7f050001
+			public const int Mono_Android_Theme_Splash = 2131034113;
+			
 			// aapt resource value: 0x7f050000
-			public const int Mono_Android_Theme_Splash = 2131034112;
+			public const int Theme_Splash = 2131034112;
 			
 			static Style()
 			{
